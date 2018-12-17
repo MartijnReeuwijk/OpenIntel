@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "clean": "prettier --single-quote --no-semi --write data/hosting-amsterdam.json"
+    "clean": "prettier --single-quote --no-semi --write data/**/*.json"
   },
   "keywords": [],
   "author": "",
