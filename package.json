@@ -14,7 +14,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "clean": "prettier --single-quote --no-semi --write data/**/*.json"
+    "clean": "prettier --single-quote --no-semi --write data/**/*.json",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
