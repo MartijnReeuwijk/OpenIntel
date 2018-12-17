@@ -1,5 +1,4 @@
 function test() {
-  d3.json("http://localhost:3000/data").then(data => {
-    console.log(data)
+  d3.json("http://localhost:3000/data").then(rawData => {
   })
 }
