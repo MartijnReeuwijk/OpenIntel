@@ -14,8 +14,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "clean": "prettier --single-quote --no-semi --write data/hosting-amsterdam.json",
-    "start": "node app.js"
+    "clean": "prettier --single-quote --no-semi --write data/**/*.json"
   },
   "keywords": [],
   "author": "",
