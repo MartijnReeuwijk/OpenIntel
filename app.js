@@ -12,7 +12,7 @@ app.use(express.static('static'));
 app.get('/', (req, res) => res.sendFile('/index.html', {root: __dirname }));
 
 app.get('/data', (req, res) => {
-  fs.readFile('data/dns-nl-waar.json', (err, data) => {
+  fs.readFile('data/fi-web.json', (err, data) => {
     if (err) throw err;
 
     res.send(data)

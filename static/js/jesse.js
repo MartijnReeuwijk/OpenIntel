@@ -10,11 +10,10 @@ async function jesse() {
         let tld = dv.name.split(".").reverse()[1]
 
         if (!d.all[tld]) {
-          d.all[tld] = {
-            cnt: 1,
-            total: dv.value
-          }
+
+          d.all[tld] = {cnt: 1, total: dv.value}
         } else {
+
           d.all[tld].cnt++;
           d.all[tld].total += dv.value;
         }
