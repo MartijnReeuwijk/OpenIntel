@@ -1,6 +1,7 @@
 async function jesse() {
 let newData;
 
+
 await d3.json("http://localhost:3000/data").then(rawData => {
 
   rawData.forEach(chunk => {

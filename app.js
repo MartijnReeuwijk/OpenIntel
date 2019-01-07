@@ -22,11 +22,12 @@ function readAllData() {
           }));
         }
       }
-
       Promise.all(promises).then(data => resolveAll(data));
-
     })
   })
+
+
+
 }
 
 
@@ -39,6 +40,7 @@ app.get("/", (req, res) => res.sendFile("/index.html", {root: __dirname }));
 
 app.get("/data", (req, res) => {
   readAllData().then(data => res.send(data))
+
 })
 
 app.listen(3000, () => {
