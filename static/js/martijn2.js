@@ -24,13 +24,13 @@ function loadData() {
          topleveldomein.total += dVal.value;
        }
       })
-      topleveldomein.forEach(datatdl => {
-
-
-      })
+      // topleveldomein.forEach(datatdl => {
+      //
+      //
+      // })
 
       console.log(topleveldomein);
     })
   })
 }
-loadData()
+// loadData()
