@@ -152,15 +152,15 @@ var data = [{
 }];
 var text = "";
 
-var width = 260;
-var height = 260;
-var thickness = 40;
+var width = 400;
+var height = 400;
+var thickness = 75;
 var duration = 750;
 
 var radius = Math.min(width, height) / 2;
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-var svg = d3.select("#chart")
+var svg = d3.selectAll("#chart")
 .append('svg')
 .attr('class', 'pie')
 .attr('width', width)
@@ -181,10 +181,15 @@ var path = g.selectAll('path')
 .data(pie(data))
 .enter()
 .append("g")
+
+// Add classes based on colour
+// Check based onon the !class
+// Make color muted
 .on("mouseover", function(d) {
       let g = d3.select(this)
         .style("cursor", "pointer")
         .style("fill", "black")
+        .attr("class", `${d.data.name}`)
         .append("g")
         .attr("class", "text-group");
 
@@ -212,8 +217,10 @@ var path = g.selectAll('path')
   .on("mouseover", function(d) {
       d3.select(this)
         .style("cursor", "pointer")
-        .style("fill", "black");
+        .style("fill",color(this._current));
     })
+
+
   .on("mouseout", function(d) {
       d3.select(this)
         .style("cursor", "none")
