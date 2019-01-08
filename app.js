@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+const cleaner = require("./dataCleaner.js");
 
 const port = 3000;
 
@@ -39,8 +40,14 @@ app.use(express.static("static"));
 app.get("/", (req, res) => res.sendFile("/index.html", {root: __dirname }));
 
 app.get("/data", (req, res) => {
+<<<<<<< HEAD
   readAllData().then(data => res.send(data))
 
+=======
+  readAllData().then(data => {
+    res.send(cleaner(data))
+  });
+>>>>>>> e3598500c4a8a7eb85a4707cde46687a783a957e
 })
 
 app.listen(3000, () => {
