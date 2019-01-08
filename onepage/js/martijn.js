@@ -11,24 +11,6 @@ var data = [{
   }, {
     name: "firstfind.nl.",
     value: 266901
-  }, {
-    name: "firstfind.nl.",
-    value: 266901
-  },{
-    name: "firstfind.nl.",
-    value: 266901
-  },{
-    name: "firstfind.nl.",
-    value: 266901
-  },{
-    name: "firstfind.nl.",
-    value: 266901
-  },{
-    name: "firstfind.nl.",
-    value: 266901
-  },{
-    name: "firstfind.nl.",
-    value: 266901
   },{
     name: "rzone.de.",
     value: 152024
