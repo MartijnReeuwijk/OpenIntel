@@ -12,6 +12,24 @@ var data = [{
     name: "firstfind.nl.",
     value: 266901
   }, {
+    name: "firstfind.nl.",
+    value: 266901
+  },{
+    name: "firstfind.nl.",
+    value: 266901
+  },{
+    name: "firstfind.nl.",
+    value: 266901
+  },{
+    name: "firstfind.nl.",
+    value: 266901
+  },{
+    name: "firstfind.nl.",
+    value: 266901
+  },{
+    name: "firstfind.nl.",
+    value: 266901
+  },{
     name: "rzone.de.",
     value: 152024
   }];
@@ -42,6 +60,23 @@ var pie = d3.pie()
 .value(function(d) { return d.value; })
 .sort(null);
 
+var colors = [
+"62eff5",
+"62a5f5",
+"627af5",
+"5252db",
+
+"f462bd",
+"f562ee",
+"c962f4",
+"9362f5",
+
+"f5627a",
+"ff7155",
+"f28e4f",
+"fc8b8b"
+]
+
 var path = g.selectAll('path')
 .data(pie(data))
 .enter()
@@ -53,7 +88,7 @@ var path = g.selectAll('path')
 .on("mouseover", function(d) {
       let g = d3.select(this)
         .style("cursor", "pointer")
-        .style("fill", "black")
+        .style("fill", function(d, i) { return colors[this._current]})
         .attr("class", `${d.data.name}`)
         .append("g")
         .attr("class", "text-group");
@@ -73,23 +108,24 @@ var path = g.selectAll('path')
   .on("mouseout", function(d) {
       d3.select(this)
         .style("cursor", "none")
-        .style("fill", color(this._current))
+        .style("fill", function(d, i) { return colors[i]})
         .select(".text-group").remove();
     })
   .append('path')
   .attr('d', arc)
-  .attr('fill', (d,i) => color(i))
+  .style("fill", function(d, i) { return colors[i]})
+
   .on("mouseover", function(d) {
       d3.select(this)
         .style("cursor", "pointer")
-        .style("fill",color(this._current));
+        .style("fill","#F4EB8A")
     })
 
 
   .on("mouseout", function(d) {
       d3.select(this)
         .style("cursor", "none")
-        .style("fill", color(this._current));
+        .style("fill", function(d, i) { return colors[this._current]})
     })
   .each(function(d, i) { this._current = i; });
 
