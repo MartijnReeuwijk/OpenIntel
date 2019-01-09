@@ -1,18 +1,18 @@
 console.log("Log is voor noobs");
 var data = [{
-    name: "hostnet.nl.",
+    name: "NL",
     value: 463226
   }, {
-    name: "metaregistrar.nl.",
+    name: "DE",
     value: 370038
   }, {
-    name: "transip.net.",
+    name: "BG",
     value: 326939
   }, {
-    name: "firstfind.nl.",
+    name: "ES",
     value: 266901
   },{
-    name: "rzone.de.",
+    name: "XYZ",
     value: 152024
   }];
 var text = "";
@@ -58,11 +58,14 @@ var colors = [
 "f28e4f",
 "fc8b8b"
 ]
+var mouseover = "#F4EB8A";
 
 var path = g.selectAll('path')
 .data(pie(data))
 .enter()
 .append("g")
+
+// .attr("class", `${d.data.name}`)
 
 // Add classes based on colour
 // Check based onon the !class
@@ -71,8 +74,9 @@ var path = g.selectAll('path')
       let g = d3.select(this)
         .style("cursor", "pointer")
         .style("fill", function(d, i) { return colors[this._current]})
-        .attr("class", `${d.data.name}`)
+
         .append("g")
+        // add the values in middel this can be the map
         .attr("class", "text-group");
 
       g.append("text")
@@ -87,12 +91,14 @@ var path = g.selectAll('path')
         .attr('text-anchor', 'middle')
         .attr('dy', '.6em');
     })
+
   .on("mouseout", function(d) {
       d3.select(this)
         .style("cursor", "none")
         .style("fill", function(d, i) { return colors[i]})
         .select(".text-group").remove();
     })
+
   .append('path')
   .attr('d', arc)
   .style("fill", function(d, i) { return colors[i]})
@@ -100,7 +106,7 @@ var path = g.selectAll('path')
   .on("mouseover", function(d) {
       d3.select(this)
         .style("cursor", "pointer")
-        .style("fill","#F4EB8A")
+        .style("fill",mouseover)
     })
 
 
@@ -111,8 +117,30 @@ var path = g.selectAll('path')
     })
   .each(function(d, i) { this._current = i; });
 
-
-g.append('text')
+//
+d3.select('g')
+	.selectAll('text')
   .attr('text-anchor', 'middle')
   .attr('dy', '.35em')
   .text(text);
+
+
+var text = g.selectAll("text")
+    .data(pie(data))
+    .enter().append("text")
+      .attr("transform", d => `translate(${arc.centroid(d)})`)
+      .attr("dy", "0.35em");
+
+// Text
+  text.append("tspan")
+      .attr("x", 0)
+      .attr("y", "-0.7em")
+      .style("font-weight", "bold")
+      .text(d => d.data.name);
+
+// Number
+  // text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+  //     .attr("x", 0)
+  //     .attr("y", "0.7em")
+  //     .attr("fill-opacity", 0.7)
+  //     .text(d => d.data.value.toLocaleString());

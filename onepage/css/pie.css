@@ -4,7 +4,11 @@
 
 .pie text {
   font-family: "Verdana";
-  fill: #888;
+  fill: #fff;
+  align-items: center;
+  margin-left: -10px;
+  position: absolute;
+  pointer-events: none;
 }
 
 .pie .name-text{
