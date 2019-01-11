@@ -12,13 +12,13 @@ var data = [{
     name: "ES",
     value: 266901
   },{
-    name: "XYZ",
+    name: "BE",
     value: 152024
   }];
 var text = "";
 
-var width = 400;
-var height = 400;
+var width = 300;
+var height = 300;
 var thickness = 75;
 var duration = 750;
 
@@ -74,6 +74,7 @@ var path = g.selectAll('path')
       let g = d3.select(this)
         .style("cursor", "pointer")
         .style("fill", function(d, i) { return colors[this._current]})
+        // .style("fill", function(d, i) { return colors[this._current]})
 
         .append("g")
         // add the values in middel this can be the map
