@@ -117,3 +117,5 @@ p {
   font-size     : 2rem;
   font-weight   : bold;
 }
+
+svg:hover .text-group:not(:hover) { opacity: .5; }
