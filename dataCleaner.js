@@ -1,9 +1,10 @@
 module.exports = function (rawData) {
-  
+
   rawData.forEach(chunk => {
     let country = Object.keys(chunk);
 
     chunk[country].forEach(d => {
+      d.country = country[0];
       d.date = new Date(parseInt(d.date));
       d.all = [];
 
