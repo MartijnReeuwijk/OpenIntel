@@ -23,11 +23,12 @@ function readAllData() {
           }));
         }
       }
-
       Promise.all(promises).then(data => resolveAll(data));
-
     })
   })
+
+
+
 }
 
 

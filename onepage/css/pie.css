@@ -1,0 +1,20 @@
+.pie {
+  margin: 25px;
+}
+
+.pie text {
+  font-family: "Verdana";
+  fill: #fff;
+  align-items: center;
+  margin-left: -10px;
+  position: absolute;
+  pointer-events: none;
+}
+
+.pie .name-text{
+  font-size: .75em;
+}
+
+.pie .value-text{
+  font-size: 1em;
+}
