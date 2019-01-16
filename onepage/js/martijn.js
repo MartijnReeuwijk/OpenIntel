@@ -211,17 +211,22 @@ async function drawcircle() {
   var radiusScale = d3
     .scaleSqrt()
     .domain([10000, 6500000])
-    .range([10, 100]);
+    // change this to change circle size
+    .range([10, 75]);
 
   // Simulate force so stuff goes to the center
   var forceX = d3
-    .forceX(forcex => {
-      return width / 2;
+    .forceX(d => {
+      if (d[Object.keys(d)[0]][0].country == "com") {
+        return 100
+      } else {
+        return 500;
+      }
     })
     .strength(0.05);
 
   var forceY = d3
-    .forceY(forcey => {
+    .forceY(d => {
       return height / 2;
     })
     .strength(0.05);
