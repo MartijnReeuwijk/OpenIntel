@@ -1,14 +1,29 @@
+let regex = new RegExp(",");
+
 module.exports = function (rawData) {
-  
+
   rawData.forEach(chunk => {
     let country = Object.keys(chunk);
 
     chunk[country].forEach(d => {
+      d.country = country[0];
       d.date = new Date(parseInt(d.date));
       d.all = [];
+      d.total = 0;
 
       d.values.forEach(dv => {
+
         let tld = dv.name.split(".").reverse()[1];
+
+        d.total += dv.value;
+
+        if (regex.test(tld)) {
+          tld = tld.replace(",", "");
+
+        } else if (tld === undefined) {
+          tld = "unknown";
+        }
+
         let exists = d.all.find(x => x.tld == tld);
 
         if (!exists) {
