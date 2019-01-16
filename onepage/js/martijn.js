@@ -213,21 +213,18 @@ async function drawcircle() {
     .domain([10000, 6500000])
     .range([10, 100]);
 
-
-
-
-// Simulate force so stuff goes to the center
+  // Simulate force so stuff goes to the center
   var forceX = d3
-  .forceX(forcex => {
-    return width / 2;
-  })
-  .strength(0.05);
+    .forceX(forcex => {
+      return width / 2;
+    })
+    .strength(0.05);
 
-var forceY = d3
-  .forceY(forcey => {
-    return height / 2;
-  })
-  .strength(0.05);
+  var forceY = d3
+    .forceY(forcey => {
+      return height / 2;
+    })
+    .strength(0.05);
 
   // possisions
   var sim = d3
@@ -241,7 +238,6 @@ var forceY = d3
         return radiusScale(d[Object.keys(d)[0]][0].total);
       })
     );
-
 
   var circles = svg
     .selectAll("g")
@@ -263,10 +259,35 @@ var forceY = d3
     // click function
     .on("click", d => {
       console.log(d);
-    });
+    })
+
+    // mouse events
+    // Select hover is a bit of a bitch fix this maybe?
+    // .on("mouseover", function(d) {
+    //   d3.select(this).style("fill", mouseover);
+    // })
+    // .on("mouseout", function(d) {
+    //   d3.select(this).style("fill", function(d, i) {
+    //     return colors[this._current];
+    //   });
+    // });
 
   // Show label van de data Number
+  // refactor this so its just positioning on a G instead of 2x on a text
   var circlesValue = svg
+    .selectAll("g")
+    .append("text")
+    .attr("fill", "White")
+    .attr("text-anchor", "middle")
+    .style("font-weight", "thin")
+    .style("pointer-events", "none")
+    .text(d => {
+      console.log(d);
+      return d[Object.keys(d)[0]][0].total;
+    });
+
+  // Show label van de data Name
+  var circlesName = svg
     .selectAll("g")
     .append("text")
     .attr("fill", "White")
@@ -274,32 +295,18 @@ var forceY = d3
     .style("font-weight", "bold")
     .style("pointer-events", "none")
     .text(d => {
-      console.log(d)
-      return d[Object.keys(d)[0]][0].total;
+      console.log(d);
+      return "." + d[Object.keys(d)[0]][0].country;
     });
 
-    // Show label van de data Name
-    var circlesName = svg
-      .selectAll("g")
-      .append("text")
-      .attr("fill", "White")
-      .attr("text-anchor", "middle")
-      .style("font-weight", "bold")
-      .style("pointer-events", "none")
-      .text(d => {
-        console.log(d)
-        return d[Object.keys(d)[0]][0].total;
-      });
-
-
-
   sim.nodes(newData).on("tick", ticked);
+
   d3.select("#global").on("click", click => {
     console.log("Werkt");
   });
 
-// putting shit in the circles
-// maak dit beter
+  // putting shit in the circles
+  // maak dit beter
   function ticked() {
     circles
       .attr("cx", d => {
@@ -309,7 +316,7 @@ var forceY = d3
         return d.y;
       });
 
-      circlesValue
+    circlesValue
       .attr("dx", d => {
         return d.x;
       })
@@ -317,13 +324,13 @@ var forceY = d3
         return d.y;
       });
 
-// hier even me fucken voor position
-      circlesName
+    // hier even me fucken voor position
+    circlesName
       .attr("dx", d => {
         return d.x;
       })
       .attr("dy", d => {
-        return d.y - 25;
+        return d.y - 15;
       });
   }
 

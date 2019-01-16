@@ -117,24 +117,13 @@ p {
   font-weight   : bold;
 }
 path, circle{
-  -moz-transition    : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  -o-transition      : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  -webkit-transition : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  transition         : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -moz-transition    : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -o-transition      : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -webkit-transition : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  transition         : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
   opacity: 1;
 }
-svg > g:hover path:not(:hover) {
-  -moz-transition    : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  -o-transition      : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  -webkit-transition : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  transition         : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  opacity: .5;
-}
-
-#bubble > svg > g:hover circle:not(:hover) {
-  -moz-transition    : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  -o-transition      : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  -webkit-transition : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
-  transition         : fill 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+svg > g:hover path:not(:hover),
+svg > g:hover circle:not(:hover)  {
   opacity: .5;
 }
