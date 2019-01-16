@@ -1,19 +1,28 @@
 console.log("Log is voor noobs");
 var data = [{
-  name: "NL",
-  value: 463226
+  name: "at",
+  value: 255255
 }, {
-  name: "DE",
-  value: 370038
+  name: "de",
+  value: 197142
 }, {
-  name: "BG",
-  value: 326939
+  name: "com",
+  value: 132524,
 }, {
-  name: "ES",
-  value: 266901
+  name: "eu",
+  value: 42368
 }, {
-  name: "BE",
-  value: 152024
+  name: "net",
+  value: 85951
+}, {
+  name: "biz",
+  value: 24030
+}, {
+  name: "org",
+  value: 9480
+}, {
+  name: "info",
+  value: 85951
 }];
 var text = "";
 
@@ -42,6 +51,9 @@ var pie = d3.pie()
   .value(function(d) {
     return d.value;
   })
+  // .on("load", function(d) {
+  //     .attr("class", `${d.data.name}`)
+  // })
   .sort(null);
 
 var colors = [
@@ -66,9 +78,9 @@ var path = g.selectAll('path')
   .data(pie(data))
   .enter()
   .append("g")
-  .attr("class", "text-group")
+  // .attr("class", "text-group")
 
-  // .attr("class", `${d.data.name}`)
+
 
   // Add classes based on colour
   // Check based onon the !class
@@ -144,19 +156,11 @@ d3.select('g')
   .attr('dy', '.35em')
   .text(text);
 
-
 var text = g.selectAll("text")
   .data(pie(data))
   .enter().append("text")
   .attr("transform", d => `translate(${arc.centroid(d)})`)
   .attr("dy", "0.35em");
-
-  // d3.selectAll('text-group').on("mouseover", function(d) {
-  //   var circleUnderMouse = this;
-  //   d3.selectAll('text-group').transition().style('opacity', function() {
-  //     return (this === circleUnderMouse) ? 1.0 : 0.5;
-  //   });
-  // });
 
 // Text
 text.append("tspan")
@@ -171,3 +175,62 @@ text.append("tspan")
 //     .attr("y", "0.7em")
 //     .attr("fill-opacity", 0.7)
 //     .text(d => d.data.value.toLocaleString());
+
+async function drawcircle() {
+
+  await d3.json("http://localhost:3000/data").then(data => {
+    newData = data;
+    console.log(newData);
+
+  });
+
+  // .then(results => JSON.parse(results))
+  var width = 500,
+    height = 500;
+
+  var svg = d3.select("#bubble")
+    .append("svg")
+    .attr("height", height)
+    .attr("width", width)
+    .append("g")
+    .attr("transform", "translate(0,0)")
+
+var radiusScale = d3.scaleSqrt().domain([1,300]).range([10, 80])
+
+  var sim = d3.forceSimulation()
+  .force("x", d3.forceX(width / 2).strength(0.05))
+  .force("y", d3.forceY(height / 2).strength(0.05))
+  // collide staat aan de radius
+  .force("collide", d3.forceCollide(10))
+
+  var circles = svg.selectAll(".TLD")
+    .data(newData)
+    .enter().append("circle")
+    .attr("class", "TLD")
+    .attr("r", d => {
+      return radiusScale(d[0].values[0].value)
+    })
+    .attr("fill", "red")
+    .attr("cx", 100)
+    .attr("cy", 300)
+
+  sim.nodes(newData)
+    .on('tick', ticked)
+
+
+  function ticked() {
+    circles
+      .attr("cx",
+        d => {
+          return d.x
+        })
+      .attr("cy",
+        d => {
+          return d.y
+        })
+  }
+
+  // });
+
+}
+drawcircle()
