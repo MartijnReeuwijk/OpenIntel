@@ -180,13 +180,13 @@ async function drawcircle() {
 
   await d3.json("http://localhost:3000/data").then(data => {
     newData = data;
-    console.log(newData);
+    // console.log(newData);
 
   });
 
   // .then(results => JSON.parse(results))
-  var width = 500,
-    height = 500;
+  var width = 700,
+    height = 700;
 
   var svg = d3.select("#bubble")
     .append("svg")
@@ -194,29 +194,50 @@ async function drawcircle() {
     .attr("width", width)
     .append("g")
     .attr("transform", "translate(0,0)")
+  // make sure the .domain is bigger or equal to the average value
+  // mess with these values to change the shapes
+  var radiusScale = d3.scaleSqrt().domain([10000, 6500000]).range([10, 75])
 
-var radiusScale = d3.scaleSqrt().domain([1,300]).range([10, 80])
+  var forceX = d3.forceX(forcex => {
+    return width / 2;
+  }).strength(0.05)
+
+  var forceY = d3.forceY(forcey => {
+    return height / 2;
+  }).strength(0.05)
 
   var sim = d3.forceSimulation()
-  .force("x", d3.forceX(width / 2).strength(0.05))
-  .force("y", d3.forceY(height / 2).strength(0.05))
-  // collide staat aan de radius
-  .force("collide", d3.forceCollide(10))
+    .force("x", forceX)
+    .force("y", forceY)
+    // collide staat aan de radius
+    .force("collide", d3.forceCollide(d => {
+      // console.log(Object.keys(d))
+      return radiusScale(d[Object.keys(d)[0]][0].total)
+    }))
 
   var circles = svg.selectAll(".TLD")
     .data(newData)
     .enter().append("circle")
     .attr("class", "TLD")
     .attr("r", d => {
-      return radiusScale(d[0].values[0].value)
+      return radiusScale(d[Object.keys(d)][0].total)
     })
-    .attr("fill", "red")
+    // .attr("fill", "red")
+    .style("fill", function(d, i) {
+      return colors[i]
+    })
     .attr("cx", 100)
     .attr("cy", 300)
+    .on("click", d => {
+      console.log(d);
+    })
 
   sim.nodes(newData)
     .on('tick', ticked)
 
+  d3.select("#global").on("click", click => {
+    console.log("Werkt");
+  })
 
   function ticked() {
     circles
