@@ -192,12 +192,13 @@ text
 async function drawcircle() {
   await d3.json("http://localhost:3000/data").then(data => {
     newData = data;
-    // console.log(newData);
   });
 
-  // .then(results => JSON.parse(results))
   var width = 1000,
     height = 500;
+
+    var timeline = d3.timeParse('%Y-%m-%d')
+    console.log(timeline);
 
   var svg = d3
     .select("#bubble")
