@@ -6,7 +6,7 @@ let allTlds = [];
 
 await d3.json("http://localhost:3000/data").then(data => {
   newData = data;
-  console.log(data)
+  // console.log(data)
 });
 
 let flattened = newData.map(d => {
@@ -28,13 +28,10 @@ var colorGen = d3.scaleOrdinal()
   .domain(allTlds)
   .range(allTlds.map((...x) => d3.interpolateMagma(1 / (x[x.length - 1].length - 1) * x[1])));
 
-function clock() {
-  let i = 0;
-}
-
-let width = 100,
+const width = 100,
       height = 100,
-      radius = Math.min(width, height) / 2;
+      radius = Math.min(width, height) / 2
+      speed1 = 200;
 
 const arc = d3.arc()
   .innerRadius(radius - 25)
@@ -65,8 +62,8 @@ function setup() {
       .classed(Object.keys(d), true)
   })
 
-  pies.each((d, i, el) => {
 
+  pies.each((d, i, el) => {
     let country = Object.keys(d);
     let data = d[country][0].all;
 
@@ -76,13 +73,42 @@ function setup() {
       .append("path")
       .attr("class", d => d.data.tld)
       .attr("fill", d => colorGen(d.data.tld))
-      .attr("d", arc)
-  })
+      .transition()
+        .delay((d, i) => i * speed1)
+        .duration((d, i) => speed1)
+        .ease(d3.easeLinear)
+        .on("end", loadingCompleted)
+      .attrTween('d', function(d) {
+        let i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+
+        return function(t) {
+          d.endAngle = i(t);
+          return arc(d);
+        }
+      })
+    })
+
+    let allPaths = d3.selectAll("#pieCharts svg path");
+    let count = 0;
+
+    function loadingCompleted() {
+      count++;
+
+      if (allPaths._groups[0].length === count) {
+        d3.selectAll("#pieCharts svg")
+          .on("mouseover", d => highlightCountry(d, true))
+          .on("mouseout", d => highlightCountry(d, false))
+          .on("click", switchMainPie)
+      }
+    }
 
   d3.select("#pieCharts svg.nl").classed("mainPie", true);
 }
 
 setup()
+
+
+
 
 function runTimer() {
   let i = 0;
@@ -145,10 +171,7 @@ function updatePie(data, svg) {
 
 }
 
-d3.selectAll("#pieCharts svg")
-  .on("mouseover", d => highlightCountry(d, true))
-  .on("mouseout", d => highlightCountry(d, false))
-  .on("click", switchMainPie)
+
 
 
 function highlightCountry(d, condition) {
@@ -178,7 +201,15 @@ function highlightCountry(d, condition) {
   }
 }
 
-function switchMainPie(...arg) {}
+function switchMainPie() {
+  let clickedPie = d3.event.currentTarget;
+
+  d3.select("#pieCharts svg.mainPie")
+    .classed("mainPie", false)
+    .call(() => console.log())
+
+  d3.select(clickedPie).classed("mainPie", true)
+}
 }
 
 
