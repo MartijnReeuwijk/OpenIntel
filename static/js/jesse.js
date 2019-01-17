@@ -24,16 +24,13 @@ flattened.forEach(d => d.all.forEach(d1 => {
 }))
 
 
-var testingShit = d3.scaleOrdinal()
+var colorGen = d3.scaleOrdinal()
   .domain(allTlds)
-  .range(allTlds.map((d, i, a) => {
-    console.log(a.length, 1 / (a.length - 1), i)
-    return d3.interpolateRainbow(1 / a.length * i)
-  }));
+  .range(allTlds.map((...x) => d3.interpolateMagma(1 / (x[x.length - 1].length - 1) * x[1])));
 
+// console.log(allTlds)
 
-
-// console.log(testingShit("nl"))
+// console.log(colorGen("nl"))
 // function clock() {
 //   let i = 0;
 //   let iteration = true;
@@ -65,6 +62,11 @@ var testingShit = d3.scaleOrdinal()
 //
 // clock()
 // console.log(flattened)
+
+function clock() {
+  let i = 0;
+}
+
 const width = 100,
       height = 100,
       radius = Math.min(width, height) / 2;
@@ -77,12 +79,9 @@ const pie = d3.pie()
   .value(d => d.percentage)
   .sort(null);
 
-// const color = d3.scaleOrdinal(d3.schemeCategory10);
-
 function setup() {
-  // console.log(newData);
-
   let pies = d3.select("#pieCharts")
+    .selectAll("svg")
     .data(newData)
     .enter()
     .append("svg")
@@ -92,28 +91,178 @@ function setup() {
     .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+    // console.log(pies)
+  // let pies = d3.select("#pieCharts")
+  //   .data(newData)
+  //   .enter()
+  //   .append("svg")
+  //   .attr("width", width)
+  //   .attr("height", height)
+  //   .style("border", "solid 1px black")
+  //   .append("g")
+  //   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    // .append("g")
+    // .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
   pies.each((d, i, el) => {
-    d3.select(el[i]).append("text").text(Object.keys(d))
+    d3.select(el[i])
+      .append("text")
+      .text(Object.keys(d));
+
+    d3.select(el[i].parentElement)
+      .classed(Object.keys(d), true)
   })
+
   pies.each((d, i, el) => {
+
     let country = Object.keys(d);
     let data = d[country][0].all;
-
-    // console.log(pie(data))
-    // console.log(d[country][0].all, i, el)
 
     d3.select(el[i]).selectAll("path")
       .data(pie(data))
       .enter()
       .append("path")
       .attr("class", d => d.data.tld)
-      .attr("fill", d => testingShit(d.data.tld))
-      .attr("d", arc);
+      .attr("fill", d => colorGen(d.data.tld))
+      .attr("d", arc)
+      // .on("mouseover", d => highlightCountry(d, true))
+      // .on("mouseout", d => highlightCountry(d, false));
   })
+
+  // d3.selectAll("#pieCharts g path")
+  //   .on("mouseover", d => highlightCountry(d, true));
+  //
+  // d3.selectAll("#pieCharts g path")
+  //   .on("mouseout", d => highlightCountry(d, false))
 }
 
 setup()
 
+function runTimer() {
+  let i = 0;
+  let iteration = true;
+
+  let timer = setInterval(() => {
+
+    chronologicalData[i].values.forEach(cdv => {
+
+      d3.selectAll("#pieCharts svg")
+        .each((d, i, el) => {
+
+          if (cdv.country == el[i].classList[0]) {
+            // console.log("match")
+            updatePie(cdv, el[i])
+          }
+        })
+    });
+
+
+    i++;
+
+    if (i == chronologicalData.length - 1) {
+      clearInterval(timer);
+
+      // d3.selectAll("#pieCharts g path")
+      //   .on("mouseover", d => highlightCountry(d, true));
+      //
+      // d3.selectAll("#pieCharts g path")
+      //   .on("mouseout", d => highlightCountry(d, false))
+    }
+
+    // if (testi && iteration) {
+    //
+    //   iteration = false;
+    //   drawPies(testi.all);
+    //   // console.log(testi.all)
+    // } else if (testi && !iteration) {
+    //   updatePies(testi.all)
+    //   // console.log(testi.all)
+    // }
+
+    // drawPies(testi.all)
+  }, 250)
+
+  // chronologicalData.forEach(cd => cd.values.forEach(cdv => {
+  //   d3.selectAll("#pieCharts svg")
+  //     .each((d, i, el) => {
+  //
+  //       if (cdv.country == el[i].classList[0]) {
+  //         console.log("match")
+  //         updatePie(cdv, el[i])
+  //       }
+  //     })
+  // }))
+
+  // setInterval(() => {
+    // console.log(chronologicalData)
+  // }, 1000)
+}
+
+d3.select("#timerOptions button")
+  .on("click", runTimer);
+
+  function arcTween(a) {
+    // console.log(a, this._current)
+    var i = d3.interpolate(this._current, a);
+    this._current = i(0);
+
+    return function(t) {
+      return arc(i(t));
+    };
+  }
+
+function updatePie(data, svg) {
+  // console.log(svg)
+  let pieSvg = d3.select(svg).select("g");
+  // console.log(pieSvg)
+
+  pieSvg.selectAll("path")
+    .data(pie(data.all))
+    .enter()
+    .append("path")
+    .attr("class", d => d.data.tld)
+    .attr("d", arc)
+    .attr("fill", d => colorGen(d.data.tld))
+    // .on("mouseover", d => highlightCountry(d, true))
+    // .on("mouseout", d => highlightCountry(d, false))
+
+  pieSvg.selectAll("path")
+    .data(pie(data.all))
+    .exit()
+    .remove();
+
+  pieSvg.selectAll("path")
+    .data(pie(data.all))
+    .transition()
+    .attrTween("d", arcTween);
+
+}
+
+// d3.selectAll("#pieCharts g path")
+//   .on("mouseover", d => highlightCountry(d, true));
+//
+// d3.selectAll("#pieCharts g path")
+//   .on("mouseout", d => highlightCountry(d, false))
+
+// d3.selectAll("#pieCharts svg")
+//   .on("mouseover", testing)
+
+// function highlightCountry(d, condition) {
+//   let country = d.data.tld;
+//
+//   let matchingCountries = d3.selectAll(`#pieCharts g path:not([class=${country}])`);
+//
+//   if (condition) {
+//     matchingCountries.style("opacity", "0.5")
+//   } else {
+//     matchingCountries.style("opacity", "1")
+//   }
+// }
+
+// function testing(...arg) {
+//   console.log(arg)
+// }
 // const color = d3.scaleOrdinal(d3.schemeCategory10);
 //
 // const arc = d3.arc()
@@ -178,16 +327,7 @@ setup()
       // .attr("d", arcTween)
 //       .attr("fill", (d, i) => color(i))
 //
-//     function arcTween(a) {
-//
-//
-//       var i = d3.interpolate(this._current, a);
-//       this._current = i(0);
-//
-//       return function(t) {
-//         return arc(i(t));
-//       };
-//     }
+
 //
 //       //
 //       // svg.selectAll("path")
@@ -208,3 +348,5 @@ setup()
 //         // .remove();
 //   }
 }
+
+jesse()

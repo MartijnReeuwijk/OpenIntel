@@ -6,8 +6,26 @@
     <script src="https://d3js.org/d3.v5.js"></script>
   </head>
   <body>
+    <style>
+      #timerOptions button span:last-of-type,
+      #timerOptions button.playing span:first-of-type {
+        display: none;
+      }
+      #timerOptions button.playing span:last-of-type {
+        display: initial;
+      }
+
+
+    </style>
     <h1>Test</h1>
-    <svg></svg>
+    <!-- <svg></svg> -->
+    <header id="timerOptions">
+      <button>
+        <span>&#9658;</span>
+        <span>&#10074; &#10074;</span>
+      </button>
+    </header>
+
     <section id="pieCharts"></section>
     <script src="js/index.js"></script>
     <!-- <script src="js/martijn.js"></script> -->
