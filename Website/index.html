@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Datavisual groei van het web en de verdeling</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Data visualizations" />
+    <meta name="author" content="Project Fudge" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/charts.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body>
+    <header>
+
+        <!-- NAVIGATION -->
+        <nav>
+            <ul>
+                <li><a href=#about>About the project</a></li>
+                <li><a href=#visual>Visualizations</a></li>
+                <li><a href=#team>The team</a></li>
+                <li><a href=#contact>Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- INTRO TEKST -->
+        <article data-aos="fade-down" class="intro">
+            <p>We created a visualization to dispay the hosting nationalism between different countries inside Europe. We investigated this by looking at the numbers of the different top level domains within the specific countries. We used percentage values by looking at the number of inhabitants. This creates a similar picture between the different countries.</p>
+        </article>
+    </header>
+
+    <!-- OVER HET PROJECT -->
+   <h1 id='about'>About the project</h1>
+       <section class="about">
+
+        <article data-aos="fade-right">
+           <header>
+                <h2>Concept</h2>
+            </header>
+            <p>Op deze pagina willen we de groei en verdeling van de TDL's laten zien en hun veranderingen over de tijd 2012/2018</p>
+        </article>
+
+
+        <article data-aos="fade-down">
+           <header>
+                <h2>Workflow</h2>
+            </header>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        </article>
+
+        <article data-aos="fade-left">
+            <header>
+                <h2>Results</h2>
+            </header>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        </article>
+    </section>
+
+
+    <!-- VISUALIZATION -->
+    <h1 id='visual'>Groei van de internationale TLD inverhouding tot de landelijken</h1>
+
+    <section class='visualization'>
+      <article data-aos="fade-right" class="visual-work">
+        <div id="bubble"></div>
+      </article>
+
+      <aside data-aos="fade-left" class="summary">
+          <h2>Uitleg</h2>
+          <button type="button" id="global" name="button">Split internationaal</button>
+          <button type="button" id="combine" name="button">Combineer</button>
+          <p>Hier naast ziet u de verdeleing van een top lvl domein. Deze worden per TLD gesoorteerd en met de knoppen hier boven nog veder op internationaal en landelijken TLD.
+            Verder wanneer uw de tijd aanzet zal het de loop der tijdzien en de groei van de TDL en het internet in het algemeen.
+          </p>
+      </aside>
+    </section>
+
+
+
+    <section class='visualization'>
+
+        <article data-aos="fade-right" class="visual-work">
+        <div id="pieCharts"></div>
+        </article>
+
+        <aside data-aos="fade-left" class="summary">
+            <h2>Uitleg</h2>
+            <button type="button" id="timerOptions" name="timerOptions">Tijdlijn</button>
+            <button type="button" id="timerAan" name="button"></button>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit felis arcu, sed bibendum augue sagittis et. Sed aliquet interdum justo, id scelerisque dui placerat at. Proin interdum faucibus maximus. Phasellus convallis vestibulum nisi, in ultricies massa egestas non. Aliquam varius sollicitudin tellus, sit amet rhoncus odio ultricies ut. Vivamus blandit felis arcu, sed bibendum augue sagittis et. Sed aliquet interdum justo, id scelerisque dui placerat at.
+
+            Aliquam varius sollicitudin tellus, sit amet rhoncus odio ultricies ut. Vivamus blandit felis arcu, sed bibendum augue sagittis et. Sed aliquet interdum justo, id scelerisque dui placerat at.</p>
+        </aside>
+    </section>
+
+    <!-- ONS TEAM -->
+        <h1 id='team'>The team</h1>
+
+    <section class="team">
+
+        <article data-aos="fade-left">
+            <img src="images/martijn.png" alt="Martijn" />
+            <h3>Martijn</h3>
+            <p>Technicus</p>
+        </article>
+
+        <article data-aos="fade-up">
+            <img src="images/angela.png" alt="Angela" />
+            <h3>Angela</h3>
+            <p>Visualizer</p>
+        </article>
+
+        <article data-aos="fade-up">
+            <img src="images/jesse.png" alt="Jesse" />
+            <h3>Jesse</h3>
+            <p>Technicus</p>
+        </article>
+
+        <article data-aos="fade-right">
+            <img src="images/youp.png" alt="Youp" />
+            <h3>Youp</h3>
+            <p>Visualizer</p>
+        </article>
+
+    </section>
+
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script src="https://d3js.org/d3.v5.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/bubbles.js"></script>
+        <script src="./js/donut.js"></script>
+
+    </body>
+
+
+
+
+</html>
