@@ -190,14 +190,15 @@ text
 //     .text(d => d.data.value.toLocaleString());
 
 async function drawcircle() {
-  await d3.json("http://localhost:3000/data").then(data => {
+  await d3.json("https://martijnreeuwijk.github.io/OpenIntel/data").then(data => {
     newData = data;
-    // console.log(newData);
   });
 
-  // .then(results => JSON.parse(results))
-  var width = 700,
-    height = 700;
+  var width = 1000,
+    height = 500;
+
+    var timeline = d3.timeParse('%Y-%m-%d')
+    console.log(timeline);
 
   var svg = d3
     .select("#bubble")
@@ -215,15 +216,18 @@ async function drawcircle() {
     .range([10, 75]);
 
   // Simulate force so stuff goes to the center
-  var forceX = d3
-    .forceX(d => {
-      if (d[Object.keys(d)[0]][0].country == "com") {
-        return 100
-      } else {
-        return 500;
-      }
-    })
+  var forceXCombine = d3
+    .forceX(width / 2)
     .strength(0.05);
+    var forceXSplit = d3
+      .forceX(d => {
+        if (d[Object.keys(d)[0]][0].country == "com") {
+          return width / 4;
+        } else {
+          return width / 1.5;
+        }
+      })
+      .strength(0.05);
 
   var forceY = d3
     .forceY(d => {
@@ -234,7 +238,7 @@ async function drawcircle() {
   // possisions
   var sim = d3
     .forceSimulation()
-    .force("x", forceX)
+    .force("x", forceXCombine)
     .force("y", forceY)
     // collide staat aan de radius
     .force(
@@ -264,18 +268,18 @@ async function drawcircle() {
     // click function
     .on("click", d => {
       console.log(d);
-    })
+    });
 
-    // mouse events
-    // Select hover is a bit of a bitch fix this maybe?
-    // .on("mouseover", function(d) {
-    //   d3.select(this).style("fill", mouseover);
-    // })
-    // .on("mouseout", function(d) {
-    //   d3.select(this).style("fill", function(d, i) {
-    //     return colors[this._current];
-    //   });
-    // });
+  // mouse events
+  // Select hover is a bit of a bitch fix this maybe?
+  // .on("mouseover", function(d) {
+  //   d3.select(this).style("fill", mouseover);
+  // })
+  // .on("mouseout", function(d) {
+  //   d3.select(this).style("fill", function(d, i) {
+  //     return colors[this._current];
+  //   });
+  // });
 
   // Show label van de data Number
   // refactor this so its just positioning on a G instead of 2x on a text
@@ -307,7 +311,19 @@ async function drawcircle() {
   sim.nodes(newData).on("tick", ticked);
 
   d3.select("#global").on("click", click => {
-    console.log("Werkt");
+    sim
+    .force("x", forceXSplit
+    .strength(0.05))
+    .alphaTarget(0.5)
+    .restart()
+  });
+
+  d3.select("#combine").on("click", click => {
+    sim
+    .force("x", forceXCombine
+    .strength(0.05))
+    .alphaTarget(0.5)
+    .restart()
   });
 
   // putting shit in the circles
