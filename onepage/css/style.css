@@ -109,11 +109,21 @@ p {
   margin     : 0 10px;
   text-align : left;
 }
-
 .summery h2 {
   margin-bottom : 10px;
   color         : #9362F5;
   text-align    : left;
   font-size     : 2rem;
   font-weight   : bold;
+}
+path, circle{
+  -moz-transition    : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -o-transition      : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -webkit-transition : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  transition         : fill,opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  opacity: 1;
+}
+svg > g:hover path:not(:hover),
+svg > g:hover circle:not(:hover)  {
+  opacity: .5;
 }
