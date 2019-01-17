@@ -190,7 +190,7 @@ text
 //     .text(d => d.data.value.toLocaleString());
 
 async function drawcircle() {
-  await d3.json("http://localhost:3000/data").then(data => {
+  await d3.json("https://martijnreeuwijk.github.io/OpenIntel/data").then(data => {
     newData = data;
     // console.log(newData);
   });
