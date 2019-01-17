@@ -28,44 +28,6 @@ var colorGen = d3.scaleOrdinal()
   .domain(allTlds)
   .range(allTlds.map((...x) => d3.interpolateMagma(1 / (x[x.length - 1].length - 1) * x[1])));
 
-// console.log(allTlds)
-
-// console.log(colorGen("nl"))
-// function clock() {
-//   let i = 0;
-//   let iteration = true;
-//
-//   let timer = setInterval(() => {
-//     let testi = chronologicalData[i].values.find(xx => xx.country == "se");
-//
-//     i++;
-//
-//     if (i == chronologicalData.length - 1) {
-//       clearInterval(timer)
-//     }
-//
-//     if (testi && iteration) {
-//
-//       iteration = false;
-//       drawPies(testi.all);
-//       // console.log(testi.all)
-//     } else if (testi && !iteration) {
-//       updatePies(testi.all)
-//       // console.log(testi.all)
-//     }
-//
-//     // drawPies(testi.all)
-//   }, 250)
-//
-//
-// }
-//
-// clock()
-// console.log(flattened)
-
-function clock() {
-  let i = 0;
-}
 
 const width = 100,
       height = 100,
@@ -151,52 +113,19 @@ function runTimer() {
         .each((d, i, el) => {
 
           if (cdv.country == el[i].classList[0]) {
-            // console.log("match")
+
             updatePie(cdv, el[i])
           }
         })
     });
-
 
     i++;
 
     if (i == chronologicalData.length - 1) {
       clearInterval(timer);
 
-      // d3.selectAll("#pieCharts g path")
-      //   .on("mouseover", d => highlightCountry(d, true));
-      //
-      // d3.selectAll("#pieCharts g path")
-      //   .on("mouseout", d => highlightCountry(d, false))
     }
-
-    // if (testi && iteration) {
-    //
-    //   iteration = false;
-    //   drawPies(testi.all);
-    //   // console.log(testi.all)
-    // } else if (testi && !iteration) {
-    //   updatePies(testi.all)
-    //   // console.log(testi.all)
-    // }
-
-    // drawPies(testi.all)
   }, 250)
-
-  // chronologicalData.forEach(cd => cd.values.forEach(cdv => {
-  //   d3.selectAll("#pieCharts svg")
-  //     .each((d, i, el) => {
-  //
-  //       if (cdv.country == el[i].classList[0]) {
-  //         console.log("match")
-  //         updatePie(cdv, el[i])
-  //       }
-  //     })
-  // }))
-
-  // setInterval(() => {
-    // console.log(chronologicalData)
-  // }, 1000)
 }
 
 d3.select("#timerOptions button")
