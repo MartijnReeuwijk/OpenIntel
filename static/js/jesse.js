@@ -6,7 +6,7 @@ let allTlds = [];
 
 await d3.json("http://localhost:3000/data").then(data => {
   newData = data;
-  // console.log(data)
+  console.log(data)
 });
 
 let flattened = newData.map(d => {
@@ -24,9 +24,20 @@ flattened.forEach(d => d.all.forEach(d1 => {
 }))
 
 
+d3.shuffle(allTlds)
+
 var colorGen = d3.scaleOrdinal()
   .domain(allTlds)
-  .range(allTlds.map((...x) => d3.interpolateMagma(1 / (x[x.length - 1].length - 1) * x[1])));
+  .range(allTlds.map((...x) =>  {
+
+    if (((x[x.length - 1].length - 1) / 2) > x[1]) {
+
+      return d3.interpolateCool(1 / ((x[x.length - 1].length - 1) / 2) * x[1])
+    } else {
+
+      return d3.interpolateWarm(1 / ((x[x.length - 1].length - 1) / 2) * x[1] - 1)
+    }
+  }))
 
 const width = 100,
       height = 100,
@@ -49,17 +60,26 @@ function setup() {
     .append("svg")
     .attr("width", width)
     .attr("height", height)
+    .style("position", "absolute")
+    .style("bottom", 0)
+    .style("left", (d, i) => i * width)
+    .style("top", (...arg) => {
+      return `${arg[2][0].parentElement.clientHeight - height}px`
+    })
     .style("border", "solid 1px black")
     .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
   pies.each((d, i, el) => {
+    console.log(d)
     d3.select(el[i])
       .append("text")
+      .attr("fill", "white")
       .text(Object.keys(d));
 
     d3.select(el[i].parentElement)
       .classed(Object.keys(d), true)
+      .attr("data-firstDate", d[Object.keys(d)][0].date)
   })
 
 
@@ -99,45 +119,212 @@ function setup() {
           .on("mouseover", d => highlightCountry(d, true))
           .on("mouseout", d => highlightCountry(d, false))
           .on("click", switchMainPie)
+
+          timerSection()
       }
     }
 
-  d3.select("#pieCharts svg.nl").classed("mainPie", true);
+  d3.select("#pieCharts svg.nl")
+    .classed("mainPie", true)
+    .style("top", 0)
+
+  d3.selectAll("svg.mainPie ~ svg")
+    .style("left", (...arg) => {
+      return `${parseInt(arg[2][arg[1]].style.left) - width}px`
+    })
 }
 
 setup()
 
+// function runTimer(condition) {
+//   let index = 0;
+//   let iteration = true;
+//
+//   let timer = setInterval(() => {
+//
+//     d3.select("#timerOptions footer span")
+//       .style("left", `${(index + 1) * (100 / chronologicalData.length)}%`)
+//
+//     chronologicalData[index].values.forEach(cdv => {
+//
+//
+//       d3.selectAll("#pieCharts svg")
+//         .each((d, i, el) => {
+//
+//           if (cdv.country == el[i].classList[0]) {
+//             if (!el[i].classList.contains("mainPie")) {
+//               d3.select(el[i]).classed("animationStarted", true)
+//
+//               setTimeout(() => d3.select(el[i]).classed("animationStarted", false), 1000)
+//
+//             }
+//
+//             updatePie(cdv, el[i])
+//           }
+//         })
+//     });
+//
+//     index++;
+//
+//     if (index == chronologicalData.length - 1) {
+//       clearInterval(timer);
+//     }
+//   }, 250)
+// }
 
 
 
-function runTimer() {
-  let i = 0;
-  let iteration = true;
 
-  let timer = setInterval(() => {
 
-    chronologicalData[i].values.forEach(cdv => {
+function matcher(index) {
 
-      d3.selectAll("#pieCharts svg")
-        .each((d, i, el) => {
+  chronologicalData[index].values.forEach(cdv => {
+    console.log(cdv)
+    d3.selectAll("#pieCharts svg")
+      .each((d, i, el) => {
 
-          if (cdv.country == el[i].classList[0]) {
+        if (cdv.country == el[i].classList[0]) {
+          d3.select(el[i]).attr("data-currentDate", cdv.date);
 
-            updatePie(cdv, el[i])
+          if (!el[i].classList.contains("mainPie") && el[i].getAttribute("data-firstDate") == cdv.date) {
+
+            d3.select(el[i]).classed("animationStarted", true)
+
+            setTimeout(() => d3.select(el[i]).classed("animationStarted", false), 1000)
           }
-        })
-    });
 
-    i++;
-
-    if (i == chronologicalData.length - 1) {
-      clearInterval(timer);
-    }
-  }, 250)
+          updatePie(cdv, el[i])
+        }
+      })
+  });
 }
 
-d3.select("#timerOptions button")
-  .on("click", runTimer);
+
+
+
+
+function timerSection() {
+  const sliderPin = d3.select("#timerOptions footer span"),
+        sliderBar = d3.select("#timerOptions footer");
+
+  let pinWidth = parseInt(sliderPin.style("width")),
+      firstMouseX,
+      firstPinX,
+      leftBoundary = 0,
+      rightBoundary = parseInt(sliderBar.style("width")),
+      stepSize = rightBoundary / chronologicalData.length,
+      steps = chronologicalData.map((d, i) => Number((i * stepSize).toFixed(3)))
+
+    sliderBar.selectAll("div")
+      .data(chronologicalData)
+      .enter()
+      .append("div")
+      .style("left", (d, i) => `${i * stepSize}px`);
+
+    let timer;
+
+    function playTimer() {
+      let playBtn = d3.event.currentTarget;
+      let index = parseInt(sliderPin.attr("data-index"));
+
+      if (index < chronologicalData.length - 1) {
+
+        if (!playBtn.classList.contains("playing")) {
+          timer = setInterval(() => {
+            console.log("running");
+
+
+              index++;
+
+              matcher(index);
+
+              sliderPin
+                .style("left", `${steps[index]}px`)
+                .attr("data-index", index)
+
+              if (index == chronologicalData.length - 1) {
+                clearInterval(timer);
+                playBtn.classList.remove("playing")
+              }
+
+          }, 1000);
+        } else {
+          console.log("stopped");
+          clearInterval(timer)
+        }
+
+        playBtn.classList.toggle("playing")
+      }
+    }
+
+    d3.select("#timerOptions button").on("click", playTimer);
+
+
+    sliderPin.on("mousedown", () => {
+
+        firstMouseX = d3.event.clientX;
+        firstPinX = d3.event.target.offsetLeft;
+
+        d3.select(window).on("mousemove", dragging)
+      })
+
+    d3.select(window).on("mouseup", () => {
+      d3.select(window).on("mousemove", null)
+
+
+      let index = steps.indexOf(Number(sliderPin.style("left").replace("px", "")));
+      sliderPin.attr("data-index", index)
+
+      matcher(index)
+
+    });
+
+
+  function dragging() {
+    let distance = d3.event.clientX - firstMouseX,
+        pinLeftX = firstPinX + distance,
+        pinRightX = pinLeftX + pinWidth;
+
+    if (pinLeftX <= 0) {
+      sliderPin.style("left", "0px");
+
+    } else if (pinRightX >= rightBoundary) {
+      sliderPin.style("left", `${steps[steps.length - 1]}px`);
+
+    } else {
+      sliderPin.style("left", `${pinLeftX}px`);
+
+      steps.forEach((d, i, all) => {
+
+        if (pinLeftX > (d - stepSize / 2) && pinLeftX < (d + stepSize / 2)) {
+
+          if(sliderPin.attr("data-index") != i) {
+            matcher(i)
+          }
+
+          sliderPin
+            .style("left", `${d}px`)
+            .attr("data-index", i)
+        }
+      })
+    }
+  }
+}
+
+// timerSection()
+
+
+
+
+// d3.select("#timerOptions button")
+//   .on("click", (...arg) => {
+//
+//     arg[2][arg[1]].classList.add("playing");
+//
+//     runTimer()
+//   });
+
+
 
   function arcTween(a) {
     let i = d3.interpolate(this._current, a);
@@ -168,13 +355,10 @@ function updatePie(data, svg) {
     .data(pie(data.all))
     .transition()
     .attrTween("d", arcTween);
-
 }
 
-
-
-
 function highlightCountry(d, condition) {
+
   let hoverArc = d3.arc()
     .innerRadius(radius - 30)
     .outerRadius(radius - 5)
@@ -204,12 +388,42 @@ function highlightCountry(d, condition) {
 function switchMainPie() {
   let clickedPie = d3.event.currentTarget;
 
+  // if (clickedPie.classList.contains("animationStarted")) {
+  //   d3.select(clickedPie)
+  //     .attr("data-started", true)
+  //     .classed("animationStarted", false)
+  // }
+
+
+  d3.selectAll("#pieCharts svg.mainPie ~ svg")
+    .style("left", (...arg) => {
+      return `${parseInt(arg[2][arg[1]].style.left) + width}px`
+    })
+
   d3.select("#pieCharts svg.mainPie")
     .classed("mainPie", false)
-    .call(() => console.log())
+    .style("left", (...arg) => {
+      if (arg[2][0].parentElement.lastElementChild !== arg[2][0]) {
+        return `${parseInt(arg[2][0].nextElementSibling.style.left) - width}px`
+      } else {
+        return `${parseInt(arg[2][0].previousElementSibling.style.left) + width}px`
+      }
 
-  d3.select(clickedPie).classed("mainPie", true)
-}
+    })
+    .style("top", (...arg) => {
+      // console.log(arg[2][0].parentElement.clientHeight)
+      return `${arg[2][0].parentElement.clientHeight - height}px`
+    })
+
+  d3.select(clickedPie)
+    .classed("mainPie", true)
+    .style("top", 0)
+
+  d3.selectAll("svg.mainPie ~ svg")
+    .style("left", (...arg) => {
+      return `${parseInt(arg[2][arg[1]].style.left) - width}px`
+    })
+  }
 }
 
 
