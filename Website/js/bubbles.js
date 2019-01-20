@@ -1,4 +1,3 @@
-console.log("Log is voor noobs");
 var data = [
   {
     name: "at",
@@ -194,11 +193,10 @@ async function drawcircle() {
     newData = data;
   });
 
-  var width = 1000,
+  var width = 900,
     height = 500;
 
     var timeline = d3.timeParse('%Y-%m-%d')
-    console.log(timeline);
 
   var svg = d3
     .select("#bubble")
@@ -267,7 +265,6 @@ async function drawcircle() {
     // .attr("cy", 300)
     // click function
     .on("click", d => {
-      console.log(d);
     });
 
   // mouse events
@@ -291,7 +288,6 @@ async function drawcircle() {
     .style("font-weight", "thin")
     .style("pointer-events", "none")
     .text(d => {
-      console.log(d);
       return d[Object.keys(d)[0]][0].total + " TLD's";
     });
 
@@ -304,7 +300,6 @@ async function drawcircle() {
     .style("font-weight", "bold")
     .style("pointer-events", "none")
     .text(d => {
-      console.log(d);
       return "." + d[Object.keys(d)[0]][0].country;
     });
 
