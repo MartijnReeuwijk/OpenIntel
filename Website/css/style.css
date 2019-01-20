@@ -1,154 +1,172 @@
 /* SETUP */
 
-html,body { margin: 0; padding: 0;} html { box-sizing: border-box;} html *, html *:before, html *:after { box-sizing: inherit;}
+@import
+  "url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400",
+  "700')";
+
+body,
+html {
+  margin  : 0;
+  padding : 0;
+}
+
+html {
+  box-sizing : border-box;
+}
+
+html *,
+html *:after,
+html *:before {
+  box-sizing : inherit;
+}
 
 ::selection {
-  background: rgb(32, 138, 252, 0.6); /* WebKit/Blink Browsers */
+  background : rgb(32, 138, 252, 0.6);
+  /* WebKit/Blink Browsers */
 }
+
 ::-moz-selection {
-  background: rgb(32, 138, 252, 0.6); /* Gecko Browsers */
+  background : rgb(32, 138, 252, 0.6);
+  /* Gecko Browsers */
 }
 
 /* FONTS */
 
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
 body {
-  max-width: 1500px;
-    background-color: #0b0b0b;
-    color: #7a7a7a;
-    font-family: 'Source Sans Pro', sans-serif;
+  max-width        : 1500px;
+  color            : #7a7a7a;
+  background-color : #0b0b0b;
+  font-family      : 'Source Sans Pro',
+                     sans-serif;
 }
 
 /* MENU */
 
 nav ul {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    padding: 7em 0;
+  display         : flex;
+  width           : 100%;
+  padding         : 7em 0;
+  justify-content : center;
 }
 
 nav li {
-    padding: 0 2.5em;
-    list-style: none;
-
+  padding    : 0 2.5em;
+  list-style : none;
 }
 
 nav li a {
-    text-decoration: none;
-    color: #7a7a7a;
-         -webkit-transition: color 1s ease-out;
-    -moz-transition: color 1s ease-out;
-  -o-transition: color 1s ease-out;
-  transition: color 1s ease-out;
+  color              : #7a7a7a;
+  text-decoration    : none;
+  -moz-transition    : color 1s ease-out;
+  -o-transition      : color 1s ease-out;
+  -webkit-transition : color 1s ease-out;
+  transition         : color 1s ease-out;
 }
 
 nav li a:hover {
-    color: #627AF5;
-    cursor: pointer;
+  color  : #627AF5;
+  cursor : pointer;
 }
-
 
 /* INTRO TEKST */
 
 article.intro {
-    padding: 10em 25%;
+  padding : 10em 25%;
 }
 
 article.intro:before {
-    content: "";
-    display: block;
-    width: 100px;
-    height: 20px;
-    background: #627AF5;
-    margin: 0 0 -70px -110px
+  content    : "";
+  display    : block;
+  width      : 100px;
+  height     : 20px;
+  margin     : 0 0 -70px -110px;
+  background : #627AF5;
 }
 
 article.intro:after {
-    content: "";
-    display: inline-block;
-    width: 45px;
-    height: 80px;
-    background: #A48EFC;
-    float: right;
-    margin-right: 40px
-
+  content      : "";
+  display      : inline-block;
+  width        : 45px;
+  height       : 80px;
+  float        : right;
+  margin-right : 40px;
+  background   : #A48EFC;
 }
 
 /* HEADINGS */
 
 h1 {
-    color: #627AF5;
-    display: flex;
-    justify-content: center;
-    font-size: 2em;
-    padding: 2em 0
+  display         : flex;
+  padding         : 2em 0;
+  color           : #627AF5;
+  font-size       : 2em;
+  justify-content : center;
 }
 
 h2 {
-    color: #A48EFC;
-    display: flex;
-    font-size: 1.5em;
+  display   : flex;
+  color     : #A48EFC;
+  font-size : 1.5em;
 }
 
 h3 {
-    color: #A48EFC;
-    font-size: 1.2em;
-    text-align: center;
+  color      : #A48EFC;
+  text-align : center;
+  font-size  : 1.2em;
 }
 
 /* ABOUT */
 
 section.about {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap
+  display         : flex;
+  flex-wrap       : wrap;
+  justify-content : center;
 }
 
 .about article {
-    padding: 0 2em;
-    min-width: 20em;
-    max-width: 20em;
+  min-width : 20em;
+  max-width : 20em;
+  padding   : 0 2em;
+}
 
-}
 aside p {
-  float: left;
+  float : left;
 }
+
 /* VISUALIZATION */
 
 section.visualization {
-    display: flex;
-    margin: 10px 0;
+  display : flex;
+  margin  : 10px 0;
 }
 
 .visual-work {
-    width: 65%;
-    background: #303030;
-
+  width      : 65%;
+  background : #303030;
 }
 
 .summary {
-    width: 25%;
-    margin-left: 5em;
+  width       : 25%;
+  margin-left : 5em;
 }
 
 /* TEAM */
 
 section.team {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 100px
+  display         : flex;
+  margin-bottom   : 100px;
+  justify-content : center;
 }
 
 .team article {
-    padding: 1em 3em;
+  padding : 1em 3em;
 }
 
 .team img {
-    max-height: 8em
+  max-height : 8em;
 }
 
-.team article p, .team article h3 {
-    text-align: center;
+.team article h3,
+.team article p {
+  text-align : center;
 }
