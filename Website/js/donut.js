@@ -4,7 +4,7 @@ let newData;
 let current;
 let allTlds = [];
 
-await d3.json("http://localhost:5000/data").then(data => {
+await d3.json("https://localhost:5000/data").then(data => {
   newData = data;
   // console.log(data)
 });
