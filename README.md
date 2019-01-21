@@ -81,8 +81,11 @@ Here we show to where the TLD are hosted/registered.
 We show how foainstace .nl is split
 ![Donut](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
 
+In the Sunburst chart we show you what a country makes based on the sales on the national TLD's.
 ![Sunburst](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
 
+In this population chart we show how the population is divided by the population.
+Here we show if the population was divided the same way as an countries TLD's
 ![Population](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
 
 ## Authors
