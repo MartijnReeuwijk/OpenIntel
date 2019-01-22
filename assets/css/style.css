@@ -141,7 +141,7 @@ section.visualization {
 }
 
 .pieChartsHeight{
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
 }
 
 .visual-work {

@@ -174,6 +174,8 @@ async function jesse() {
       let allPaths = d3.selectAll("#pieCharts svg path"),
         count = 0;
 
+        d3.select("#pieCharts section").style("height", "-webkit-fill-available")
+
       function loadingCompleted() {
         count++;
 
