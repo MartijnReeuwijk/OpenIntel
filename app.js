@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const cleaner = require("./dataCleaner.js");
 
-const port = 3000;
+const port = 5000;
 
 function readAllData() {
   return new Promise((resolveAll, rejectAll) => {
@@ -45,6 +45,6 @@ app.get("/data", (req, res) => {
   });
 })
 
-app.listen(3000, () => {
-  console.log("Listening to port 3000");
+app.listen(port, () => {
+  console.log("Listening to port " + port);
 });

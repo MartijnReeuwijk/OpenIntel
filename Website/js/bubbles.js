@@ -189,14 +189,14 @@ text
 //     .text(d => d.data.value.toLocaleString());
 
 async function drawcircle() {
-  await d3.json("http://localhost:3000/data").then(data => {
+  await d3.json("http://localhost:5000/data").then(data => {
     newData = data;
   });
 
   var width = 900,
     height = 500;
-
-    var timeline = d3.timeParse('%Y-%m-%d')
+  // var compair = #bubble.svg
+  var timeline = d3.timeParse('%Y-%m-%d')
 
   var svg = d3
     .select("#bubble")
@@ -209,9 +209,9 @@ async function drawcircle() {
   // mess with these values to change the shapes
   var radiusScale = d3
     .scaleSqrt()
-    .domain([10000, 6500000])
+    .domain([11829, 65040749])
     // change this to change circle size
-    .range([10, 75]);
+    .range([0, 200]);
 
   // Simulate force so stuff goes to the center
   var forceXCombine = d3
@@ -253,6 +253,9 @@ async function drawcircle() {
     .append("g")
     .append("circle")
     .attr("class", "TLD")
+    .attr("class", d => {
+      return (d[Object.keys(d)][0].country);
+    })
     .attr("r", d => {
       return radiusScale(d[Object.keys(d)][0].total);
     })
@@ -265,7 +268,10 @@ async function drawcircle() {
     // .attr("cy", 300)
     // click function
     .on("click", d => {
+      console.log(d)
     });
+
+
 
   // mouse events
   // Select hover is a bit of a bitch fix this maybe?
@@ -288,7 +294,8 @@ async function drawcircle() {
     .style("font-weight", "thin")
     .style("pointer-events", "none")
     .text(d => {
-      return d[Object.keys(d)[0]][0].total + " TLD's";
+      return d3.format(",.2r")(d[Object.keys(d)[0]][0].total)
+ + " TLD's";
     });
 
   // Show label van de data Name
@@ -320,6 +327,27 @@ async function drawcircle() {
     .alphaTarget(0.5)
     .restart()
   });
+
+
+// some tests
+  // var comCircle = svg
+  //   .selectAll("#bubble >svg > g > g > circle")
+  // d3.select("#compair")
+  // .data(newData)
+  // // .enter()
+  // .on("click", d => {
+  //   if ( comCircle.className !== "com") {
+  //     // console.log(this);
+  //     console.log(comCircle);
+  //     console.log(comCircle.className);
+  //     console.log("niet .com");
+  //  }
+  //  else{
+  //    console.log("wel.com");
+  //  }
+  // });
+
+
 
   // putting shit in the circles
   // maak dit beter

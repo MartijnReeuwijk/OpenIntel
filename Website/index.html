@@ -39,6 +39,16 @@
       <div class="timeLineBar">2015</div>
       <div class="timeLineStart"></div>
     </div>
+  </section>
+
+  <section id="sideIndex" class="sideIndex">
+    <div class="sideIndexButton" onclick="toggleIndex()"></div>
+    <div class="infocenter">
+      <article class="info">
+        <h1>Legenda</h1>
+        <p>Hier wat info over de legenda</p>
+      </article>
+    </div>
 
   </section>
 
@@ -81,10 +91,13 @@
     <aside data-aos="fade-left" class="summary">
       <h2>Uitleg</h2>
       <button type="button" id="global" name="button">Split internationaal</button>
-      <button type="button" id="combine" name="button">Combineer</button>
+      <button type="button" id="combine" name="button">Center</button>
+      <button type="button" id="compair" name="button">Vergelijk</button>
+
       <p>Hier naast ziet u de verdeleing van een top lvl domein. Deze worden per TLD gesoorteerd en met de knoppen hier boven nog veder op internationaal en landelijken TLD.
         Verder wanneer uw de tijd aanzet zal het de loop der tijdzien en de groei van de TDL en het internet in het algemeen.
       </p>
+      <p>*De nummers die u ziet zijn afgerond voor uw lees gemak (nummers voor de bereking zijn niet afgerond)</p>
     </aside>
   </section>
 
@@ -104,6 +117,31 @@
       <p>Hier naast vindt u de tijdlijn van de verdeling van de TLD's wanneer uw op de knop clicked veranderd de data</p>
       <p>Als de knop groen oplicht staat de tijdlijn aan het zou kunnen dat u weinig verschil ziets</p>
     </aside>
+  </section>
+
+  <section class='visualization'>
+
+    <article data-aos="fade-right" class="visual-work">
+      <div class="youpvis">
+
+      </div>
+    </article>
+
+    <aside data-aos="fade-left" class="summary">
+      <h2>Uitleg</h2>
+
+      <p>Hier naast vindt u de tijdlijn van de verdeling van de TLD's wanneer uw op de knop clicked veranderd de data</p>
+      <p>Als de knop groen oplicht staat de tijdlijn aan het zou kunnen dat u weinig verschil ziets</p>
+    </aside>
+  </section>
+
+
+  <section class='visualization'>
+    <!-- class="chartinwoners" -->
+      <div data-aos="fade-up" class="chartinwonersHolder" >
+        <h1>Inwoners chart</h1>
+        <img class="chartinwoners" src="./images/chart_inwoners2.svg" alt="">
+      </div>
   </section>
 
   <!-- ONS TEAM -->
@@ -142,6 +180,8 @@
   <script src="js/script.js"></script>
   <script src="js/bubbles.js"></script>
   <script src="./js/donut.js"></script>
+  <script src="js/sidescript.js"></script>
+
 
 </body>
 
