@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const cleaner = require("./dataCleaner.js");
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 function readAllData() {
   return new Promise((resolveAll, rejectAll) => {
