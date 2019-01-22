@@ -252,7 +252,7 @@ async function drawcircle() {
     .enter()
     .append("g")
     .append("circle")
-    .attr("class", "TLD")
+    .attr("data-interact", "toolTip")
     .attr("class", d => {
       return (d[Object.keys(d)][0].country);
     })
