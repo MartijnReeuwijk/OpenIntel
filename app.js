@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const cleaner = require("./dataCleaner.js");
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 function readAllData() {
   return new Promise((resolveAll, rejectAll) => {
@@ -35,8 +35,8 @@ function readAllData() {
 const app = express();
 
 app.use(cors());
-app.use(express.static("static"));
-
+// app.use(express.static("static"));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.get("/", (req, res) => res.sendFile("/index.html", {root: __dirname }));
 
 app.get("/data", (req, res) => {

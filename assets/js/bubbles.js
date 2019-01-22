@@ -189,7 +189,7 @@ text
 //     .text(d => d.data.value.toLocaleString());
 
 async function drawcircle() {
-  await d3.json("http://localhost:5000/data").then(data => {
+  await d3.json("https://datavisualfudge.herokuapp.com/data").then(data => {
     newData = data;
   });
 
@@ -252,7 +252,7 @@ async function drawcircle() {
     .enter()
     .append("g")
     .append("circle")
-    .attr("class", "TLD")
+    .attr("data-interact", "toolTip")
     .attr("class", d => {
       return (d[Object.keys(d)][0].country);
     })

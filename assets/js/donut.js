@@ -1,6 +1,6 @@
 async function jesse() {
 
-  await d3.json("http://localhost:5000/data").then(newData => {
+  await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
 
     // Selections
     const dateDisplay = d3.select("#timerOptions p"),
@@ -129,6 +129,7 @@ async function jesse() {
         // })
         // .style("position", "absolute")
         .each(convertToAbsolute)
+
         .style("border", "solid 1px black")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -174,20 +175,17 @@ async function jesse() {
       let allPaths = d3.selectAll("#pieCharts svg path"),
         count = 0;
 
-
-      d3.select("#pieCharts section").call((...arg) => {
-        console.log(d3.select("#pieCharts section").style("height"))
-      })
-
       function loadingCompleted() {
         count++;
 
         if (allPaths._groups[0].length === count) {
           d3.selectAll("#pieCharts svg")
+            .style("position", "absolute")
             .on("mouseover", d => highlightCountry(d, true))
             .on("mouseout", d => highlightCountry(d, false))
             .on("click", switchMainPie)
             .style("position", "absolute")
+
 
           setupLegend()
           timerSection()
@@ -214,6 +212,7 @@ async function jesse() {
 
     function convertToAbsolute(d, i, el) {
         // console.log(el[i])
+
         let top = el[i].getBoundingClientRect().top
         let left = el[i].getBoundingClientRect().left
 
@@ -228,10 +227,6 @@ async function jesse() {
             .style("top", `${top - parseInt(d3.select("#pieCharts header").style("height")) / 2}px`)
             .style("left", `${left}px`)
         }
-
-
-
-
     }
 
     function matcher(index) {
@@ -241,7 +236,8 @@ async function jesse() {
       chronologicalData[index].values.forEach(cdv => {
         d3.selectAll("#pieCharts section svg")
           .each((d, i, el) => {
-
+            console.log(cdv.country, el[i].classList)
+            // if (cdv.country == el[i].classList[0]) {
             if (el[i].classList.contains(cdv.country)) {
               d3.select(el[i]).attr("data-currentDate", cdv.date);
 
@@ -375,8 +371,12 @@ async function jesse() {
       d3.selectAll("[data-interact=toolTip]")
         .on("mouseover", (d) => {
           console.log(d.data)
-          let container = d3.select("body").append("div")
+          let container = d3.select("body")
+            .append("div")
+            .style("position", "absolute");
 
+          container.selectAll("p")
+            .data()
 
         })
     }

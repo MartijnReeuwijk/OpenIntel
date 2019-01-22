@@ -1,203 +1,200 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://d3js.org/d3.v5.js"></script>
-  </head>
-  <body>
-    <style>
+<html>
 
-      /* Disable Text Selecting */
-      body {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+<head>
+  <title>Datavisual groei van het web en de verdeling</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Data visualizations" />
+  <meta name="author" content="Project Fudge" />
 
-      li {
-        list-style-type: none;
-      }
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/timeline.css">
+  <link rel="stylesheet" type="text/css" href="/css/charts.css">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@next/dist/aos.css"/>
 
-      ul {
-        margin: 0;
-        padding: 0;
-      }
+</head>
 
-      #timerOptions button span:last-of-type,
-      #timerOptions button.playing span:first-of-type {
-        display: none;
-      }
-      #timerOptions button.playing span:last-of-type {
-        display: initial;
-      }
+<body>
+  <header>
 
-      #timerOptions footer span {
-        display: block;
-        position: absolute;
-        height: 1rem;
-        width: 1rem;
-        border-radius: 100%;
-        background: black;
-        z-index: 2;
-        bottom: -.4rem;
-        /* bottom: -50%; */
-        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
+    <!-- NAVIGATION -->
+    <nav>
+      <ul>
+        <li><a href=#about>About the project</a></li>
+        <li><a href=#visual>Visualizations</a></li>
+        <li><a href=#team>The team</a></li>
+        <li><a href=#contact>Contact</a></li>
+      </ul>
+    </nav>
 
-      }
+    <!-- INTRO TEKST -->
+    <article data-aos="fade-down" class="intro">
+      <p>
+        Met deze visualisaties gaan we
+      </p>
+    </article>
+  </header>
 
-      #timerOptions footer span:active {
-        background: blue;
-      }
+  <section class="timeLineHolder">
+    <div class="timeLine">
+      <div class="timeLineBar">2015</div>
+      <div class="timeLineStart"></div>
+    </div>
+  </section>
 
-      #timerOptions footer {
-        width: 100%;
-        height: .2rem;
-        position: relative;
-        /* overflow: hidden; */
-        border-radius: 100px;
-        background: grey;
-        margin-bottom: 1rem;
-      }
+  <section id="sideIndex" class="sideIndex">
+    <div class="sideIndexButton" onclick="toggleIndex()"></div>
+    <div class="infocenter">
+      <article class="info">
+        <h1>Legenda</h1>
+        <p>Hier wat info over de legenda</p>
+      </article>
+    </div>
 
-      #timerOptions footer div {
-        height: 100%;
-        width: .1rem;
-        position: absolute;
-        z-index: 10;
-        background: red;
-      }
+  </section>
 
-      path {
-        opacity: 1;
-        transition: opacity .15s ease;
-      }
+  <!-- OVER HET PROJECT -->
+  <h1 id='about'>About the project</h1>
+  <section class="about">
 
-      svg {
-        border-radius: 100%;
-        transition: all .5s ease, left .5s ease .1s;
-        background: black;
-      }
-
-      #pieCharts {
-        /* height: 500px; */
-        border: solid 3px green;
-        position: relative;
-        background: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-
-      }
-
-      #pieCharts header {
-        height: 350px;
-        background: blue;
-      }
-
-      #pieCharts section {
-        background: red;
-        /* margin: 0 auto; */
-
-      }
-
-      #pieCharts section svg {
-        margin: .5rem 1rem;
-      }
-      #pieCharts svg.mainPie {
-        /* position: absolute; */
-        /* top: 0;
-        left: 0; */
-        transform-origin: top left;
-        transform: scale(3);
-      }
-
-      #pieCharts svg text {
-        text-anchor: middle;
-        position: relative;
-      }
-
-      aside {
-        display: flex;
-        max-height: 400px;
-        background: grey;
-      }
-
-      aside ul {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-      }
-      aside ul li {
-        display: flex;
-        align-items: center;
-        height: 2rem;
-      }
-      aside ul li span {
-        width: 10px;
-        height: 10px;
-        /* display: block; */
-      }
-      #countriesLegend {
-        margin-right: 1rem;
-        padding-right: 1rem;
-        border-right: solid 2px black;
-      }
-      #tldsLegend li p::before {
-        content: ".";
-        font-weight: bold;
-      }
-
-      .animationStarted {
-        animation-name: grow;
-        animation-duration: .2s;
-        animation-timing-function: ease;
-        animation-fill-mode: forwards;
-      }
-
-      @keyframes grow {
-        0% {
-          transform: scale(1) translateY(0);
-        }
-        50% {
-          transform: scale(1.1) translateY(-10%);
-        }
-        100% {
-          transform: scale(1) translateY(0);
-        }
-      }
-
-    </style>
-    <h1>Test</h1>
-    <!-- <svg></svg> -->
-    <footer id="timerOptions">
-      <button>
-        <span>&#9658;</span>
-        <span>&#10074; &#10074;</span>
-      </button>
-      <p></p>
-      <footer>
-        <span data-index="0"></span>
-      </footer>
-    </footer>
-    <aside>
-      <ul id="countriesLegend"></ul>
-      <ul id="tldsLegend"></ul>
-    </aside>
-    <section id="pieCharts">
+    <article data-aos="fade-right">
       <header>
-
+        <h2>Concept</h2>
       </header>
-      <section>
+      <p>Op deze pagina willen we de groei en verdeling van de TDL's laten zien en hun veranderingen over de tijd 2012/2018</p>
+    </article>
 
-      </section>
-    </section>
-    <script src="js/index.js"></script>
-    <!-- <script src="js/martijn.js"></script> -->
-    <script src="js/martijn2.js"></script>
-    <script src="js/jesse.js"></script>
-  </body>
+
+    <article data-aos="fade-down">
+      <header>
+        <h2>Flow</h2>
+      </header>
+      <p>De site begint met de verdeling tussen internationaal en internationale TDLs. Daarna een detail verdeling van de gekozen TLD's</p>
+    </article>
+
+    <article data-aos="fade-left">
+      <header>
+        <h2>Results</h2>
+      </header>
+      <p>Uit de data komt vooral dat .com giganties is door de USA. Ook zien we in de data een megasprong in .biz in sweden.</p>
+    </article>
+  </section>
+
+
+  <!-- VISUALIZATION -->
+  <h1 id='visual'>Groei van de internationale TLD inverhouding tot de landelijken</h1>
+
+  <section class='visualization'>
+    <article data-aos="fade-right" class="visual-work">
+      <div id="bubble"></div>
+    </article>
+
+    <aside data-aos="fade-left" class="summary">
+      <h2>Uitleg</h2>
+      <button type="button" id="global" name="button">Split internationaal</button>
+      <button type="button" id="combine" name="button">Center</button>
+      <button type="button" id="compair" name="button">Vergelijk</button>
+
+      <p>Hier naast ziet u de verdeleing van een top lvl domein. Deze worden per TLD gesoorteerd en met de knoppen hier boven nog veder op internationaal en landelijken TLD.
+        Verder wanneer uw de tijd aanzet zal het de loop der tijdzien en de groei van de TDL en het internet in het algemeen.
+      </p>
+      <p>*De nummers die u ziet zijn afgerond voor uw lees gemak (nummers voor de bereking zijn niet afgerond)</p>
+    </aside>
+  </section>
+
+
+
+  <section class='visualization'>
+
+    <article data-aos="fade-right" class="visual-work">
+      <div id="pieCharts">
+        <header>
+
+        </header>
+        <section>
+
+        </section>
+      </div>
+    </article>
+
+    <aside data-aos="fade-left" class="summary">
+      <h2>Uitleg</h2>
+      <button type="button" id="timerOptions" name="timerOptions">Tijdlijn</button>
+      <button type="button" id="timerAan" name="button"></button>
+
+      <p>Hier naast vindt u de tijdlijn van de verdeling van de TLD's wanneer uw op de knop clicked veranderd de data</p>
+      <p>Als de knop groen oplicht staat de tijdlijn aan het zou kunnen dat u weinig verschil ziets</p>
+    </aside>
+  </section>
+
+  <section class='visualization'>
+
+    <article data-aos="fade-right" class="visual-work">
+      <div class="youpvis">
+
+      </div>
+    </article>
+
+    <aside data-aos="fade-left" class="summary">
+      <h2>Uitleg</h2>
+
+      <p>Hier naast vindt u de tijdlijn van de verdeling van de TLD's wanneer uw op de knop clicked veranderd de data</p>
+      <p>Als de knop groen oplicht staat de tijdlijn aan het zou kunnen dat u weinig verschil ziets</p>
+    </aside>
+  </section>
+
+
+  <section class='visualization'>
+    <!-- class="chartinwoners" -->
+      <div data-aos="fade-up" class="chartinwonersHolder" >
+        <h1>Inwoners chart</h1>
+        <img class="chartinwoners" src="./images/chart_inwoners2.svg" alt="">
+      </div>
+  </section>
+
+  <!-- ONS TEAM -->
+  <h1 id='team'>The team</h1>
+
+  <section class="team">
+
+    <article data-aos="fade-left">
+      <img src="images/martijn.png" alt="Martijn" />
+      <h3>Martijn</h3>
+      <p>Technicus</p>
+    </article>
+
+    <article data-aos="fade-up">
+      <img src="images/angela.png" alt="Angela" />
+      <h3>Angela</h3>
+      <p>Visualizer</p>
+    </article>
+
+    <article data-aos="fade-up">
+      <img src="images/jesse.png" alt="Jesse" />
+      <h3>Jesse</h3>
+      <p>Technicus</p>
+    </article>
+
+    <article data-aos="fade-right">
+      <img src="images/youp.png" alt="Youp" />
+      <h3>Youp</h3>
+      <p>Visualizer</p>
+    </article>
+
+  </section>
+
+  <script type="text/javascript" src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
+  <script type="text/javascript" src="/js/bubbles.js"></script>
+  <script type="text/javascript" src="/js/donut.js"></script>
+  <script type="text/javascript" src="/js/sidescript.js"></script>
+
+
+</body>
+
+
+
+
 </html>
