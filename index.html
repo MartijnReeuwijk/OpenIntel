@@ -18,6 +18,15 @@
         user-select: none;
       }
 
+      li {
+        list-style-type: none;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
       #timerOptions button span:last-of-type,
       #timerOptions button.playing span:first-of-type {
         display: none;
@@ -111,6 +120,36 @@
         position: relative;
       }
 
+      aside {
+        display: flex;
+        max-height: 400px;
+        background: grey;
+      }
+      aside ul {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      aside ul li {
+        display: flex;
+        align-items: center;
+        height: 2rem;
+      }
+      aside ul li span {
+        width: 10px;
+        height: 10px;
+        /* display: block; */
+      }
+      #countriesLegend {
+        margin-right: 1rem;
+        padding-right: 1rem;
+        border-right: solid 2px black;
+      }
+      #tldsLegend li p::before {
+        content: ".";
+        font-weight: bold;
+      }
+
       .animationStarted {
         animation-name: grow;
         animation-duration: .2s;
@@ -143,7 +182,10 @@
         <span data-index="0"></span>
       </footer>
     </footer>
-
+    <aside>
+      <ul id="countriesLegend"></ul>
+      <ul id="tldsLegend"></ul>
+    </aside>
     <section id="pieCharts">
       <header>
 

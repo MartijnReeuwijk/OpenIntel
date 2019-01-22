@@ -1,6 +1,6 @@
 async function jesse() {
 
-  await d3.json("http://localhost:3000/data").then(newData => {
+  await d3.json("http://localhost:5000/data").then(newData => {
 
     // Selections
     const dateDisplay = d3.select("#timerOptions p"),
@@ -31,7 +31,11 @@ async function jesse() {
       }
     }))
 
-    allTlds = d3.shuffle(allTlds)
+    let allCountries = newData.map(d => Object.keys(d)[0].toUpperCase());
+
+    const countryColorGen = d3.scaleOrdinal()
+      .domain(allCountries)
+      .range(d3.schemePaired)
 
     const colorGen = d3.scaleOrdinal()
       .domain(allTlds)
@@ -63,6 +67,35 @@ async function jesse() {
       return function(t) {
         return arc(i(t));
       };
+    }
+
+    function setupLegend() {
+      let countriesLegend = d3.select("#countriesLegend").selectAll("li")
+        .data(allCountries)
+        .enter()
+        .append("li");
+
+      countriesLegend
+        .append("span")
+        .style("background", d => countryColorGen(d))
+
+      countriesLegend
+        .append("p")
+        .text(d => d)
+
+
+      let tldsLegend = d3.select("#tldsLegend").selectAll("li")
+        .data(allTlds)
+        .enter()
+        .append("li")
+
+      tldsLegend
+        .append("span")
+        .style("background", d => colorGen(d))
+
+      tldsLegend
+        .append("p")
+        .text(d => d)
     }
 
     function setup() {
@@ -150,6 +183,7 @@ async function jesse() {
             .on("mouseout", d => highlightCountry(d, false))
             .on("click", switchMainPie)
 
+          setupLegend()
           timerSection()
         }
       }
