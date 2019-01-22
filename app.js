@@ -35,8 +35,8 @@ function readAllData() {
 const app = express();
 
 app.use(cors());
-app.use(express.static("static"));
-
+// app.use(express.static("static"));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.get("/", (req, res) => res.sendFile("/index.html", {root: __dirname }));
 
 app.get("/data", (req, res) => {
