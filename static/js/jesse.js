@@ -129,7 +129,6 @@ async function jesse() {
         // })
         // .style("position", "absolute")
         .each(convertToAbsolute)
-        .style("position", "absolute")
         .style("border", "solid 1px black")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -154,6 +153,7 @@ async function jesse() {
           .data(pie(data))
           .enter()
           .append("path")
+          .attr("data-interact", "toolTip")
           .attr("class", d => d.data.tld)
           .attr("fill", d => colorGen(d.data.tld))
           .transition()
@@ -174,6 +174,11 @@ async function jesse() {
       let allPaths = d3.selectAll("#pieCharts svg path"),
         count = 0;
 
+
+      d3.select("#pieCharts section").call((...arg) => {
+        console.log(d3.select("#pieCharts section").style("height"))
+      })
+
       function loadingCompleted() {
         count++;
 
@@ -182,6 +187,7 @@ async function jesse() {
             .on("mouseover", d => highlightCountry(d, true))
             .on("mouseout", d => highlightCountry(d, false))
             .on("click", switchMainPie)
+            .style("position", "absolute")
 
           setupLegend()
           timerSection()
@@ -207,7 +213,7 @@ async function jesse() {
     setup()
 
     function convertToAbsolute(d, i, el) {
-        console.log(el[i])
+        // console.log(el[i])
         let top = el[i].getBoundingClientRect().top
         let left = el[i].getBoundingClientRect().left
 
@@ -233,10 +239,10 @@ async function jesse() {
       dateDisplay.text(formatTime(new Date(chronologicalData[index].key)))
 
       chronologicalData[index].values.forEach(cdv => {
-        d3.selectAll("#pieCharts svg")
+        d3.selectAll("#pieCharts section svg")
           .each((d, i, el) => {
 
-            if (cdv.country == el[i].classList[0]) {
+            if (el[i].classList.contains(cdv.country)) {
               d3.select(el[i]).attr("data-currentDate", cdv.date);
 
               if (!el[i].classList.contains("mainPie") && el[i].getAttribute("data-firstDate") == cdv.date) {
@@ -365,7 +371,20 @@ async function jesse() {
       }
     }
 
+    function toolTip() {
+      d3.selectAll("[data-interact=toolTip]")
+        .on("mouseover", (d) => {
+          console.log(d.data)
+          let container = d3.select("body").append("div")
+
+
+        })
+    }
+
+    toolTip()
+
     function updatePie(data, svg) {
+      // console.log(svg)
       let pieSvg = d3.select(svg).select("g");
 
       pieSvg.selectAll("path")
