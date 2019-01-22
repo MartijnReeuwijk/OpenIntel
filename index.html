@@ -74,15 +74,35 @@
       }
 
       #pieCharts {
-        padding-top: 500px;
+        /* height: 500px; */
         border: solid 3px green;
         position: relative;
         background: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
       }
 
+      #pieCharts header {
+        height: 350px;
+        background: blue;
+      }
+
+      #pieCharts section {
+        background: red;
+        /* margin: 0 auto; */
+
+      }
+
+      #pieCharts section svg {
+        margin: .5rem 1rem;
+      }
       #pieCharts svg.mainPie {
+        /* position: absolute; */
+        /* top: 0;
+        left: 0; */
         transform-origin: top left;
-        left: 0 !important;
         transform: scale(3);
       }
 
@@ -124,7 +144,14 @@
       </footer>
     </footer>
 
-    <section id="pieCharts"></section>
+    <section id="pieCharts">
+      <header>
+
+      </header>
+      <section>
+
+      </section>
+    </section>
     <script src="js/index.js"></script>
     <!-- <script src="js/martijn.js"></script> -->
     <script src="js/martijn2.js"></script>
