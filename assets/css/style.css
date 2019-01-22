@@ -105,7 +105,7 @@ h1 {
 
 h2 {
   display   : flex;
-  color     : #A48EFC;
+  color     : white;
   font-size : 1.5em;
 }
 
@@ -140,7 +140,7 @@ section.visualization {
   margin  : 10px 0;
 }
 
-.pieChartsHeight{
+.pieChartsHeight {
   /* height: -webkit-fill-available; */
 }
 
@@ -175,104 +175,259 @@ section.team {
   text-align : center;
 }
 
-
 /* Jesse css idk what it does */
 
+/* Disable Text Selecting */
 
-      /* Disable Text Selecting */
-      body {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+body {}
 
-      #timerOptions button span:last-of-type,
-      #timerOptions button.playing span:first-of-type {
-        display: none;
-      }
-      #timerOptions button.playing span:last-of-type {
-        display: initial;
-      }
+#timerOptions button.playing span:first-of-type,
+#timerOptions button span:last-of-type {
+  display : none;
+}
 
-      #timerOptions footer span {
-        display: block;
-        position: absolute;
-        height: 1rem;
-        width: 1rem;
-        border-radius: 100%;
-        background: black;
-        z-index: 2;
-        bottom: -.4rem;
-        /* bottom: -50%; */
-        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
+#timerOptions button.playing span:last-of-type {
+  display : initial;
+}
 
-      }
-      path {
-        opacity: 1;
-        transition: opacity .15s ease;
-      }
+#timerOptions footer span {
+  z-index       : 2;
+  display       : block;
+  position      : absolute;
+  bottom        : -.4rem;
+  width         : 1rem;
+  height        : 1rem;
+  border-radius : 100%;
+  background    : black;
+  transition    : left .075s cubic-bezier(.7,1.39,.7,1.4);
+  /* bottom: -50%; */
+}
 
-      svg {
-        transition: all .5s ease, left .5s ease .1s;
-        background: black;
-      }
+path {
+  opacity    : 1;
+  transition : opacity .15s ease;
+}
 
-      #pieCharts {
-        /* height: 500px; */
-        border: solid 3px green;
-        position: relative;
-        background: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+svg {
+  background : black;
+  transition : all .5s ease,
+               left .5s ease .1s;
+}
 
-      }
+#pieCharts {
+  /* height: 500px; */
+  display         : flex;
+  position        : relative;
+  border          : solid 3px green;
+  background      : black;
+  flex-direction  : column;
+  justify-content : flex-end;
+}
 
-      #pieCharts header {
-        height: 350px;
-        background: blue;
-      }
+#pieCharts header {
+  height     : 350px;
+  background : blue;
+}
 
-      #pieCharts section {
-        background: red;
-        /* margin: 0 auto; */
+#pieCharts section {
+  background : red;
+  /* margin: 0 auto; */
+}
 
-      }
+#pieCharts section svg {
+  margin : .5rem 1rem;
+}
 
-      #pieCharts section svg {
-        margin: .5rem 1rem;
-      }
-      #pieCharts svg.mainPie {
-        /* position: absolute; */
-        /* top: 0;
-        left: 0; */
-        transform-origin: top left;
-        transform: scale(3);
-      }
+#pieCharts svg.mainPie {
+  /* position: absolute; */
+  /* top: 0; left: 0; */
+  transform        : scale(3);
+  transform-origin : top left;
+}
 
-      #pieCharts svg text {
-        text-anchor: middle;
-        position: relative;
-      }
+#pieCharts svg text {}
 
-      .animationStarted {
-        animation-name: grow;
-        animation-duration: .2s;
-        animation-timing-function: ease;
-        animation-fill-mode: forwards;
-      }
+.animationStarted {
+  animation-duration        : .2s;
+  animation-fill-mode       : forwards;
+  animation-name            : grow;
+  animation-timing-function : ease;
+}
 
-      @keyframes grow {
-        0% {
-          transform: scale(1) translateY(0);
-        }
-        50% {
-          transform: scale(1.1) translateY(-10%);
-        }
-        100% {
-          transform: scale(1) translateY(0);
-        }
-      }
+@keyframes grow {
+  0% {
+    transform : scale(1) translateY(0);
+  }
+
+  50% {
+    transform : scale(1.1) translateY(-10%);
+  }
+
+  100% {
+    transform : scale(1) translateY(0);
+  }
+}
+
+.centerIntro {
+  display  : flex;
+  position : relative;
+  height   : 50px;
+}
+
+.Iam {
+  margin : 0 auto;
+  color  : white;
+  /* font-weight: bolder; */
+  font   : bolder 40px/50px Montserrat, sans-serif;
+}
+
+.Iam p {
+  height       : 50px;
+  float        : left;
+  margin-right : 0.3em;
+}
+
+.Iam b {
+  position : relative;
+  top      : 40px;
+  height   : 50px;
+  float    : left;
+  overflow : hidden;
+}
+
+.Iam .innerIam {
+  display                           : inline-block;
+  position                          : relative;
+  top                               : 0;
+  left                              : 0;
+  color                             : #627AF5;
+  white-space                       : nowrap;
+  -moz-animation                    : move 5s;
+  -ms-animation                     : move 5s;
+  -o-animation                      : move 5s;
+  -webkit-animation                 : move 5s;
+  animation                         : move 5s;
+  -moz-animation-delay              : 1s;
+  -ms-animation-delay               : 1s;
+  -o-animation-delay                : 1s;
+  -webkit-animation-delay           : 1s;
+  animation-delay                   : 1s;
+  -moz-animation-iteration-count    : infinite;
+  -ms-animation-iteration-count     : infinite;
+  -o-animation-iteration-count      : infinite;
+  -webkit-animation-iteration-count : infinite;
+  animation-iteration-count         : infinite;
+  /* animation */
+  /* animation-iteration-count */
+  /* animation-delay */
+}
+
+@keyframes move {
+  0% {
+    top : 0px;
+  }
+
+  20% {
+    top : -50px;
+  }
+
+  40% {
+    top : -100px;
+  }
+
+  60% {
+    top : -150px;
+  }
+
+  80% {
+    top : -200px;
+  }
+}
+
+@-webkit-keyframes move {
+  0% {
+    top : 0px;
+  }
+
+  20% {
+    top : -50px;
+  }
+
+  40% {
+    top : -100px;
+  }
+
+  60% {
+    top : -150px;
+  }
+
+  80% {
+    top : -200px;
+  }
+}
+
+@-moz-keyframes move {
+  0% {
+    top : 0px;
+  }
+
+  20% {
+    top : -50px;
+  }
+
+  40% {
+    top : -100px;
+  }
+
+  60% {
+    top : -150px;
+  }
+
+  80% {
+    top : -200px;
+  }
+}
+
+@-o-keyframes move {
+  0% {
+    top : 0px;
+  }
+
+  20% {
+    top : -50px;
+  }
+
+  40% {
+    top : -100px;
+  }
+
+  60% {
+    top : -150px;
+  }
+
+  80% {
+    top : -200px;
+  }
+}
+
+@keyframes move {
+  0% {
+    top : 0px;
+  }
+
+  20% {
+    top : -50px;
+  }
+
+  40% {
+    top : -100px;
+  }
+
+  60% {
+    top : -150px;
+  }
+
+  80% {
+    top : -200px;
+  }
+}

@@ -174,7 +174,7 @@ async function jesse() {
       let allPaths = d3.selectAll("#pieCharts svg path"),
         count = 0;
 
-        d3.select("#pieCharts section").style("height", "-webkit-fill-available")
+        // d3.select("#pieCharts section").style("height", "-webkit-fill-available")
 
       function loadingCompleted() {
         count++;
@@ -224,8 +224,8 @@ async function jesse() {
             .classed("mainPie", true)
         } else {
           d3.select(el[i])
-            .style("top", `${top - 200}px`)
-            .style("left", `${left - 10}px`)
+            .style("top", `${top}px`)
+            .style("left", `${left}px`)
         }
 
     }
