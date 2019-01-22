@@ -129,7 +129,7 @@ async function jesse() {
         // })
         // .style("position", "absolute")
         .each(convertToAbsolute)
-        .style("position", "absolute")
+
         .style("border", "solid 1px black")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -179,9 +179,11 @@ async function jesse() {
 
         if (allPaths._groups[0].length === count) {
           d3.selectAll("#pieCharts svg")
+            .style("position", "absolute")
             .on("mouseover", d => highlightCountry(d, true))
             .on("mouseout", d => highlightCountry(d, false))
             .on("click", switchMainPie)
+
 
           setupLegend()
           timerSection()
@@ -208,6 +210,7 @@ async function jesse() {
 
     function convertToAbsolute(d, i, el) {
         // console.log(el[i])
+
         let top = el[i].getBoundingClientRect().top
         let left = el[i].getBoundingClientRect().left
 
@@ -222,9 +225,6 @@ async function jesse() {
             .style("top", `${top - parseInt(d3.select("#pieCharts header").style("height")) / 2}px`)
             .style("left", `${left}px`)
         }
-
-
-
 
     }
 
