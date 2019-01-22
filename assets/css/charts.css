@@ -1,0 +1,96 @@
+.pie {
+  margin : 25px;
+}
+
+.pie text {
+  position       : absolute;
+
+  align-items    : center;
+
+  margin-left    : -10px;
+
+  pointer-events : none;
+
+  font-family    : "Verdana";
+
+  fill           : #fff;
+}
+
+.pie .name-text {
+  font-size : .75em;
+}
+
+.pie .value-text {
+  font-size : 1em;
+}
+
+button {
+  float              : left;
+
+  width              : calc(50% - 10px);
+  height             : 50px;
+  margin             : 5px;
+  padding            : 0;
+
+  cursor             : pointer;
+  -webkit-transition : background-color 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -moz-transition    : background-color 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -o-transition      : background-color 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  transition         : background-color 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+
+  color              : white;
+  border             : 1px solid rgb(98, 165, 245);
+  border-radius      : 5px;
+  outline            : inherit;
+  background         : none;
+  background-color   : none;
+
+  font               : inherit;
+}
+
+button:hover {
+  background-color : rgb(82, 82, 219);
+}
+
+circle,
+path {
+  -webkit-transition : fill,
+                       opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -moz-transition    : fill,
+                       opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  -o-transition      : fill,
+                       opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+  transition         : fill,
+                       opacity 200ms cubic-bezier(0.250, 0.645, 0.795, 0.200);
+
+  opacity            : 1;
+}
+
+svg>g:hover circle:not(:hover),
+svg>g:hover path:not(:hover) {
+  opacity : .5;
+}
+
+.youpvis, .chartinwoners{
+  background-repeat: no-repeat;
+  background-position: top;
+  background-origin: border-box;
+  background-size: contain;
+}
+.chartinwonersHolder{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+.chartinwoners{
+  width: -webkit-fill-available;
+  height: 100%;
+}
+.youpvis{
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+
+  background-image: url("../images/visual-youp.svg");
+
+}
