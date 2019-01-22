@@ -154,6 +154,7 @@ async function jesse() {
           .data(pie(data))
           .enter()
           .append("path")
+          .attr("data-interact", "toolTip")
           .attr("class", d => d.data.tld)
           .attr("fill", d => colorGen(d.data.tld))
           .transition()
@@ -185,6 +186,7 @@ async function jesse() {
             .on("mouseover", d => highlightCountry(d, true))
             .on("mouseout", d => highlightCountry(d, false))
             .on("click", switchMainPie)
+            .style("position", "absolute")
 
 
           setupLegend()
@@ -227,7 +229,6 @@ async function jesse() {
             .style("top", `${top - parseInt(d3.select("#pieCharts header").style("height")) / 2}px`)
             .style("left", `${left}px`)
         }
-
     }
 
     function matcher(index) {
@@ -367,6 +368,22 @@ async function jesse() {
         }
       }
     }
+
+    function toolTip() {
+      d3.selectAll("[data-interact=toolTip]")
+        .on("mouseover", (d) => {
+          console.log(d.data)
+          let container = d3.select("body")
+            .append("div")
+            .style("position", "absolute");
+
+          container.selectAll("p")
+            .data()
+
+        })
+    }
+
+    toolTip()
 
     function updatePie(data, svg) {
       // console.log(svg)
