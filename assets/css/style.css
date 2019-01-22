@@ -206,29 +206,6 @@ section.team {
         transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
 
       }
-
-      #timerOptions footer span:active {
-        background: blue;
-      }
-
-      #timerOptions footer {
-        width: 100%;
-        height: .2rem;
-        position: relative;
-        /* overflow: hidden; */
-        border-radius: 100px;
-        background: grey;
-        margin-bottom: 1rem;
-      }
-
-      #timerOptions footer div {
-        height: 100%;
-        width: .1rem;
-        position: absolute;
-        z-index: 10;
-        background: red;
-      }
-
       path {
         opacity: 1;
         transition: opacity .15s ease;
