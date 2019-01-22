@@ -1,0 +1,298 @@
+/* SETUP */
+
+@import
+  "url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400",
+  "700')";
+
+body,
+html {
+  margin  : 0;
+  padding : 0;
+}
+
+html {
+  box-sizing : border-box;
+}
+
+html *,
+html *:after,
+html *:before {
+  box-sizing : inherit;
+}
+
+::selection {
+  background : rgb(32, 138, 252, 0.6);
+  /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+  background : rgb(32, 138, 252, 0.6);
+  /* Gecko Browsers */
+}
+
+/* FONTS */
+
+body {
+  max-width        : 1500px;
+  color            : #7a7a7a;
+  background-color : #0b0b0b;
+  font-family      : 'Source Sans Pro',
+                     sans-serif;
+}
+
+/* MENU */
+
+nav ul {
+  display         : flex;
+  width           : 100%;
+  padding         : 7em 0;
+  justify-content : center;
+}
+
+nav li {
+  padding    : 0 2.5em;
+  list-style : none;
+}
+
+nav li a {
+  color              : #7a7a7a;
+  text-decoration    : none;
+  -moz-transition    : color 1s ease-out;
+  -o-transition      : color 1s ease-out;
+  -webkit-transition : color 1s ease-out;
+  transition         : color 1s ease-out;
+}
+
+nav li a:hover {
+  color  : #627AF5;
+  cursor : pointer;
+}
+
+/* INTRO TEKST */
+
+article.intro {
+  padding : 10em 25%;
+}
+
+article.intro:before {
+  content    : "";
+  display    : block;
+  width      : 100px;
+  height     : 20px;
+  margin     : 0 0 -70px -110px;
+  background : #627AF5;
+}
+
+article.intro:after {
+  content      : "";
+  display      : inline-block;
+  width        : 45px;
+  height       : 80px;
+  float        : right;
+  margin-right : 40px;
+  background   : #A48EFC;
+}
+
+/* HEADINGS */
+
+h1 {
+  display         : flex;
+  padding         : 2em 0;
+  color           : #627AF5;
+  font-size       : 2em;
+  justify-content : center;
+}
+
+h2 {
+  display   : flex;
+  color     : #A48EFC;
+  font-size : 1.5em;
+}
+
+h3 {
+  color      : #A48EFC;
+  text-align : center;
+  font-size  : 1.2em;
+}
+
+/* ABOUT */
+
+section.about {
+  display         : flex;
+  flex-wrap       : wrap;
+  justify-content : center;
+}
+
+.about article {
+  min-width : 20em;
+  max-width : 20em;
+  padding   : 0 2em;
+}
+
+aside p {
+  float : left;
+}
+
+/* VISUALIZATION */
+
+section.visualization {
+  display : flex;
+  margin  : 10px 0;
+}
+
+.visual-work {
+  width      : 65%;
+  background : #303030;
+}
+
+.summary {
+  width       : 25%;
+  margin-left : 5em;
+}
+
+/* TEAM */
+
+section.team {
+  display         : flex;
+  margin-bottom   : 100px;
+  justify-content : center;
+}
+
+.team article {
+  padding : 1em 3em;
+}
+
+.team img {
+  max-height : 8em;
+}
+
+.team article h3,
+.team article p {
+  text-align : center;
+}
+
+
+/* Jesse css idk what it does */
+
+
+      /* Disable Text Selecting */
+      body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      #timerOptions button span:last-of-type,
+      #timerOptions button.playing span:first-of-type {
+        display: none;
+      }
+      #timerOptions button.playing span:last-of-type {
+        display: initial;
+      }
+
+      #timerOptions footer span {
+        display: block;
+        position: absolute;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 100%;
+        background: black;
+        z-index: 2;
+        bottom: -.4rem;
+        /* bottom: -50%; */
+        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
+
+      }
+
+      #timerOptions footer span:active {
+        background: blue;
+      }
+
+      #timerOptions footer {
+        width: 100%;
+        height: .2rem;
+        position: relative;
+        /* overflow: hidden; */
+        border-radius: 100px;
+        background: grey;
+        margin-bottom: 1rem;
+      }
+
+      #timerOptions footer div {
+        height: 100%;
+        width: .1rem;
+        position: absolute;
+        z-index: 10;
+        background: red;
+      }
+
+      path {
+        opacity: 1;
+        transition: opacity .15s ease;
+      }
+
+      svg {
+        border-radius: 100%;
+        transition: all .5s ease, left .5s ease .1s;
+        background: black;
+      }
+
+      #pieCharts {
+        /* height: 500px; */
+        border: solid 3px green;
+        position: relative;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+      }
+
+      #pieCharts header {
+        height: 350px;
+        background: blue;
+      }
+
+      #pieCharts section {
+        background: red;
+        /* margin: 0 auto; */
+
+      }
+
+      #pieCharts section svg {
+        margin: .5rem 1rem;
+      }
+      #pieCharts svg.mainPie {
+        /* position: absolute; */
+        /* top: 0;
+        left: 0; */
+        transform-origin: top left;
+        transform: scale(3);
+      }
+
+      #pieCharts svg text {
+        text-anchor: middle;
+        position: relative;
+      }
+
+      .animationStarted {
+        animation-name: grow;
+        animation-duration: .2s;
+        animation-timing-function: ease;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes grow {
+        0% {
+          transform: scale(1) translateY(0);
+        }
+        50% {
+          transform: scale(1.1) translateY(-10%);
+        }
+        100% {
+          transform: scale(1) translateY(0);
+        }
+      }
