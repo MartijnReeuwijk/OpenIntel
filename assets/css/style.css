@@ -212,7 +212,6 @@ section.team {
       }
 
       svg {
-        border-radius: 100%;
         transition: all .5s ease, left .5s ease .1s;
         background: black;
       }
