@@ -134,7 +134,9 @@ aside p {
 }
 
 /* VISUALIZATION */
-
+.pieChartsHeight{
+  height: -webkit-fill-available;
+}
 section.visualization {
   display : flex;
   margin  : 10px 0;
