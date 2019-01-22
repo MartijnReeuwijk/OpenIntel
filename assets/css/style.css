@@ -140,6 +140,10 @@ section.visualization {
   margin  : 10px 0;
 }
 
+.pieChartsHeight{
+  height: -webkit-fill-available;
+}
+
 .visual-work {
   width      : 65%;
   background : #303030;
