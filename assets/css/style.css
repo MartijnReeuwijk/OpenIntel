@@ -31,8 +31,17 @@ html *:before {
 }
 
 /* FONTS */
+.header{
+  background: -moz-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* ff3.6+ */
+background: -webkit-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* ie10+ */
+background: linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#627AF5',GradientType=1 ); /* ie6-9 */
+}
 
 body {
+  margin-top: -20px;
   max-width        : 1500px;
   color            : #7a7a7a;
   background-color : #0b0b0b;
