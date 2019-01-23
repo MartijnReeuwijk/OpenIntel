@@ -180,7 +180,7 @@ section.team {
 /* Disable Text Selecting */
 
 body {}
-
+/*
 #timerOptions button.playing span:first-of-type,
 #timerOptions button span:last-of-type {
   display : none;
@@ -188,9 +188,9 @@ body {}
 
 #timerOptions button.playing span:last-of-type {
   display : initial;
-}
+} */
 
-#timerOptions footer span {
+/* #timerOptions div span {
   z-index       : 2;
   display       : block;
   position      : absolute;
@@ -201,7 +201,7 @@ body {}
   background    : black;
   transition    : left .075s cubic-bezier(.7,1.39,.7,1.4);
   /* bottom: -50%; */
-}
+/* } */
 
 path {
   opacity    : 1;
@@ -232,19 +232,60 @@ svg {
         display: initial;
       }
 
-      #timerOptions footer span {
-        display: block;
+      #timerOptions {
+        background: red;
+        width: 80vw;
+        height: 4rem;
+        background: red;
+        position: fixed;
+        bottom: 1rem;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+
+      #timerOptions p {
         position: absolute;
         height: 1rem;
-        width: 1rem;
-        border-radius: 100%;
-        background: black;
-        z-index: 2;
-        bottom: -.4rem;
-        /* bottom: -50%; */
-        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
+        width: 100%;
+        color: green;
+        text-align: center;
+        top: 0;
+        margin: 0;
+        background: purple;
+      }
+
+      #timerOptions button {
 
       }
+
+      #timerOptions > div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        height: 12.5%;
+        width: calc(100% - 2rem);
+        background: blue;
+      }
+
+      #timerOptions > div span {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        background: black;
+        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
+      }
+
+
       path {
         opacity: 1;
         transition: opacity .15s ease;
@@ -252,14 +293,9 @@ svg {
 
       svg {
         transition: all .5s ease, left .5s ease .1s;
-        background: black;
       }
 
       #pieCharts {
-        /* height: 500px; */
-        border: solid 3px green;
-        /* position: relative; */
-        background: black;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -268,15 +304,11 @@ svg {
 
       #pieCharts header {
         height: 350px;
-        background: blue;
-        /* padding: 0 1rem; */
       }
 
       #pieCharts section {
-        background: red;
         position: relative;
         padding: 1rem 1rem 0 1rem
-        /* margin: 0 auto; */
 
       }
 
@@ -293,9 +325,14 @@ svg {
         transform: scale(3);
       }
 
-      #pieCharts svg text {
+      #pieCharts svg text.pieCountryLabel {
         text-anchor: middle;
-        position: relative;
+      }
+      #pieCharts svg:not(.mainPie) g text:not(.pieCountryLabel) {
+        transform: scale(0);
+      }
+      #pieCharts svg.mainPie g text:not(.pieCountryLabel) {
+        transform: scale(1);
       }
 
       .toolTip {
