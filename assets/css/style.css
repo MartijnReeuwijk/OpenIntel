@@ -293,7 +293,7 @@ svg {
   /* border: solid 3px green; */
   /* position: relative; */
   display         : flex;
-  background      : black;
+  /* background      : black; */
   flex-direction  : column;
   justify-content : flex-end;
 }
