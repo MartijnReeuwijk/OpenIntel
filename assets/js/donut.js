@@ -1,10 +1,10 @@
 async function jesse() {
   var test;
-  d3.json("http://localhost:5000/data").then(data => {
+  d3.json("https://datavisualfudge.herokuapp.com/data").then(data => {
     test = data;
     // setupBubbles()
   })
-  await d3.json("http://localhost:5000/data").then(newData => {
+  await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
     // Selections
     const dateDisplay = d3.select("#timerOptions p"),
       sliderPin = d3.select("#timerOptions div span"),
@@ -115,14 +115,14 @@ async function jesse() {
       .attr("height", bubbleContainerHeight)
       .attr("width", bubbleContainerWidth)
       .append("g")
-      .attr("transform", `translate(0,0)`);
+      .attr("transform", `translate(0,100)`);
     // make sure the .domain is bigger or equal to the average value
     // mess with these values to change the shapes
     var radiusScale = d3
       .scaleSqrt()
       .domain([11829, 65040749])
       // change this to change circle size
-      .range([0, 100]);
+      .range([2, 200]);
 
     // Simulate force so stuff goes to the center
     var forceXCombine = d3
@@ -146,7 +146,6 @@ async function jesse() {
       .force("x", forceXCombine)
       .force("y", forceY)
       .force("collide", d3.forceCollide(d => radiusScale(d[Object.keys(d)[0]][0].total)));
-
 
 
     var circles = svg
@@ -178,8 +177,24 @@ async function jesse() {
 
       circlesName
         .attr("dx", d => d.x)
-        .attr("dy", d => d.y - 15);
+        .attr("dy", d => d.y);
     }
+
+    d3.select("#global").on("click", click => {
+      sim
+      .force("x", forceXSplit
+      .strength(0.05))
+      .alphaTarget(0.5)
+      .restart()
+    });
+
+    d3.select("#combine").on("click", click => {
+      sim
+      .force("x", forceXCombine
+      .strength(0.05))
+      .alphaTarget(0.5)
+      .restart()
+    });
 
 }
 
