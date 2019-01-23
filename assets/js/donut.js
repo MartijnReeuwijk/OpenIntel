@@ -102,7 +102,7 @@ async function jesse() {
         .text(d => d)
     }
 
-    var bubbleContainerWidth = 900,
+    var bubbleContainerWidth = 800,
       bubbleContainerHeight = 500;
 
     var timeline = d3.timeParse('%Y-%m-%d')
@@ -114,6 +114,7 @@ async function jesse() {
       .append("svg")
       .attr("height", bubbleContainerHeight)
       .attr("width", bubbleContainerWidth)
+      .style("background-color", "transparent")
       .append("g")
       .attr("transform", `translate(0,100)`);
     // make sure the .domain is bigger or equal to the average value
