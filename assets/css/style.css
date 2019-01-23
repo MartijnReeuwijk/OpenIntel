@@ -138,16 +138,18 @@ aside p {
 section.visualization {
   display : flex;
   margin  : 10px 0;
-}
-section.visualization:nth-of-type(even) {
-background-color: #282828;
+  padding : 50px;
 }
 
-.logo{
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
+section.visualization:nth-of-type(even) {
+  background-color : #282828;
+}
+
+.logo {
+  z-index  : 10;
+  position : fixed;
+  top      : 10px;
+  left     : 10px;
 }
 
 .pieChartsHeight {
@@ -155,7 +157,7 @@ background-color: #282828;
 }
 
 .visual-work {
-  width      : 65%;
+  width : 65%;
   /* background : #303030; */
 }
 
@@ -184,11 +186,12 @@ section.team {
 .team article p {
   text-align : center;
 }
+
 .visualTitelText {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
+  width      : 100%;
+  max-width  : 600px;
+  margin     : 0 auto;
+  text-align : center;
 }
 
 /* Jesse css idk what it does */
@@ -196,27 +199,68 @@ section.team {
 /* Disable Text Selecting */
 
 body {}
-/*
-#timerOptions button.playing span:first-of-type,
-#timerOptions button span:last-of-type {
-  display : none;
-}
 
-#timerOptions button.playing span:last-of-type {
-  display : initial;
-} */
+/**
+ * #timerOptions button.playing span:first-of-type, #timerOptions button
+ * span:last-of-type { display : none; }
+ *
+ * #timerOptions button.playing span:last-of-type { display : initial; }
+ */
 
-/* #timerOptions div span {
-  z-index       : 2;
-  display       : block;
-  position      : absolute;
-  bottom        : -.4rem;
-  width         : 1rem;
-  height        : 1rem;
-  border-radius : 100%;
-  background    : black;
-  transition    : left .075s cubic-bezier(.7,1.39,.7,1.4);
-  /* bottom: -50%; */
+/**
+ * #timerOptions div span { z-index
+ *
+ *
+ *
+ *
+ *
+ * : 2; display
+ *
+ *
+ *
+ *
+ *
+ * : block; position
+ *
+ *
+ *
+ *
+ *
+ * : absolute; bottom
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : -.4rem; width
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : 1rem; height
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : 1rem; border-radius : 100%; background
+ *
+ *
+ *
+ * : black; transition
+ *
+ *
+ *
+ * : left .075s cubic-bezier(.7,1.39,.7,1.4); /* bottom: -50%;
+ */
+
 /* } */
 
 path {
@@ -230,257 +274,257 @@ svg {
                left .5s ease .1s;
 }
 
-      /* Disable Text Selecting */
-      body {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+/* Disable Text Selecting */
 
+body {}
 
-      path {
-        opacity: 1;
-        transition: opacity .15s ease;
-      }
+path {
+  opacity    : 1;
+  transition : opacity .15s ease;
+}
 
-      svg {
-        transition: all .5s ease, left .5s ease .1s;
-      }
+svg {
+  transition : all .5s ease,
+               left .5s ease .1s;
+}
 
-      #pieCharts {
-        /* height: 500px; */
-        /* border: solid 3px green; */
-        /* position: relative; */
-        background: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+#pieCharts {
+  /* height: 500px; */
+  /* border: solid 3px green; */
+  /* position: relative; */
+  display         : flex;
+  background      : black;
+  flex-direction  : column;
+  justify-content : flex-end;
+}
 
-      }
+#pieCharts header {
+  /* background-color: #303030; */
+  height : 350px;
+}
 
-      #pieCharts header {
-        /* background-color: #303030; */
-        height: 350px;
-      }
+#pieCharts section {
+  /* background: #303030; */
+  position : relative;
+  padding  : 1rem 1rem 0 1rem;
+}
 
-      #pieCharts section {
-        /* background: #303030; */
-        position: relative;
-        padding: 1rem 1rem 0 1rem
+#pieCharts section svg {
+  /* margin: .5rem 1rem; */
+  margin-right  : 1rem;
+  margin-bottom : 1rem;
+}
 
-      }
+#pieCharts svg.mainPie {
+  /* position: absolute; */
+  /* top: 100%; */
+  left             : 1rem;
+  transform        : scale(3);
+  transform-origin : bottom left;
+}
 
-      #pieCharts section svg {
-        /* margin: .5rem 1rem; */
-        margin-right: 1rem;
-        margin-bottom: 1rem;
-      }
-      #pieCharts svg.mainPie {
-        /* position: absolute; */
-        /* top: 100%; */
-        left: 1rem;
-        transform-origin: bottom left;
-        transform: scale(3);
-      }
+#pieCharts svg text.pieCountryLabel {
+  /* .attr("text-anchor", "middle") */
+  text-anchor: middle;
 
-      #pieCharts svg text.pieCountryLabel {
-        text-anchor: middle;
-      }
-      #pieCharts svg:not(.mainPie) g text:not(.pieCountryLabel) {
-        transform: scale(0);
-      }
-      #pieCharts svg.mainPie g text:not(.pieCountryLabel) {
-        transform: scale(1);
-      }
+}
 
-      .toolTip {
-        width: 100px;
-        height: auto;
-        background: black;
-      }
+#pieCharts svg:not(.mainPie) g text:not(.pieCountryLabel) {
+  transform : scale(0);
+}
 
-      .animationStarted {
-        animation-name: grow;
-        animation-duration: .2s;
-        animation-timing-function: ease;
-        animation-fill-mode: forwards;
-      }
+#pieCharts svg.mainPie g text:not(.pieCountryLabel) {
+  transform : scale(1);
+}
 
-      @keyframes grow {
-        0% {
-          transform: scale(1) translateY(0);
-        }
-        50% {
-          transform: scale(1.1) translateY(-10%);
-        }
-        100% {
-          transform: scale(1) translateY(0);
-        }
-      }
+.toolTip {
+  width      : 100px;
+  height     : auto;
+  background : black;
+}
 
-      .centerIntro {
-        display  : flex;
-        position : relative;
-        height   : 50px;
-      }
+.animationStarted {
+  animation-duration        : .2s;
+  animation-fill-mode       : forwards;
+  animation-name            : grow;
+  animation-timing-function : ease;
+}
 
-      .Iam {
-        margin : 0 auto;
-        color  : white;
-        /* font-weight: bolder; */
-        font   : bolder 40px/50px Montserrat, sans-serif;
-      }
+@keyframes grow {
+  0% {
+    transform : scale(1) translateY(0);
+  }
 
-      .Iam p {
-        height       : 50px;
-        float        : left;
-        margin-right : 0.3em;
-      }
+  50% {
+    transform : scale(1.1) translateY(-10%);
+  }
 
-      .Iam b {
-        position : relative;
-        top      : 40px;
-        height   : 50px;
-        float    : left;
-        overflow : hidden;
-      }
+  100% {
+    transform : scale(1) translateY(0);
+  }
+}
 
-      .Iam .innerIam {
-        display                           : inline-block;
-        position                          : relative;
-        top                               : 0;
-        left                              : 0;
-        color                             : #627AF5;
-        white-space                       : nowrap;
-        -moz-animation                    : move 5s;
-        -ms-animation                     : move 5s;
-        -o-animation                      : move 5s;
-        -webkit-animation                 : move 5s;
-        animation                         : move 5s;
-        -moz-animation-delay              : 1s;
-        -ms-animation-delay               : 1s;
-        -o-animation-delay                : 1s;
-        -webkit-animation-delay           : 1s;
-        animation-delay                   : 1s;
-        -moz-animation-iteration-count    : infinite;
-        -ms-animation-iteration-count     : infinite;
-        -o-animation-iteration-count      : infinite;
-        -webkit-animation-iteration-count : infinite;
-        animation-iteration-count         : infinite;
-        /* animation */
-        /* animation-iteration-count */
-        /* animation-delay */
-      }
+.centerIntro {
+  display  : flex;
+  position : relative;
+  height   : 50px;
+}
 
-      @keyframes move {
-        0% {
-          top : 0px;
-        }
+.Iam {
+  margin : 0 auto;
+  color  : white;
+  font   : bolder 40px/50px Montserrat,
+           sans-serif;
+  /* font-weight: bolder; */
+}
 
-        20% {
-          top : -50px;
-        }
+.Iam p {
+  height       : 50px;
+  float        : left;
+  margin-right : 0.3em;
+}
 
-        40% {
-          top : -100px;
-        }
+.Iam b {
+  position : relative;
+  top      : 40px;
+  height   : 50px;
+  float    : left;
+  overflow : hidden;
+}
 
-        60% {
-          top : -150px;
-        }
+.Iam .innerIam {
+  display                           : inline-block;
+  position                          : relative;
+  top                               : 0;
+  left                              : 0;
+  color                             : #627AF5;
+  white-space                       : nowrap;
+  -moz-animation                    : move 5s;
+  -ms-animation                     : move 5s;
+  -o-animation                      : move 5s;
+  -webkit-animation                 : move 5s;
+  animation                         : move 5s;
+  -moz-animation-delay              : 1s;
+  -ms-animation-delay               : 1s;
+  -o-animation-delay                : 1s;
+  -webkit-animation-delay           : 1s;
+  animation-delay                   : 1s;
+  -moz-animation-iteration-count    : infinite;
+  -ms-animation-iteration-count     : infinite;
+  -o-animation-iteration-count      : infinite;
+  -webkit-animation-iteration-count : infinite;
+  animation-iteration-count         : infinite;
+  /* animation */
+  /* animation-iteration-count */
+  /* animation-delay */
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @-webkit-keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@-webkit-keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @-moz-keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@-moz-keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @-o-keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@-o-keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@keyframes move {
+  0% {
+    top : 0px;
+  }
+
+  20% {
+    top : -50px;
+  }
+
+  40% {
+    top : -100px;
+  }
+
+  60% {
+    top : -150px;
+  }
+
+  80% {
+    top : -200px;
+  }
+}

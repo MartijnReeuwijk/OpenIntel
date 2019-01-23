@@ -326,11 +326,12 @@ setupBubbles()
       d3.select(el[i].parentElement)
         .append("text")
         .attr("fill", "white")
+        .attr("text-anchor", "middle")
         .attr("data-pathLabel", d.data.tld)
         .attr("x", arc.centroid(d)[0])
         .attr("y", arc.centroid(d)[1])
         .style("font-size", "5px")
-        .text(d.data.tld)
+        .text("." + d.data.tld)
         .raise();
     }
 
