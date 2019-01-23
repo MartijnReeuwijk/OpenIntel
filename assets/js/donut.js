@@ -6,6 +6,7 @@ async function jesse() {
   })
   await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
     // Selections
+    console.log(newData)
     const dateDisplay = d3.select("#timerOptions p"),
       sliderPin = d3.select("#timerOptions div span"),
       sliderBar = d3.select("#timerOptions div"),
@@ -228,15 +229,14 @@ setupBubbles()
 
 
       pies.each((d, i, el) => {
-        // console.log("foaiwje", d)
         let country = Object.keys(d),
           data = d[country][0].all;
 
-        d3.select(el[i]).selectAll("g")
+        d3.select(el[i]).selectAll("path")
           .data(pie(data))
           .enter()
-          .append("g")
           .append("path")
+          .attr("data-interact", "toolTip")
           .attr("class", d => d.data.tld)
           .attr("fill", d => colorGen(d.data.tld))
           .transition()
@@ -301,17 +301,7 @@ setupBubbles()
         }
       }
 
-      function labelPaths(d, i, el) {
 
-        console.log(d)
-        d3.select(el[i].parentElement)
-          .append("text")
-          .attr("fill", "white")
-          .attr("x", arc.centroid(d)[0])
-          .attr("y", arc.centroid(d)[1])
-          .style("font-size", "5px")
-          .text(d.data.tld);
-      }
 
         // .style("top", 0)
 
@@ -330,6 +320,19 @@ setupBubbles()
     }
 
     setup()
+
+    function labelPaths(d, i, el) {
+
+      d3.select(el[i].parentElement)
+        .append("text")
+        .attr("fill", "white")
+        .attr("data-pathLabel", d.data.tld)
+        .attr("x", arc.centroid(d)[0])
+        .attr("y", arc.centroid(d)[1])
+        .style("font-size", "5px")
+        .text(d.data.tld)
+        .raise();
+    }
 
     function convertToAbsolute(d, i, el) {
         // console.log(el[i])
@@ -417,7 +420,7 @@ setupBubbles()
         if (index >= chronologicalData.length - 1) {
           index = 0;
         }
-        
+
           if (!playBtn.classList.contains("playing")) {
 
             timer = setInterval(() => {
@@ -510,7 +513,9 @@ setupBubbles()
       d3.selectAll("[data-interact=toolTip]")
         .on("mouseover", (d, i, el) => {
 
-          // console.log(d, i, el)
+          let hoverClass = d3.select(el[i]).attr("class")
+
+
           let container = d3.select("body")
             .append("div")
             .classed("toolTip", true)
@@ -558,6 +563,7 @@ setupBubbles()
 
     toolTip()
 
+
     function updatePie(data, svg) {
       let pieSvg = d3.select(svg).select("g");
 
@@ -565,9 +571,10 @@ setupBubbles()
         .data(pie(data.all))
         .enter()
         .append("path")
-        .attr("class", d => d.data.tld)
+        .attr("data-interact", "toolTip")
+        .attr("class", (...arg) => console.log(arg))
         .attr("d", arc)
-        .attr("fill", d => colorGen(d.data.tld));
+        .attr("fill", d => colorGen(d.data.tld))
 
       pieSvg.selectAll("path")
         .data(pie(data.all))
@@ -577,11 +584,18 @@ setupBubbles()
       pieSvg.selectAll("path")
         .data(pie(data.all))
         .transition()
+        .attr("class", d => d.data.tld)
         .attrTween("d", arcTween);
+
+      pieSvg.selectAll("text:not(.pieCountryLabel)")
+        .remove()
+
+      pieSvg.selectAll("path")
+        .each(labelPaths)
+
     }
 
     function highlightCountry(d, condition) {
-
       let hoverArc = d3.arc()
         .innerRadius(radius - 30)
         .outerRadius(radius - 5)
@@ -592,6 +606,7 @@ setupBubbles()
       if (country && d3.event.target.nodeName === "path") {
 
         let notMatchingCountries = d3.selectAll(`#pieCharts g path:not([class="${country}"])`)
+        let notMatchingLabels = d3.selectAll(`#pieCharts g text:not([data-pathLabel="${country}"]):not(.pieCountryLabel)`)
 
         if (condition) {
           notMatchingCountries
@@ -599,11 +614,17 @@ setupBubbles()
             .transition()
             .attr("d", hoverArc);
 
+          notMatchingLabels
+            .style("opacity", "0")
+
         } else {
           notMatchingCountries
             .style("opacity", "1")
             .transition()
             .attr("d", arc);
+
+          notMatchingLabels
+            .style("opacity", "1")
         }
       }
     }

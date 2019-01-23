@@ -370,6 +370,7 @@ svg {
         transform: scale(0);
       }
       #pieCharts svg.mainPie g text:not(.pieCountryLabel) {
+        transition: opacity .2s ease;
         transform: scale(1);
       }
 
