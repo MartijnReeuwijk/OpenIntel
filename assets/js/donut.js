@@ -113,7 +113,7 @@ async function jesse() {
       .append("svg")
       .attr("height", bubbleContainerHeight)
       .attr("width", bubbleContainerWidth)
-      .style("background-color", "#303030")
+      .style("background-color", "transparent")
       .append("g")
       .attr("transform", `translate(0,100)`);
     // make sure the .domain is bigger or equal to the average value
@@ -214,7 +214,7 @@ setupBubbles()
         .attr("height", height)
         // .each(convertToAbsolute)
         // .style("position", "absolute")
-        .style("background-color", "#303030")
+        .style("background-color", "transparent")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
