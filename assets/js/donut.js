@@ -7,8 +7,9 @@ async function jesse() {
   await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
     // Selections
     const dateDisplay = d3.select("#timerOptions p"),
-      sliderPin = d3.select("#timerOptions footer span"),
-      sliderBar = d3.select("#timerOptions footer");
+      sliderPin = d3.select("#timerOptions div span"),
+      sliderBar = d3.select("#timerOptions div"),
+      timerBtn = d3.select("#timerOptions button");
 
     // Constant Values
     const width = 100,
@@ -212,9 +213,12 @@ setupBubbles()
         .attr("class", d => Object.keys(d), true)
         .attr("width", width)
         .attr("height", height)
+<<<<<<< HEAD
         // .each(convertToAbsolute)
         // .style("position", "absolute")
         .style("background-color", "transparent")
+=======
+>>>>>>> 6134901e994a78177a8ea3bd369a805a8e0a57cd
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -222,9 +226,9 @@ setupBubbles()
         d3.select(el[i])
           .append("text")
           .attr("fill", "white")
-          .text(Object.keys(d));
+          .text(Object.keys(d))
+          .classed("pieCountryLabel", true)
         d3.select(el[i].parentElement)
-          // .classed(Object.keys(d), true)
           .attr("data-firstDate", d[Object.keys(d)][0].date)
       })
 
@@ -256,15 +260,17 @@ setupBubbles()
           })
       })
 
-      let allPaths = d3.selectAll("#pieCharts svg path"),
+      let allPaths = d3.selectAll("#pieCharts svg path");
         count = 0;
+
+        allPaths.each(labelPaths)
 
       d3.select("#pieCharts section svg.nl")
         .style("position", "absolute")
         .style("top", `-${pieTotalSize}px`)
         .classed("mainPie", true)
         // .call(labelPaths)
-        .selectAll("g")
+        // .selectAll("path")
         // .each((d, i, el) => {
         //   d3.select(el[i].parentElement)
         //   .append("text")
@@ -274,7 +280,7 @@ setupBubbles()
         //   .style("font-size", "5px")
         //   .text(d.data.tld);
         // })
-        .each(labelPaths)
+
         // d3.select("#pieCharts section").style("height", "-webkit-fill-available")
 
       function loadingCompleted() {
@@ -284,11 +290,13 @@ setupBubbles()
           setTimeout(() => {
             d3.selectAll("#pieCharts svg")
               // .style("position", "absolute")
+
               .each(convertToAbsolute)
               .style("position", "absolute")
               .on("mouseover", d => highlightCountry(d, true))
               .on("mouseout", d => highlightCountry(d, false))
               .on("click", switchMainPie)
+
               // .style("position", "absolute")
 
 
@@ -300,7 +308,9 @@ setupBubbles()
       }
 
       function labelPaths(d, i, el) {
-        d3.select(el[i])
+
+        console.log(d)
+        d3.select(el[i].parentElement)
           .append("text")
           .attr("fill", "white")
           .attr("x", arc.centroid(d)[0])
@@ -442,7 +452,7 @@ setupBubbles()
 
 
 
-      d3.select("#timerOptions button").on("click", playTimer);
+      timerBtn.on("click", playTimer);
 
       sliderPin.on("mousedown", () => {
 
@@ -555,7 +565,6 @@ setupBubbles()
     toolTip()
 
     function updatePie(data, svg) {
-      // console.log(svg)
       let pieSvg = d3.select(svg).select("g");
 
       pieSvg.selectAll("path")
