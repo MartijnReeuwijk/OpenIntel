@@ -37,11 +37,12 @@ async function jesse() {
       }
     }))
 
-    let allCountries = newData.map(d => Object.keys(d)[0]);
+    newData.forEach(d => {
+      if (!allTlds.includes(Object.keys(d)[0])) {
+        allTlds.push(Object.keys(d)[0])
+      }
+    });
 
-    const countryColorGen = d3.scaleOrdinal()
-      .domain(allCountries)
-      .range(d3.schemePaired)
 
     const colorGen = d3.scaleOrdinal()
       .domain(allTlds)
@@ -76,20 +77,6 @@ async function jesse() {
     }
 
     function setupLegend() {
-      let countriesLegend = d3.select("#countriesLegend").selectAll("li")
-        .data(allCountries)
-        .enter()
-        .append("li");
-
-      countriesLegend
-        .append("span")
-        .style("background", d => countryColorGen(d))
-
-      countriesLegend
-        .append("p")
-        .text(d => d)
-
-
       let tldsLegend = d3.select("#tldsLegend").selectAll("li")
         .data(allTlds)
         .enter()
@@ -166,7 +153,7 @@ async function jesse() {
       .attr("data-interact", "toolTip")
       .attr("class", d => d[Object.keys(d)][0].country)
       .attr("r", d => radiusScale(d[Object.keys(d)][0].total))
-      .style("fill", d => countryColorGen(Object.keys(d)))
+      .style("fill", d => colorGen(Object.keys(d)))
 
     var circlesName = svg
       .selectAll("g")
@@ -177,10 +164,6 @@ async function jesse() {
       .style("pointer-events", "none")
       .text(d => `${d[Object.keys(d)[0]][0].country}`);
 
-      // test.forEach(d => {
-      //   console.log(d[Object.keys(d)][0])
-      //   sim.nodes(d[Object.keys(d)][0]).on("tick", ticked);
-      // })
     sim.nodes(test).on("tick", ticked);
 
     function ticked() {
@@ -212,7 +195,6 @@ async function jesse() {
 }
 
 setupBubbles()
-
 
 
     function setup() {
@@ -522,8 +504,11 @@ setupBubbles()
     function toolTip() {
       d3.selectAll("[data-interact=toolTip]")
         .on("mouseover", (d, i, el) => {
+          console.log(d, i, el)
 
           let hoverClass = d3.select(el[i]).attr("class")
+
+
 
 
           let container = d3.select("body")
@@ -544,6 +529,52 @@ setupBubbles()
 
           })
 
+          if (d3.event.currentTarget.nodeName == "circle") {
+            let bubbleData = newData.find(dx => Object.keys(dx)[0] == hoverClass)
+                bubbleData = bubbleData[Object.keys(bubbleData)][0];
+
+            let topThree = [];
+
+            for (let j = 0; j < 3; j++) {
+              topThree.push(bubbleData.values[j]);
+            }
+            console.log(bubbleData)
+
+            container.append("p").html(`<strong>TLD :</strong> .${bubbleData.country}`);
+            container.append("p").html(`<strong>Datum :</strong> ${formatTime(new Date(bubbleData.date))}`);
+            container.append("p").html(`<strong>Total :</strong> ${bubbleData.total}`);
+
+            container.append("h3").text("Top drie")
+            let topThreeContainer = container.append("ol")
+            topThree.forEach(t3 => {
+              console.log(t3)
+              topThreeContainer.append("li")
+                .text(t3.name)
+            })
+
+
+            // for (let key in bubbleData) {
+            //   if (["date", "total", "country"].includes(key)) {
+            //   let val;
+            //
+            //   if (key == "tld") {
+            //
+            //     val = `.${bubbleData[key]}`;
+            //     key = key.toUpperCase();
+            //
+            //   } else if (key == "") {
+            //
+            //   } else {
+            //
+            //     val = bubbleData[key];
+            //     key = key.replace(key[0], key[0].toUpperCase());
+            //   }
+            //
+            //   container.append("p").html(`<strong>${key} :</strong> ${val}`)
+            // }
+            // }
+          }
+
           for (let key in d.data) {
             if (key !== "cnt") {
 
@@ -559,7 +590,7 @@ setupBubbles()
                 key = key.replace(key[0], key[0].toUpperCase());
               }
 
-              container.append("p").text(`${key} : ${val}`)
+              container.append("p").html(`<strong>${key} :</strong> ${val}`)
             }
           }
 
