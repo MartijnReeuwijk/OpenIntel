@@ -175,7 +175,7 @@ async function jesse() {
       .attr("text-anchor", "middle")
       .style("font-weight", "bold")
       .style("pointer-events", "none")
-      .text(d => `.${d[Object.keys(d)[0]][0].country}`);
+      .text(d => `${d[Object.keys(d)[0]][0].country}`);
 
       // test.forEach(d => {
       //   console.log(d[Object.keys(d)][0])
@@ -234,7 +234,7 @@ setupBubbles()
         d3.select(el[i])
           .append("text")
           .attr("fill", "white")
-          .text(Object.keys(d))
+          .text("." + Object.keys(d))
           .classed("pieCountryLabel", true)
         d3.select(el[i].parentElement)
           .attr("data-firstDate", d[Object.keys(d)][0].date)
@@ -343,7 +343,7 @@ setupBubbles()
         .attr("x", arc.centroid(d)[0])
         .attr("y", arc.centroid(d)[1])
         .style("font-size", "5px")
-        .text(d.data.tld)
+        .text("." + d.data.tld)
         .raise();
     }
 

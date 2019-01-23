@@ -91,19 +91,18 @@ For the visualization we used four different types of charts and designs. Throug
 
 Here we went for a bubble chart to show the massive size of .com in comparison to other TLD's.
 In this visualization you can clearly see that .nl and .ru are way larger in size then any other country based TLD.
-![Center](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
-![Split](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
+![Center](https://github.com/MartijnReeuwijk/OpenIntel/blob/master/assets/images/bubbel.png)
 
 Here we show to where the TLD are hosted/registered.
 We show how foainstace .nl is split
-![Donut](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
+![Donut](https://github.com/MartijnReeuwijk/OpenIntel/blob/master/assets/images/piechart.png)
 
 In the Sunburst chart we show you what a country makes based on the sales on the national TLD's.
-![Sunburst](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
+![Sunburst](https://github.com/MartijnReeuwijk/OpenIntel/blob/master/assets/images/visual-youp.svg)
 
 In this population chart we show how the population is divided by the population.
 Here we show if the population was divided the same way as an countries TLD's
-![Population](https://github.com/MartijnReeuwijk/frontend-data/blob/master/assets/img/drawingone.jpg)
+![Population](https://github.com/MartijnReeuwijk/OpenIntel/blob/master/assets/images/chart_inwoners.svg)
 
 ## Authors
 

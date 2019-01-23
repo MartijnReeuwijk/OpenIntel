@@ -31,8 +31,17 @@ html *:before {
 }
 
 /* FONTS */
+.header{
+  background: -moz-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* ff3.6+ */
+background: -webkit-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* ie10+ */
+background: linear-gradient(180deg, rgba(39	,48	,98,1) 0%, rgba(0,0,0, .1) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#627AF5',GradientType=1 ); /* ie6-9 */
+}
 
 body {
+  margin-top: -20px;
   max-width        : 1500px;
   color            : #7a7a7a;
   background-color : #0b0b0b;
@@ -97,7 +106,7 @@ article.intro:after {
 
 h1 {
   display         : flex;
-  padding         : 2em 0;
+  padding         : 2em 0 0 0;
   color           : #627AF5;
   font-size       : 2em;
   justify-content : center;
@@ -138,13 +147,18 @@ aside p {
 section.visualization {
   display : flex;
   margin  : 10px 0;
+  padding : 50px;
 }
 
-.logo{
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
+section.visualization:nth-of-type(even) {
+  background-color : #282828;
+}
+
+.logo {
+  z-index  : 10;
+  position : fixed;
+  top      : 10px;
+  left     : 10px;
 }
 
 .pieChartsHeight {
@@ -152,8 +166,8 @@ section.visualization {
 }
 
 .visual-work {
-  width      : 65%;
-  background : #303030;
+  width : 65%;
+  /* background : #303030; */
 }
 
 .summary {
@@ -182,32 +196,80 @@ section.team {
   text-align : center;
 }
 
+.visualTitelText {
+  width      : 100%;
+  max-width  : 600px;
+  margin     : 0 auto;
+  text-align : center;
+}
+
 /* Jesse css idk what it does */
 
 /* Disable Text Selecting */
 
 body {}
-/*
-#timerOptions button.playing span:first-of-type,
-#timerOptions button span:last-of-type {
-  display : none;
-}
 
-#timerOptions button.playing span:last-of-type {
-  display : initial;
-} */
+/**
+ * #timerOptions button.playing span:first-of-type, #timerOptions button
+ * span:last-of-type { display : none; }
+ *
+ * #timerOptions button.playing span:last-of-type { display : initial; }
+ */
 
-/* #timerOptions div span {
-  z-index       : 2;
-  display       : block;
-  position      : absolute;
-  bottom        : -.4rem;
-  width         : 1rem;
-  height        : 1rem;
-  border-radius : 100%;
-  background    : black;
-  transition    : left .075s cubic-bezier(.7,1.39,.7,1.4);
-  /* bottom: -50%; */
+/**
+ * #timerOptions div span { z-index
+ *
+ *
+ *
+ *
+ *
+ * : 2; display
+ *
+ *
+ *
+ *
+ *
+ * : block; position
+ *
+ *
+ *
+ *
+ *
+ * : absolute; bottom
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : -.4rem; width
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : 1rem; height
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : 1rem; border-radius : 100%; background
+ *
+ *
+ *
+ * : black; transition
+ *
+ *
+ *
+ * : left .075s cubic-bezier(.7,1.39,.7,1.4); /* bottom: -50%;
+ */
+
 /* } */
 
 path {
@@ -221,344 +283,257 @@ svg {
                left .5s ease .1s;
 }
 
-      /* Disable Text Selecting */
-      body {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+/* Disable Text Selecting */
 
+body {}
 
+path {
+  opacity    : 1;
+  transition : opacity .15s ease;
+}
 
-      #timerOptions {
-        background: white;
-        width: 80vw;
-        height: 5rem;
-        position: fixed;
-        bottom: 1rem;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: .5rem 1rem;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-      }
+svg {
+  transition : all .5s ease,
+               left .5s ease .1s;
+}
 
-      #timerOptions p {
-        position: relative;
-        height: 1rem;
-        width: 100%;
-        color: green;
-        text-align: center;
-        margin: 0;
-        margin-bottom: .5rem;
-        font-weight: bold;
-        color: black;
-      }
+#pieCharts {
+  /* height: 500px; */
+  /* border: solid 3px green; */
+  /* position: relative; */
+  display         : flex;
+  /* background      : black; */
+  flex-direction  : column;
+  justify-content : flex-end;
+}
 
-      #timerOptions button {
-        height: 1.5rem;
-        width: 1.5rem;
-        margin: 0;
-        margin-top: .5rem;
-        position: relative;
-        border: none;
-        color: black;
-      }
+#pieCharts header {
+  /* background-color: #303030; */
+  height : 350px;
+}
 
-      #timerOptions button span {
-        line-height: 0;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        width: 100%;
-        text-align: center;
-        margin: 0 auto;
-        transition: transform .3s ease;
-      }
+#pieCharts section {
+  /* background: #303030; */
+  position : relative;
+  padding  : 1rem 1rem 0 1rem;
+}
 
-      #timerOptions > div {
-        position: relative;
-        top: 0;
-        bottom: 0;
-        margin: auto 0;
-        height: .3rem;
-        width: 100%;
-        border-radius: 100px;
-        background: grey;
-      }
+#pieCharts section svg {
+  /* margin: .5rem 1rem; */
+  margin-right  : 1rem;
+  margin-bottom : 1rem;
+}
 
-      #timerOptions > div span {
-        width: 1rem;
-        height: 1rem;
-        border-radius: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin: auto 0;
-        background: black;
-        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
-      }
+#pieCharts svg.mainPie {
+  /* position: absolute; */
+  /* top: 100%; */
+  left             : 1rem;
+  transform        : scale(3);
+  transform-origin : bottom left;
+}
 
+#pieCharts svg text.pieCountryLabel {
+  /* .attr("text-anchor", "middle") */
+  text-anchor: middle;
 
-      #timerOptions button span:last-of-type,
-      #timerOptions button.playing span:first-of-type {
-        /* display: none; */
-        transform: scale(0)
-      }
-      #timerOptions button.playing span:last-of-type {
-        /* display: initial; */
-        transform: scale(1)
-      }
+}
 
+#pieCharts svg:not(.mainPie) g text:not(.pieCountryLabel) {
+  transform : scale(0);
+}
 
-      path {
-        opacity: 1;
-        transition: opacity .15s ease;
-      }
+#pieCharts svg.mainPie g text:not(.pieCountryLabel) {
+  transform : scale(1);
+}
 
-      svg {
-        transition: all .5s ease, left .5s ease .1s;
-      }
+.toolTip {
+  width      : 100px;
+  height     : auto;
+  background : black;
+}
 
-      #pieCharts {
-        /* height: 500px; */
-        /* border: solid 3px green; */
-        /* position: relative; */
-        background: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+.animationStarted {
+  animation-duration        : .2s;
+  animation-fill-mode       : forwards;
+  animation-name            : grow;
+  animation-timing-function : ease;
+}
 
-      }
+@keyframes grow {
+  0% {
+    transform : scale(1) translateY(0);
+  }
 
-      #pieCharts header {
-        background-color: #303030;
-        height: 350px;
-      }
+  50% {
+    transform : scale(1.1) translateY(-10%);
+  }
 
-      #pieCharts section {
-        background: #303030;
-        position: relative;
-        padding: 1rem 1rem 0 1rem
+  100% {
+    transform : scale(1) translateY(0);
+  }
+}
 
-      }
+.centerIntro {
+  display  : flex;
+  position : relative;
+  height   : 50px;
+}
 
-      #pieCharts section svg {
-        /* margin: .5rem 1rem; */
-        margin-right: 1rem;
-        margin-bottom: 1rem;
-      }
-      #pieCharts svg.mainPie {
-        /* position: absolute; */
-        /* top: 100%; */
-        left: 1rem;
-        transform-origin: bottom left;
-        transform: scale(3);
-      }
+.Iam {
+  margin : 0 auto;
+  color  : white;
+  font   : bolder 40px/50px Montserrat,
+           sans-serif;
+  /* font-weight: bolder; */
+}
 
-      #pieCharts svg text.pieCountryLabel {
-        text-anchor: middle;
-      }
-      #pieCharts svg:not(.mainPie) g text:not(.pieCountryLabel) {
-        transform: scale(0);
-      }
-      #pieCharts svg.mainPie g text:not(.pieCountryLabel) {
-        transition: opacity .2s ease;
-        transform: scale(1);
-      }
+.Iam p {
+  height       : 50px;
+  float        : left;
+  margin-right : 0.3em;
+}
 
-      .toolTip {
-        width: 100px;
-        height: auto;
-        background: black;
-      }
+.Iam b {
+  position : relative;
+  top      : 40px;
+  height   : 50px;
+  float    : left;
+  overflow : hidden;
+}
 
-      .animationStarted {
-        animation-name: grow;
-        animation-duration: .2s;
-        animation-timing-function: ease;
-        animation-fill-mode: forwards;
-      }
+.Iam .innerIam {
+  display                           : inline-block;
+  position                          : relative;
+  top                               : 0;
+  left                              : 0;
+  color                             : #627AF5;
+  white-space                       : nowrap;
+  -moz-animation                    : move 5s;
+  -ms-animation                     : move 5s;
+  -o-animation                      : move 5s;
+  -webkit-animation                 : move 5s;
+  animation                         : move 5s;
+  -moz-animation-delay              : 1s;
+  -ms-animation-delay               : 1s;
+  -o-animation-delay                : 1s;
+  -webkit-animation-delay           : 1s;
+  animation-delay                   : 1s;
+  -moz-animation-iteration-count    : infinite;
+  -ms-animation-iteration-count     : infinite;
+  -o-animation-iteration-count      : infinite;
+  -webkit-animation-iteration-count : infinite;
+  animation-iteration-count         : infinite;
+  /* animation */
+  /* animation-iteration-count */
+  /* animation-delay */
+}
 
-      @keyframes grow {
-        0% {
-          transform: scale(1) translateY(0);
-        }
-        50% {
-          transform: scale(1.1) translateY(-10%);
-        }
-        100% {
-          transform: scale(1) translateY(0);
-        }
-      }
+@keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      .centerIntro {
-        display  : flex;
-        position : relative;
-        height   : 50px;
-      }
+  20% {
+    top : -50px;
+  }
 
-      .Iam {
-        margin : 0 auto;
-        color  : white;
-        /* font-weight: bolder; */
-        font   : bolder 40px/50px Montserrat, sans-serif;
-      }
+  40% {
+    top : -100px;
+  }
 
-      .Iam p {
-        height       : 50px;
-        float        : left;
-        margin-right : 0.3em;
-      }
+  60% {
+    top : -150px;
+  }
 
-      .Iam b {
-        position : relative;
-        top      : 40px;
-        height   : 50px;
-        float    : left;
-        overflow : hidden;
-      }
+  80% {
+    top : -200px;
+  }
+}
 
-      .Iam .innerIam {
-        display                           : inline-block;
-        position                          : relative;
-        top                               : 0;
-        left                              : 0;
-        color                             : #627AF5;
-        white-space                       : nowrap;
-        -moz-animation                    : move 5s;
-        -ms-animation                     : move 5s;
-        -o-animation                      : move 5s;
-        -webkit-animation                 : move 5s;
-        animation                         : move 5s;
-        -moz-animation-delay              : 1s;
-        -ms-animation-delay               : 1s;
-        -o-animation-delay                : 1s;
-        -webkit-animation-delay           : 1s;
-        animation-delay                   : 1s;
-        -moz-animation-iteration-count    : infinite;
-        -ms-animation-iteration-count     : infinite;
-        -o-animation-iteration-count      : infinite;
-        -webkit-animation-iteration-count : infinite;
-        animation-iteration-count         : infinite;
-        /* animation */
-        /* animation-iteration-count */
-        /* animation-delay */
-      }
+@-webkit-keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@-moz-keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @-webkit-keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@-o-keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @-moz-keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
+  80% {
+    top : -200px;
+  }
+}
 
-        80% {
-          top : -200px;
-        }
-      }
+@keyframes move {
+  0% {
+    top : 0px;
+  }
 
-      @-o-keyframes move {
-        0% {
-          top : 0px;
-        }
+  20% {
+    top : -50px;
+  }
 
-        20% {
-          top : -50px;
-        }
+  40% {
+    top : -100px;
+  }
 
-        40% {
-          top : -100px;
-        }
+  60% {
+    top : -150px;
+  }
 
-        60% {
-          top : -150px;
-        }
-
-        80% {
-          top : -200px;
-        }
-      }
-
-      @keyframes move {
-        0% {
-          top : 0px;
-        }
-
-        20% {
-          top : -50px;
-        }
-
-        40% {
-          top : -100px;
-        }
-
-        60% {
-          top : -150px;
-        }
-
-        80% {
-          top : -200px;
-        }
-      }
+  80% {
+    top : -200px;
+  }
+}
