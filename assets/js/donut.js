@@ -196,8 +196,8 @@ setupBubbles()
         .attr("class", d => Object.keys(d), true)
         .attr("width", width)
         .attr("height", height)
-        .each(convertToAbsolute)
-        .style("position", "absolute")
+        // .each(convertToAbsolute)
+        // .style("position", "absolute")
         .style("border", "solid 1px black")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -214,13 +214,14 @@ setupBubbles()
 
 
       pies.each((d, i, el) => {
-        console.log("foaiwje", d)
+        // console.log("foaiwje", d)
         let country = Object.keys(d),
           data = d[country][0].all;
 
-        d3.select(el[i]).selectAll("path")
+        d3.select(el[i]).selectAll("g")
           .data(pie(data))
           .enter()
+          .append("g")
           .append("path")
           .attr("class", d => d.data.tld)
           .attr("fill", d => colorGen(d.data.tld))
@@ -242,6 +243,22 @@ setupBubbles()
       let allPaths = d3.selectAll("#pieCharts svg path"),
         count = 0;
 
+      d3.select("#pieCharts section svg.nl")
+        .style("position", "absolute")
+        .style("top", `-${pieTotalSize}px`)
+        .classed("mainPie", true)
+        // .call(labelPaths)
+        .selectAll("g")
+        // .each((d, i, el) => {
+        //   d3.select(el[i].parentElement)
+        //   .append("text")
+        //   .attr("fill", "white")
+        //   .attr("x", arc.centroid(d)[0])
+        //   .attr("y", arc.centroid(d)[1])
+        //   .style("font-size", "5px")
+        //   .text(d.data.tld);
+        // })
+        .each(labelPaths)
         // d3.select("#pieCharts section").style("height", "-webkit-fill-available")
 
       function loadingCompleted() {
@@ -251,6 +268,8 @@ setupBubbles()
           setTimeout(() => {
             d3.selectAll("#pieCharts svg")
               // .style("position", "absolute")
+              .each(convertToAbsolute)
+              .style("position", "absolute")
               .on("mouseover", d => highlightCountry(d, true))
               .on("mouseout", d => highlightCountry(d, false))
               .on("click", switchMainPie)
@@ -262,6 +281,16 @@ setupBubbles()
           }, 1000)
 
         }
+      }
+
+      function labelPaths(d, i, el) {
+        d3.select(el[i])
+          .append("text")
+          .attr("fill", "white")
+          .attr("x", arc.centroid(d)[0])
+          .attr("y", arc.centroid(d)[1])
+          .style("font-size", "5px")
+          .text(d.data.tld);
       }
 
         // .style("top", 0)
@@ -284,20 +313,25 @@ setupBubbles()
 
     function convertToAbsolute(d, i, el) {
         // console.log(el[i])
-        d3.select("#pieCharts section svg.nl")
-          .style("position", "absolute")
-          .style("top", `-${pieTotalSize}px`)
-          .classed("mainPie", true)
-          
+        // d3.select("#pieCharts section svg.nl")
+        //   .style("position", "absolute")
+        //   .style("top", `-${pieTotalSize}px`)
+        //   .classed("mainPie", true)
+
+
+        // firstMainPie.selectAll("path")
+        //   .style("left", (...ag) => console.log(ag))
+
         let containerHeight = d3.select("#pieCharts section").style("height");
         d3.select("#pieCharts section").style("height", containerHeight);
 
         let parentTop = el[0].parentElement.getBoundingClientRect().top;
+        let parentLeft = el[0].parentElement.getBoundingClientRect().left;
 
         let top = el[i].getBoundingClientRect().top - parentTop;
-        let left = el[i].getBoundingClientRect().left
+        let left = el[i].getBoundingClientRect().left - parentLeft
 
-        console.log(top, parentTop, top - parentTop)
+        // console.log(top, parentTop, top - parentTop)
         if (Object.keys(d)[0] !== "nl") {
           // d3.select(el[i])
           //   .style("position", "absolute")
@@ -456,7 +490,7 @@ setupBubbles()
       d3.selectAll("[data-interact=toolTip]")
         .on("mouseover", (d, i, el) => {
 
-          console.log(d, i, el)
+          // console.log(d, i, el)
           let container = d3.select("body")
             .append("div")
             .classed("toolTip", true)
@@ -467,7 +501,7 @@ setupBubbles()
           d3.select(window).on("mousemove", () => {
             let mouseX = d3.event.clientX;
             let mouseY = d3.event.clientY;
-            console.log(mouseX, mouseY)
+            // console.log(mouseX, mouseY)
             container
               .style("top", `${mouseY + 10}px`)
               .style("left", `${mouseX + 10}px`)
