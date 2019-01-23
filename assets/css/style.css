@@ -223,7 +223,7 @@ section.team {
       #pieCharts {
         /* height: 500px; */
         border: solid 3px green;
-        position: relative;
+        /* position: relative; */
         background: black;
         display: flex;
         flex-direction: column;
@@ -234,28 +234,39 @@ section.team {
       #pieCharts header {
         height: 350px;
         background: blue;
+        /* padding: 0 1rem; */
       }
 
       #pieCharts section {
         background: red;
+        position: relative;
+        padding: 1rem 1rem 0 1rem
         /* margin: 0 auto; */
 
       }
 
       #pieCharts section svg {
-        margin: .5rem 1rem;
+        /* margin: .5rem 1rem; */
+        margin-right: 1rem;
+        margin-bottom: 1rem;
       }
       #pieCharts svg.mainPie {
         /* position: absolute; */
-        /* top: 0;
-        left: 0; */
-        transform-origin: top left;
+        /* top: 100%; */
+        left: 1rem;
+        transform-origin: bottom left;
         transform: scale(3);
       }
 
       #pieCharts svg text {
         text-anchor: middle;
         position: relative;
+      }
+
+      .toolTip {
+        width: 100px;
+        height: auto;
+        background: black;
       }
 
       .animationStarted {

@@ -1,7 +1,10 @@
 async function jesse() {
-
-  await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
-
+  var test;
+  d3.json("http://localhost:5000/data").then(data => {
+    test = data;
+    // setupBubbles()
+  })
+  await d3.json("http://localhost:5000/data").then(newData => {
     // Selections
     const dateDisplay = d3.select("#timerOptions p"),
       sliderPin = d3.select("#timerOptions footer span"),
@@ -98,6 +101,89 @@ async function jesse() {
         .text(d => d)
     }
 
+    var bubbleContainerWidth = 900,
+      bubbleContainerHeight = 500;
+
+    var timeline = d3.timeParse('%Y-%m-%d')
+
+    function setupBubbles() {
+
+    var svg = d3
+      .select("#bubble")
+      .append("svg")
+      .attr("height", bubbleContainerHeight)
+      .attr("width", bubbleContainerWidth)
+      .append("g")
+      .attr("transform", `translate(0,0)`);
+    // make sure the .domain is bigger or equal to the average value
+    // mess with these values to change the shapes
+    var radiusScale = d3
+      .scaleSqrt()
+      .domain([11829, 65040749])
+      // change this to change circle size
+      .range([0, 100]);
+
+    // Simulate force so stuff goes to the center
+    var forceXCombine = d3
+      .forceX(bubbleContainerWidth / 2)
+      .strength(0.05);
+
+    var forceXSplit = d3.forceX(d => {
+      if (d[Object.keys(d)[0]][0].country == "com") {
+        return bubbleContainerWidth / 4;
+      } else {
+        return bubbleContainerWidth / 1.5;
+      }
+    }).strength(.05);
+
+    var forceY = d3
+      .forceY(d => bubbleContainerHeight / 4)
+      .strength(0.05);
+
+    var sim = d3
+      .forceSimulation()
+      .force("x", forceXCombine)
+      .force("y", forceY)
+      .force("collide", d3.forceCollide(d => radiusScale(d[Object.keys(d)[0]][0].total)));
+
+
+
+    var circles = svg
+      .selectAll("g")
+      .data(test)
+      .enter()
+      .append("g")
+      .append("circle")
+      .attr("data-interact", "toolTip")
+      .attr("class", d => d[Object.keys(d)][0].country)
+      .attr("r", d => radiusScale(d[Object.keys(d)][0].total))
+      .style("fill", d => countryColorGen(Object.keys(d)))
+
+    var circlesName = svg
+      .selectAll("g")
+      .append("text")
+      .attr("fill", "White")
+      .attr("text-anchor", "middle")
+      .style("font-weight", "bold")
+      .style("pointer-events", "none")
+      .text(d => `.${d[Object.keys(d)[0]][0].country}`);
+
+    sim.nodes(test).on("tick", ticked);
+
+    function ticked() {
+      circles
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+
+      circlesName
+        .attr("dx", d => d.x)
+        .attr("dy", d => d.y - 15);
+    }
+
+}
+
+setupBubbles()
+
     function setup() {
       sliderPin.style("left", "0%");
       dateDisplay.text(formatTime(new Date(chronologicalData[0].key)));
@@ -107,29 +193,11 @@ async function jesse() {
         .data(newData)
         .enter()
         .append("svg")
+        .attr("class", d => Object.keys(d), true)
         .attr("width", width)
         .attr("height", height)
-        // .each((d, i, el) => {
-        //   let top = el[i].getBoundingClientRect().top
-        //   let left = el[i].getBoundingClientRect().left
-        //
-        //   if (Object.keys(d)[0] == "nl") {
-        //     d3.select(el[i])
-        //       .style("position", "absolute")
-        //       .style("top", "0")
-        //       .style("left", "0")
-        //       .classed("mainPie", true)
-        //   } else {
-        //     d3.select(el[i])
-        //       .style("top", `${top - parseInt(d3.select("#pieCharts header").style("height")) / 2}px`)
-        //       .style("left", `${left}px`)
-        //   }
-        //
-        //
-        // })
-        // .style("position", "absolute")
         .each(convertToAbsolute)
-
+        .style("position", "absolute")
         .style("border", "solid 1px black")
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -139,14 +207,14 @@ async function jesse() {
           .append("text")
           .attr("fill", "white")
           .text(Object.keys(d));
-
         d3.select(el[i].parentElement)
-          .classed(Object.keys(d), true)
+          // .classed(Object.keys(d), true)
           .attr("data-firstDate", d[Object.keys(d)][0].date)
       })
 
 
       pies.each((d, i, el) => {
+        console.log("foaiwje", d)
         let country = Object.keys(d),
           data = d[country][0].all;
 
@@ -179,16 +247,19 @@ async function jesse() {
         count++;
 
         if (allPaths._groups[0].length === count) {
-          d3.selectAll("#pieCharts svg")
-            .style("position", "absolute")
-            .on("mouseover", d => highlightCountry(d, true))
-            .on("mouseout", d => highlightCountry(d, false))
-            .on("click", switchMainPie)
-            .style("position", "absolute")
+          setTimeout(() => {
+            d3.selectAll("#pieCharts svg")
+              // .style("position", "absolute")
+              .on("mouseover", d => highlightCountry(d, true))
+              .on("mouseout", d => highlightCountry(d, false))
+              .on("click", switchMainPie)
+              // .style("position", "absolute")
 
 
-          setupLegend()
-          timerSection()
+            setupLegend()
+            timerSection()
+          }, 1000)
+
         }
       }
 
@@ -212,21 +283,36 @@ async function jesse() {
 
     function convertToAbsolute(d, i, el) {
         // console.log(el[i])
+        d3.select("#pieCharts section svg.nl")
+          .style("position", "absolute")
+          .style("top", `-${pieTotalSize}px`)
+          .classed("mainPie", true)
+          
+        let containerHeight = d3.select("#pieCharts section").style("height");
+        d3.select("#pieCharts section").style("height", containerHeight);
 
-        let top = el[i].getBoundingClientRect().top
+        let parentTop = el[0].parentElement.getBoundingClientRect().top;
+
+        let top = el[i].getBoundingClientRect().top - parentTop;
         let left = el[i].getBoundingClientRect().left
 
-        if (Object.keys(d)[0] == "nl") {
+        console.log(top, parentTop, top - parentTop)
+        if (Object.keys(d)[0] !== "nl") {
+          // d3.select(el[i])
+          //   .style("position", "absolute")
+          //   .style("top", `-${pieTotalSize}px`)
+          //   // .style("left", "0")
+          //   .classed("mainPie", true)
           d3.select(el[i])
-            .style("position", "absolute")
-            .style("top", "0")
-            .style("left", "0")
-            .classed("mainPie", true)
-        } else {
-          d3.select(el[i])
-            .style("top", `${top - parseInt(d3.select("#pieCharts header").style("height")) / 2}px`)
+            .style("top", `${top}px`)
             .style("left", `${left}px`)
-        }
+          }
+        // } else {
+        //   d3.select(el[i])
+        //     .style("top", `${top}px`)
+        //     .style("left", `${left}px`)
+        //     // .style("position", "absolute")
+        // }
     }
 
     function matcher(index) {
@@ -236,8 +322,6 @@ async function jesse() {
       chronologicalData[index].values.forEach(cdv => {
         d3.selectAll("#pieCharts section svg")
           .each((d, i, el) => {
-            console.log(cdv.country, el[i].classList)
-            // if (cdv.country == el[i].classList[0]) {
             if (el[i].classList.contains(cdv.country)) {
               d3.select(el[i]).attr("data-currentDate", cdv.date);
 
@@ -369,15 +453,51 @@ async function jesse() {
 
     function toolTip() {
       d3.selectAll("[data-interact=toolTip]")
-        .on("mouseover", (d) => {
-          console.log(d.data)
+        .on("mouseover", (d, i, el) => {
+
+          console.log(d, i, el)
           let container = d3.select("body")
             .append("div")
-            .style("position", "absolute");
+            .classed("toolTip", true)
+            .style("position", "fixed")
+            // .style("top", 0)
+            // .style("left", 0)
 
-          container.selectAll("p")
-            .data()
+          d3.select(window).on("mousemove", () => {
+            let mouseX = d3.event.clientX;
+            let mouseY = d3.event.clientY;
+            console.log(mouseX, mouseY)
+            container
+              .style("top", `${mouseY + 10}px`)
+              .style("left", `${mouseX + 10}px`)
 
+
+          })
+
+          for (let key in d.data) {
+            if (key !== "cnt") {
+
+              let val;
+              if (key == "tld") {
+
+                val = `.${d.data[key]}`;
+                key = key.toUpperCase();
+
+              } else {
+
+                val = d.data[key];
+                key = key.replace(key[0], key[0].toUpperCase());
+              }
+
+              container.append("p").text(`${key} : ${val}`)
+            }
+          }
+
+        })
+        .on("mouseout", () => {
+          d3.select(".toolTip").remove();
+
+          d3.select(window).on("mousemove", null);
         })
     }
 
@@ -441,8 +561,8 @@ async function jesse() {
         .style("top", () => d3.select(d3.event.currentTarget).style("top"))
 
       d3.select(d3.event.currentTarget)
-        .style("top", "0")
-        .style("left", "0")
+        .style("top", `-${pieTotalSize}px`)
+        .style("left", null)
         .classed("mainPie", true)
     }
   });
