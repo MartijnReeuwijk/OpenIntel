@@ -374,7 +374,7 @@ setupBubbles()
     }
 
     function matcher(index) {
-
+      console.log(index, chronologicalData)
       dateDisplay.text(formatTime(new Date(chronologicalData[index].key)))
 
       chronologicalData[index].values.forEach(cdv => {
@@ -389,7 +389,7 @@ setupBubbles()
 
                 setTimeout(() => d3.select(el[i]).classed("animationStarted", false), 1000)
               }
-
+              console.log("yeet", el[i])
               updatePie(cdv, el[i])
             }
           })
@@ -426,7 +426,6 @@ setupBubbles()
             timer = setInterval(() => {
 
               index++;
-
               matcher(index);
 
               sliderPin
@@ -563,6 +562,9 @@ setupBubbles()
 
     toolTip()
 
+    function updateBubble(data, svg) {
+      let bubbleSvg = d3.selectAll("#bubble circle")
+    }
 
     function updatePie(data, svg) {
       let pieSvg = d3.select(svg).select("g");
@@ -600,7 +602,6 @@ setupBubbles()
         .innerRadius(radius - 30)
         .outerRadius(radius - 5)
 
-      // let p = d3.event.target;
       let country = d3.event.target.classList[0];
 
       if (country && d3.event.target.nodeName === "path") {
