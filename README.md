@@ -2,7 +2,22 @@
 
 This is a visualization of the data from the Openintel dataset web
 
-
+# Tabel of content
+- [Openintel 📚](#openintel---)
+  * [Getting Started 🎬](#getting-started---)
+  * [Prerequisites](#prerequisites)
+  * [Installation 💾](#installation---)
+  * [Running 🏃‍♂️](#running------)
+  * [Linting ✨](#linting--)
+  * [Build With 🛠️](#build-with----)
+  * [Data formating](#data-formating)
+    + [Data formating](#data-formating-1)
+    + [Data output example 📝](#data-output-example---)
+        * [Standard use object](#standard-use-object)
+  * [Visualization 👀](#visualization---)
+  * [Authors](#authors)
+  * [License](#license)
+  * [Acknowledgments and Thanks](#acknowledgments-and-thanks)
 
 ## Getting Started 🎬
 
@@ -26,6 +41,7 @@ You will need the following things properly installed on your computer.
 
 For now its just a CLI client app
 Just run the "app" by using this line of code inside the correct folder
+Our port is a default of 5000.
 
 -   `Npm start`
 

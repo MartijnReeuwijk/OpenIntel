@@ -140,6 +140,13 @@ section.visualization {
   margin  : 10px 0;
 }
 
+.logo{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+
 .pieChartsHeight {
   /* height: -webkit-fill-available; */
 }
@@ -209,7 +216,7 @@ path {
 }
 
 svg {
-  background : black;
+  /* background : black; */
   transition : all .5s ease,
                left .5s ease .1s;
 }
@@ -218,19 +225,16 @@ svg {
   /* height: 500px; */
   display         : flex;
   position        : relative;
-  border          : solid 3px green;
-  background      : black;
+  /* border          : solid 3px green; */
   flex-direction  : column;
   justify-content : flex-end;
 }
 
 #pieCharts header {
   height     : 350px;
-  background : blue;
 }
 
 #pieCharts section {
-  background : red;
   /* margin: 0 auto; */
 }
 
