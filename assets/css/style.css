@@ -306,7 +306,22 @@ svg {
     transform : scale(1) translateY(0);
   }
 }
-
+.relativevisual{
+  position: relative;
+}
+.sliderHolder{
+  position: fixed;
+  z-index: 500;
+  top: 50px;
+  bottom: 0;
+  right: 50px;
+  margin: 0 auto;
+}
+#slider{
+  transform: rotate(90deg);
+  top: 100px;
+  position: absolute;
+}
 .centerIntro {
   display  : flex;
   position : relative;

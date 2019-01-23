@@ -13,3 +13,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 AOS.init({
   duration: 1000,
 })
+
+
+var angle = 0, img = document.getElementById('rotate');
+document.getElementById('slider').onchange = function() {
+  console.log("testadad");
+  console.log(document.getElementById('slider').value);
+    angle = (document.getElementById('slider').value);
+    console.log(angle);
+    img.style.transform = `rotate(${angle}deg)`;
+
+}

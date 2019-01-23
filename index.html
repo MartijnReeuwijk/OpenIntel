@@ -25,6 +25,7 @@
         <li><a href=#about>About the project</a></li>
         <li><a href=#visual>Visualizations</a></li>
         <li><a href=#team>The team</a></li>
+
       </ul>
     </nav>
 
@@ -58,7 +59,7 @@
     </article>
   </header>
 
-  <section id="timerOptions">
+  <!-- <section id="timerOptions">
     <p></p>
     <div>
       <span data-index="0"></span>
@@ -67,12 +68,7 @@
       <span class="fa fa-play"></span>
       <span class="fa fa-pause"></span>
     </button>
-
-    <!-- <div class="timeLine">
-      <div class="timeLineBar">2015</div>
-      <div class="timeLineStart"></div>
-    </div> -->
-  </section>
+  </section> -->
 
   <!-- <section id="sideIndex" class="sideIndex">
     <div class="sideIndexButton" onclick="toggleIndex()">i</div>
@@ -146,6 +142,16 @@
 
         </section>
       </div>
+      <section id="timerOptions">
+        <p></p>
+        <div>
+          <span data-index="0"></span>
+        </div>
+        <button type="button" name="button">
+          <span class="fa fa-play"></span>
+          <span class="fa fa-pause"></span>
+        </button>
+      </section>
     </article>
 
     <aside data-aos="fade-left" class="summary">
@@ -157,18 +163,20 @@
     </aside>
   </section>
 
-  <section class='visualization'>
+  <section class='visualization relativevisual'>
     <div data-aos="fade-up" class="chartinwonersHolder">
       <div class="visualTitelText">
-
-
         <h1>Hoeveel euro wordt er uitgegeven aan verschillende TLD’s bij de landelijke extensies. </h1>
         <p>In deze visualisatie zien we de verdeling van een TLD over de verschillende landen. In het midden wordt aangegeven om welke TLD het gaat. Daar omheen zie je de verdeling over de landen. Je ziet welk deel van de TLD wordt gehost vanuit een
           landelijke extensie.</p>
         <p>Het hoeft echter niet altijd te betekenen dat een hosting bedrijf die eindigt op .nl ook echt een Nederlands bedrijf is. Maar laten we hier even van uitgaan.</p>
         <p>De diagram moet op een explorative manier bekeken worden. Dit betekent dat je zelf een beetje op zoek moet gaan naar de waardes en datapunten om zo je eigen conclusie te trekken.</p>
       </div>
-      <img class="chartinwoners" src="./images/visual-youp.svg" alt="Verdienst cijfers in bubble chart">
+      <div class="sliderHolder">
+        <p>Roteer de diagram</p>
+        <input type="range" id="slider" name=" "min="0" max="180" value="0">
+      </div>
+      <img class="chartinwoners" id="rotate" src="./images/visual-youp.svg" alt="Verdienst cijfers in bubble chart">
     </div>
   </section>
 
