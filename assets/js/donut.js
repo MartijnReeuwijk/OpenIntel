@@ -410,11 +410,14 @@ setupBubbles()
         .style("left", (d, i) => `${i * stepSize}%`);
 
       function playTimer() {
+
         let playBtn = d3.event.currentTarget,
           index = parseInt(sliderPin.attr("data-index"));
 
-        if (index < chronologicalData.length - 1) {
-
+        if (index >= chronologicalData.length - 1) {
+          index = 0;
+        }
+        
           if (!playBtn.classList.contains("playing")) {
 
             timer = setInterval(() => {
@@ -441,15 +444,12 @@ setupBubbles()
           }
 
           playBtn.classList.toggle("playing")
-        }
+
       }
-
-
 
       timerBtn.on("click", playTimer);
 
       sliderPin.on("mousedown", () => {
-
         firstMouseX = d3.event.clientX;
         firstPinX = d3.event.target.offsetLeft;
         rightBoundary = parseInt(sliderBar.style("width"));
