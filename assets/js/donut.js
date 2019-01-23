@@ -6,7 +6,7 @@ async function jesse() {
   })
   await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
     // Selections
-    console.log(newData)
+    // console.log(newData)
     const dateDisplay = d3.select("#timerOptions p"),
       sliderPin = d3.select("#timerOptions div span"),
       sliderBar = d3.select("#timerOptions div"),
@@ -28,6 +28,7 @@ async function jesse() {
       .key(d => d.date).sortKeys(d3.ascending)
       .entries(flattened);
 
+
     let allTlds = [];
 
     flattened.forEach(d => d.all.forEach(d1 => {
@@ -36,11 +37,12 @@ async function jesse() {
       }
     }))
 
-    let allCountries = newData.map(d => Object.keys(d)[0].toUpperCase());
+    newData.forEach(d => {
+      if (!allTlds.includes(Object.keys(d)[0])) {
+        allTlds.push(Object.keys(d)[0])
+      }
+    });
 
-    const countryColorGen = d3.scaleOrdinal()
-      .domain(allCountries)
-      .range(d3.schemePaired)
 
     const colorGen = d3.scaleOrdinal()
       .domain(allTlds)
@@ -75,20 +77,6 @@ async function jesse() {
     }
 
     function setupLegend() {
-      let countriesLegend = d3.select("#countriesLegend").selectAll("li")
-        .data(allCountries)
-        .enter()
-        .append("li");
-
-      countriesLegend
-        .append("span")
-        .style("background", d => countryColorGen(d))
-
-      countriesLegend
-        .append("p")
-        .text(d => d)
-
-
       let tldsLegend = d3.select("#tldsLegend").selectAll("li")
         .data(allTlds)
         .enter()
@@ -108,6 +96,34 @@ async function jesse() {
 
     var timeline = d3.timeParse('%Y-%m-%d')
 
+    var radiusScale = d3
+      .scaleSqrt()
+      .domain([11829, 65040749])
+      // change this to change circle size
+      .range([2, 200]);
+
+      var forceXCombine = d3
+        .forceX(bubbleContainerWidth / 2)
+        .strength(0.05);
+
+      var forceXSplit = d3.forceX(d => {
+        if (d[Object.keys(d)[0]][0].country == "com") {
+          return bubbleContainerWidth / 4;
+        } else {
+          return bubbleContainerWidth / 1.5;
+        }
+      }).strength(.05);
+
+      var forceY = d3
+        .forceY(d => bubbleContainerHeight / 4)
+        .strength(0.05);
+
+      var sim = d3
+        .forceSimulation()
+        .force("x", forceXCombine)
+        .force("y", forceY)
+        .force("collide", d3.forceCollide(d => radiusScale(d[Object.keys(d)[0]][0].total)));
+
     function setupBubbles() {
 
     var svg = d3
@@ -120,34 +136,12 @@ async function jesse() {
       .attr("transform", `translate(0,100)`);
     // make sure the .domain is bigger or equal to the average value
     // mess with these values to change the shapes
-    var radiusScale = d3
-      .scaleSqrt()
-      .domain([11829, 65040749])
-      // change this to change circle size
-      .range([2, 200]);
+
 
     // Simulate force so stuff goes to the center
-    var forceXCombine = d3
-      .forceX(bubbleContainerWidth / 2)
-      .strength(0.05);
 
-    var forceXSplit = d3.forceX(d => {
-      if (d[Object.keys(d)[0]][0].country == "com") {
-        return bubbleContainerWidth / 4;
-      } else {
-        return bubbleContainerWidth / 1.5;
-      }
-    }).strength(.05);
 
-    var forceY = d3
-      .forceY(d => bubbleContainerHeight / 4)
-      .strength(0.05);
 
-    var sim = d3
-      .forceSimulation()
-      .force("x", forceXCombine)
-      .force("y", forceY)
-      .force("collide", d3.forceCollide(d => radiusScale(d[Object.keys(d)[0]][0].total)));
 
 
     var circles = svg
@@ -159,7 +153,7 @@ async function jesse() {
       .attr("data-interact", "toolTip")
       .attr("class", d => d[Object.keys(d)][0].country)
       .attr("r", d => radiusScale(d[Object.keys(d)][0].total))
-      .style("fill", d => countryColorGen(Object.keys(d)))
+      .style("fill", d => colorGen(Object.keys(d)))
 
     var circlesName = svg
       .selectAll("g")
@@ -201,6 +195,7 @@ async function jesse() {
 }
 
 setupBubbles()
+
 
     function setup() {
       sliderPin.style("left", "0%");
@@ -374,9 +369,8 @@ setupBubbles()
     }
 
     function matcher(index) {
-      console.log(index, chronologicalData)
       dateDisplay.text(formatTime(new Date(chronologicalData[index].key)))
-
+      // console.log(chronologicalData)
       chronologicalData[index].values.forEach(cdv => {
         d3.selectAll("#pieCharts section svg")
           .each((d, i, el) => {
@@ -389,10 +383,10 @@ setupBubbles()
 
                 setTimeout(() => d3.select(el[i]).classed("animationStarted", false), 1000)
               }
-              console.log("yeet", el[i])
+              // console.log("yeet", el[i])
               updatePie(cdv, el[i])
             }
-          })
+          });
       });
     }
 
@@ -441,7 +435,6 @@ setupBubbles()
             }, timerSpeed);
 
           } else {
-
             clearInterval(timer)
           }
 
@@ -511,8 +504,11 @@ setupBubbles()
     function toolTip() {
       d3.selectAll("[data-interact=toolTip]")
         .on("mouseover", (d, i, el) => {
+          console.log(d, i, el)
 
           let hoverClass = d3.select(el[i]).attr("class")
+
+
 
 
           let container = d3.select("body")
@@ -533,6 +529,52 @@ setupBubbles()
 
           })
 
+          if (d3.event.currentTarget.nodeName == "circle") {
+            let bubbleData = newData.find(dx => Object.keys(dx)[0] == hoverClass)
+                bubbleData = bubbleData[Object.keys(bubbleData)][0];
+
+            let topThree = [];
+
+            for (let j = 0; j < 3; j++) {
+              topThree.push(bubbleData.values[j]);
+            }
+            console.log(bubbleData)
+
+            container.append("p").html(`<strong>TLD :</strong> .${bubbleData.country}`);
+            container.append("p").html(`<strong>Datum :</strong> ${formatTime(new Date(bubbleData.date))}`);
+            container.append("p").html(`<strong>Total :</strong> ${bubbleData.total}`);
+
+            container.append("h3").text("Top drie")
+            let topThreeContainer = container.append("ol")
+            topThree.forEach(t3 => {
+              console.log(t3)
+              topThreeContainer.append("li")
+                .text(t3.name)
+            })
+
+
+            // for (let key in bubbleData) {
+            //   if (["date", "total", "country"].includes(key)) {
+            //   let val;
+            //
+            //   if (key == "tld") {
+            //
+            //     val = `.${bubbleData[key]}`;
+            //     key = key.toUpperCase();
+            //
+            //   } else if (key == "") {
+            //
+            //   } else {
+            //
+            //     val = bubbleData[key];
+            //     key = key.replace(key[0], key[0].toUpperCase());
+            //   }
+            //
+            //   container.append("p").html(`<strong>${key} :</strong> ${val}`)
+            // }
+            // }
+          }
+
           for (let key in d.data) {
             if (key !== "cnt") {
 
@@ -548,7 +590,7 @@ setupBubbles()
                 key = key.replace(key[0], key[0].toUpperCase());
               }
 
-              container.append("p").text(`${key} : ${val}`)
+              container.append("p").html(`<strong>${key} :</strong> ${val}`)
             }
           }
 
@@ -562,10 +604,6 @@ setupBubbles()
 
     toolTip()
 
-    function updateBubble(data, svg) {
-      let bubbleSvg = d3.selectAll("#bubble circle")
-    }
-
     function updatePie(data, svg) {
       let pieSvg = d3.select(svg).select("g");
 
@@ -574,7 +612,8 @@ setupBubbles()
         .enter()
         .append("path")
         .attr("data-interact", "toolTip")
-        .attr("class", (...arg) => console.log(arg))
+        // Might have to go
+        .attr("class", d => d.data.tld)
         .attr("d", arc)
         .attr("fill", d => colorGen(d.data.tld))
 
