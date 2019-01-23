@@ -4,7 +4,7 @@ async function jesse() {
     test = data;
     // setupBubbles()
   })
-  await d3.json("http://localhost:5000/data").then(newData => {
+  await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
     // Selections
     const dateDisplay = d3.select("#timerOptions p"),
       sliderPin = d3.select("#timerOptions footer span"),
