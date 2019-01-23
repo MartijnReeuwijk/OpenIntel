@@ -264,7 +264,7 @@ svg {
 
       #pieCharts {
         /* height: 500px; */
-        border: solid 3px green;
+        /* border: solid 3px green; */
         /* position: relative; */
         background: black;
         display: flex;
@@ -274,13 +274,12 @@ svg {
       }
 
       #pieCharts header {
+        background-color: #303030;
         height: 350px;
-        background: blue;
-        /* padding: 0 1rem; */
       }
 
       #pieCharts section {
-        background: red;
+        background: #303030;
         position: relative;
         padding: 1rem 1rem 0 1rem
         /* margin: 0 auto; */

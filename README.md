@@ -1,25 +1,26 @@
-# Openintel 📚
+# Openintel
 
 This is a visualization of the data from the Openintel dataset web
 
 # Tabel of content
-- [Openintel 📚](#openintel---)
-  * [Getting Started 🎬](#getting-started---)
+- [Openintel](#openintel)
+- [Tabel of content](#tabel-of-content)
+  * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
-  * [Installation 💾](#installation---)
-  * [Running 🏃‍♂️](#running------)
-  * [Linting ✨](#linting--)
-  * [Build With 🛠️](#build-with----)
+  * [Installation](#installation)
+  * [Running](#running)
+  * [Linting](#linting)
+  * [Build With](#build-with)
   * [Data formating](#data-formating)
     + [Data formating](#data-formating-1)
-    + [Data output example 📝](#data-output-example---)
+    + [Data output example](#data-output-example)
         * [Standard use object](#standard-use-object)
-  * [Visualization 👀](#visualization---)
+  * [Visualization](#visualization)
   * [Authors](#authors)
   * [License](#license)
   * [Acknowledgments and Thanks](#acknowledgments-and-thanks)
 
-## Getting Started 🎬
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -31,13 +32,13 @@ You will need the following things properly installed on your computer.
 -   [Node.js](https://nodejs.org/) (with npm)
 -   [Google Chrome](https://google.com/chrome/)
 
-## Installation 💾
+## Installation
 
 -   `git@github.com:MartijnReeuwijk/OpenIntel.git`
 -   `cd OpenIntel`
 -   `npm install`
 
-## Running 🏃‍♂️
+## Running
 
 For now its just a CLI client app
 Just run the "app" by using this line of code inside the correct folder
@@ -45,14 +46,14 @@ Our port is a default of 5000.
 
 -   `Npm start`
 
-## Linting ✨
+## Linting
 
 For linting i used CleanCss and Prettier
 To run the Prettier use the code below
 
 -   `npm run clean`
 
-## Build With 🛠️
+## Build With
 
 -   [OpenIntel](https://openintel.nl/) - OpenIntel
 -   [D3](https://d3js.org/) - D3
@@ -66,7 +67,7 @@ To run the Prettier use the code below
 The data we got from Openintel was clean and in a good readable format however we did change it a bit to better fit our needs.
 We counted all the TLD and added them together to get a total of a single TLD. We also added the total values form a TLD.
 
-### Data output example 📝
+### Data output example
 ##### Standard use object
 This is an example on how the data looks.
 ```
@@ -85,7 +86,7 @@ With in on the inside of the values array
 4: {name: "rzone.de.", value: 152024}
 ```
 
-## Visualization 👀
+## Visualization
 For the visualization we used four different types of charts and designs. Through out our multiple designs we want to create a funnel effect. Global data at the start and in the end very specific data about a country.
 
 Here we went for a bubble chart to show the massive size of .com in comparison to other TLD's.
