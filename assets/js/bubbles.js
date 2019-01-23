@@ -1,73 +1,3 @@
-// var data = [
-//   {
-//     name: "at",
-//     value: 255255
-//   },
-//   {
-//     name: "de",
-//     value: 197142
-//   },
-//   {
-//     name: "com",
-//     value: 132524
-//   },
-//   {
-//     name: "eu",
-//     value: 42368
-//   },
-//   {
-//     name: "net",
-//     value: 85951
-//   },
-//   {
-//     name: "biz",
-//     value: 24030
-//   },
-//   {
-//     name: "org",
-//     value: 9480
-//   },
-//   {
-//     name: "info",
-//     value: 85951
-//   }
-// ];
-// var text = "";
-//
-// var bubbleContainerWidth = 300;
-// var bubbleContainerHeight = 300;
-// var thickness = 75;
-// var duration = 750;
-//
-// var radius = Math.min(bubbleContainerWidth, bubbleContainerHeight) / 2;
-// var color = d3.scaleOrdinal(d3.schemeCategory10);
-//
-// var svg = d3
-//   .selectAll("#chart")
-//   .append("svg")
-//   .attr("class", "pie")
-//   .attr("widdth", bubbleContainerWidth)
-//   .attr("heijght", bubbleContainerHeight);
-//
-// var g = svg
-//   .append("g")
-//   .attr("transform", "translate(" + bubbleContainerWidth / 2 + "," + bubbleContainerHeight / 2 + ")");
-//
-// var arc = d3
-//   .arc()
-//   .innerRadius(radius - thickness)
-//   .outerRadius(radius);
-//
-// var pie = d3
-//   .pie()
-//   .value(function(d) {
-//     return d.value;
-//   })
-//   // .on("load", function(d) {
-//   //     .attr("class", `${d.data.name}`)
-//   // })
-//   .sort(null);
-//
 var colors = [
   "62eff5",
   "62a5f5",
@@ -85,109 +15,6 @@ var colors = [
   "fc8b8b"
 ];
 // var mouseover = "#F4EB8A";
-//
-// var path = g
-//   .selectAll("path")
-//   .data(pie(data))
-//   .enter()
-//   .append("g")
-//   // .attr("class", "text-group")
-//
-//   // Add classes based on colour
-//   // Check based onon the !class
-//   // Make color muted
-//   .on("mouseover", function(d) {
-//     let g = d3
-//       .select(this)
-//       .style("cursor", "pointer")
-//       .style("fill", function(d, i) {
-//         return colors[this._current];
-//       })
-//       // .style("fill", function(d, i) { return colors[this._current]})
-//       // d3.selectAll(".mYc")
-//       .append("g")
-//       // add the values in middel this can be the map
-//       .attr("class", "text-group");
-//     // .attr("class", "value-text")
-//
-//     g.append("text")
-//       .attr("class", "name-text")
-//       .text(`${d.data.name}`)
-//       .attr("text-anchor", "middle")
-//       .attr("dy", "-1.2em");
-//
-//     g.append("text")
-//       .attr("class", "value-text")
-//       .text(`${d.data.value}`)
-//       .attr("text-anchor", "middle")
-//       .attr("dy", ".6em");
-//
-//     // select all not selected
-//   })
-//
-//   .on("mouseout", function(d) {
-//     d3.select(this)
-//       .style("cursor", "none")
-//       .style("fill", function(d, i) {
-//         return colors[i];
-//       })
-//       .select(".text-group")
-//       .remove();
-//   })
-//
-//   .append("path")
-//   .attr("d", arc)
-//   .style("fill", function(d, i) {
-//     return colors[i];
-//   })
-//
-//   .on("mouseover", function(d) {
-//     d3.select(this)
-//       .style("cursor", "pointer")
-//       .style("fill", mouseover);
-//   })
-//
-//   .on("mouseout", function(d) {
-//     d3.select(this)
-//       .style("cursor", "none")
-//       .style("fill", function(d, i) {
-//         return colors[this._current];
-//       });
-//   })
-//   .each(function(d, i) {
-//     this._current = i;
-//   });
-//
-// //
-// d3.select("g")
-//   .selectAll("text")
-//   .attr("text-anchor", "middle")
-//   .attr("dy", ".35em")
-//   .text(text);
-//
-// var text = g
-//   .selectAll("text")
-//   .data(pie(data))
-//   .enter()
-//   .append("text")
-//   .attr("transform", d => `translate(${arc.centroid(d)})`)
-//   .attr("dy", "0.35em");
-//
-// // Text
-// text
-//   .append("tspan")
-//   .attr("x", 0)
-//   .attr("y", "-0.7em")
-//   .style("font-weight", "bold")
-//   .text(d => d.data.name);
-
-// Number
-// text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
-//     .attr("x", 0)
-//     .attr("y", "0.7em")
-//     .attr("fill-opacity", 0.7)
-//     .text(d => d.data.value.toLocaleString());
-
 async function drawcircle() {
   await d3.json("https://datavisualfudge.herokuapp.com/data").then(data => {
     newData = data;
@@ -273,8 +100,6 @@ function init() {
     .on("click", d => {
       console.log(d)
     });
-
-
 
   // mouse events
   // Select hover is a bit of a bitch fix this maybe?
@@ -377,7 +202,7 @@ function init() {
         return d.x;
       })
       .attr("dy", d => {
-        return d.y - 15;
+        return d.y + 150;
       });
   }
 }
