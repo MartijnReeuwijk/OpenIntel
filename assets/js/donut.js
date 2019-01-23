@@ -213,12 +213,6 @@ setupBubbles()
         .attr("class", d => Object.keys(d), true)
         .attr("width", width)
         .attr("height", height)
-<<<<<<< HEAD
-        // .each(convertToAbsolute)
-        // .style("position", "absolute")
-        .style("background-color", "transparent")
-=======
->>>>>>> 6134901e994a78177a8ea3bd369a805a8e0a57cd
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
