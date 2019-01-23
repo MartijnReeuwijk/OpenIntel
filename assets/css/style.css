@@ -105,7 +105,7 @@ h1 {
 
 h2 {
   display   : flex;
-  color     : #A48EFC;
+  color     : white;
   font-size : 1.5em;
 }
 
@@ -140,8 +140,8 @@ section.visualization {
   margin  : 10px 0;
 }
 
-.pieChartsHeight{
-  height: -webkit-fill-available;
+.pieChartsHeight {
+  /* height: -webkit-fill-available; */
 }
 
 .visual-work {
@@ -175,9 +175,44 @@ section.team {
   text-align : center;
 }
 
-
 /* Jesse css idk what it does */
 
+/* Disable Text Selecting */
+
+body {}
+
+#timerOptions button.playing span:first-of-type,
+#timerOptions button span:last-of-type {
+  display : none;
+}
+
+#timerOptions button.playing span:last-of-type {
+  display : initial;
+}
+
+#timerOptions footer span {
+  z-index       : 2;
+  display       : block;
+  position      : absolute;
+  bottom        : -.4rem;
+  width         : 1rem;
+  height        : 1rem;
+  border-radius : 100%;
+  background    : black;
+  transition    : left .075s cubic-bezier(.7,1.39,.7,1.4);
+  /* bottom: -50%; */
+}
+
+path {
+  opacity    : 1;
+  transition : opacity .15s ease;
+}
+
+svg {
+  background : black;
+  transition : all .5s ease,
+               left .5s ease .1s;
+}
 
       /* Disable Text Selecting */
       body {

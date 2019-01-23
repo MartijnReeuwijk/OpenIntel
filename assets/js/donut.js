@@ -222,7 +222,6 @@ setupBubbles()
           .data(pie(data))
           .enter()
           .append("path")
-          .attr("data-interact", "toolTip")
           .attr("class", d => d.data.tld)
           .attr("fill", d => colorGen(d.data.tld))
           .transition()
@@ -242,6 +241,8 @@ setupBubbles()
 
       let allPaths = d3.selectAll("#pieCharts svg path"),
         count = 0;
+
+        // d3.select("#pieCharts section").style("height", "-webkit-fill-available")
 
       function loadingCompleted() {
         count++;
