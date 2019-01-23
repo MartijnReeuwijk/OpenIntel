@@ -221,217 +221,275 @@ svg {
                left .5s ease .1s;
 }
 
-#pieCharts {
-  /* height: 500px; */
-  display         : flex;
-  position        : relative;
-  /* border          : solid 3px green; */
-  flex-direction  : column;
-  justify-content : flex-end;
-}
+      /* Disable Text Selecting */
+      body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-#pieCharts header {
-  height     : 350px;
-}
+      #timerOptions button span:last-of-type,
+      #timerOptions button.playing span:first-of-type {
+        display: none;
+      }
+      #timerOptions button.playing span:last-of-type {
+        display: initial;
+      }
 
-#pieCharts section {
-  /* margin: 0 auto; */
-}
+      #timerOptions footer span {
+        display: block;
+        position: absolute;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 100%;
+        background: black;
+        z-index: 2;
+        bottom: -.4rem;
+        /* bottom: -50%; */
+        transition: left .075s cubic-bezier(.7,1.39,.7,1.4);
 
-#pieCharts section svg {
-  margin : .5rem 1rem;
-}
+      }
+      path {
+        opacity: 1;
+        transition: opacity .15s ease;
+      }
 
-#pieCharts svg.mainPie {
-  /* position: absolute; */
-  /* top: 0; left: 0; */
-  transform        : scale(3);
-  transform-origin : top left;
-}
+      svg {
+        transition: all .5s ease, left .5s ease .1s;
+        background: black;
+      }
 
-#pieCharts svg text {}
+      #pieCharts {
+        /* height: 500px; */
+        border: solid 3px green;
+        /* position: relative; */
+        background: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
 
-.animationStarted {
-  animation-duration        : .2s;
-  animation-fill-mode       : forwards;
-  animation-name            : grow;
-  animation-timing-function : ease;
-}
+      }
 
-@keyframes grow {
-  0% {
-    transform : scale(1) translateY(0);
-  }
+      #pieCharts header {
+        height: 350px;
+        background: blue;
+        /* padding: 0 1rem; */
+      }
 
-  50% {
-    transform : scale(1.1) translateY(-10%);
-  }
+      #pieCharts section {
+        background: red;
+        position: relative;
+        padding: 1rem 1rem 0 1rem
+        /* margin: 0 auto; */
 
-  100% {
-    transform : scale(1) translateY(0);
-  }
-}
+      }
 
-.centerIntro {
-  display  : flex;
-  position : relative;
-  height   : 50px;
-}
+      #pieCharts section svg {
+        /* margin: .5rem 1rem; */
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+      }
+      #pieCharts svg.mainPie {
+        /* position: absolute; */
+        /* top: 100%; */
+        left: 1rem;
+        transform-origin: bottom left;
+        transform: scale(3);
+      }
 
-.Iam {
-  margin : 0 auto;
-  color  : white;
-  /* font-weight: bolder; */
-  font   : bolder 40px/50px Montserrat, sans-serif;
-}
+      #pieCharts svg text {
+        text-anchor: middle;
+        position: relative;
+      }
 
-.Iam p {
-  height       : 50px;
-  float        : left;
-  margin-right : 0.3em;
-}
+      .toolTip {
+        width: 100px;
+        height: auto;
+        background: black;
+      }
 
-.Iam b {
-  position : relative;
-  top      : 40px;
-  height   : 50px;
-  float    : left;
-  overflow : hidden;
-}
+      .animationStarted {
+        animation-name: grow;
+        animation-duration: .2s;
+        animation-timing-function: ease;
+        animation-fill-mode: forwards;
+      }
 
-.Iam .innerIam {
-  display                           : inline-block;
-  position                          : relative;
-  top                               : 0;
-  left                              : 0;
-  color                             : #627AF5;
-  white-space                       : nowrap;
-  -moz-animation                    : move 5s;
-  -ms-animation                     : move 5s;
-  -o-animation                      : move 5s;
-  -webkit-animation                 : move 5s;
-  animation                         : move 5s;
-  -moz-animation-delay              : 1s;
-  -ms-animation-delay               : 1s;
-  -o-animation-delay                : 1s;
-  -webkit-animation-delay           : 1s;
-  animation-delay                   : 1s;
-  -moz-animation-iteration-count    : infinite;
-  -ms-animation-iteration-count     : infinite;
-  -o-animation-iteration-count      : infinite;
-  -webkit-animation-iteration-count : infinite;
-  animation-iteration-count         : infinite;
-  /* animation */
-  /* animation-iteration-count */
-  /* animation-delay */
-}
+      @keyframes grow {
+        0% {
+          transform: scale(1) translateY(0);
+        }
+        50% {
+          transform: scale(1.1) translateY(-10%);
+        }
+        100% {
+          transform: scale(1) translateY(0);
+        }
+      }
 
-@keyframes move {
-  0% {
-    top : 0px;
-  }
+      .centerIntro {
+        display  : flex;
+        position : relative;
+        height   : 50px;
+      }
 
-  20% {
-    top : -50px;
-  }
+      .Iam {
+        margin : 0 auto;
+        color  : white;
+        /* font-weight: bolder; */
+        font   : bolder 40px/50px Montserrat, sans-serif;
+      }
 
-  40% {
-    top : -100px;
-  }
+      .Iam p {
+        height       : 50px;
+        float        : left;
+        margin-right : 0.3em;
+      }
 
-  60% {
-    top : -150px;
-  }
+      .Iam b {
+        position : relative;
+        top      : 40px;
+        height   : 50px;
+        float    : left;
+        overflow : hidden;
+      }
 
-  80% {
-    top : -200px;
-  }
-}
+      .Iam .innerIam {
+        display                           : inline-block;
+        position                          : relative;
+        top                               : 0;
+        left                              : 0;
+        color                             : #627AF5;
+        white-space                       : nowrap;
+        -moz-animation                    : move 5s;
+        -ms-animation                     : move 5s;
+        -o-animation                      : move 5s;
+        -webkit-animation                 : move 5s;
+        animation                         : move 5s;
+        -moz-animation-delay              : 1s;
+        -ms-animation-delay               : 1s;
+        -o-animation-delay                : 1s;
+        -webkit-animation-delay           : 1s;
+        animation-delay                   : 1s;
+        -moz-animation-iteration-count    : infinite;
+        -ms-animation-iteration-count     : infinite;
+        -o-animation-iteration-count      : infinite;
+        -webkit-animation-iteration-count : infinite;
+        animation-iteration-count         : infinite;
+        /* animation */
+        /* animation-iteration-count */
+        /* animation-delay */
+      }
 
-@-webkit-keyframes move {
-  0% {
-    top : 0px;
-  }
+      @keyframes move {
+        0% {
+          top : 0px;
+        }
 
-  20% {
-    top : -50px;
-  }
+        20% {
+          top : -50px;
+        }
 
-  40% {
-    top : -100px;
-  }
+        40% {
+          top : -100px;
+        }
 
-  60% {
-    top : -150px;
-  }
+        60% {
+          top : -150px;
+        }
 
-  80% {
-    top : -200px;
-  }
-}
+        80% {
+          top : -200px;
+        }
+      }
 
-@-moz-keyframes move {
-  0% {
-    top : 0px;
-  }
+      @-webkit-keyframes move {
+        0% {
+          top : 0px;
+        }
 
-  20% {
-    top : -50px;
-  }
+        20% {
+          top : -50px;
+        }
 
-  40% {
-    top : -100px;
-  }
+        40% {
+          top : -100px;
+        }
 
-  60% {
-    top : -150px;
-  }
+        60% {
+          top : -150px;
+        }
 
-  80% {
-    top : -200px;
-  }
-}
+        80% {
+          top : -200px;
+        }
+      }
 
-@-o-keyframes move {
-  0% {
-    top : 0px;
-  }
+      @-moz-keyframes move {
+        0% {
+          top : 0px;
+        }
 
-  20% {
-    top : -50px;
-  }
+        20% {
+          top : -50px;
+        }
 
-  40% {
-    top : -100px;
-  }
+        40% {
+          top : -100px;
+        }
 
-  60% {
-    top : -150px;
-  }
+        60% {
+          top : -150px;
+        }
 
-  80% {
-    top : -200px;
-  }
-}
+        80% {
+          top : -200px;
+        }
+      }
 
-@keyframes move {
-  0% {
-    top : 0px;
-  }
+      @-o-keyframes move {
+        0% {
+          top : 0px;
+        }
 
-  20% {
-    top : -50px;
-  }
+        20% {
+          top : -50px;
+        }
 
-  40% {
-    top : -100px;
-  }
+        40% {
+          top : -100px;
+        }
 
-  60% {
-    top : -150px;
-  }
+        60% {
+          top : -150px;
+        }
 
-  80% {
-    top : -200px;
-  }
-}
+        80% {
+          top : -200px;
+        }
+      }
+
+      @keyframes move {
+        0% {
+          top : 0px;
+        }
+
+        20% {
+          top : -50px;
+        }
+
+        40% {
+          top : -100px;
+        }
+
+        60% {
+          top : -150px;
+        }
+
+        80% {
+          top : -200px;
+        }
+      }
