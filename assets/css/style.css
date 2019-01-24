@@ -177,6 +177,17 @@ section.visualization:nth-of-type(even) {
   width : 65%;
   /* background : #303030; */
 }
+body > section:nth-of-type(2) {
+  padding-top: 5rem;
+  position: relative;
+}
+body > section:nth-of-type(2) h1 {
+  position: absolute;
+  top: -3rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
 
 .summary {
   width       : 25%;
@@ -223,15 +234,18 @@ svg {
 }
 
 
-path {
+/* path {
   opacity    : 1;
   transition : opacity .15s ease;
+  -webkit-box-shadow: 10px 10px 0px 200px rgba(252,0,252,1);
+-moz-box-shadow: 10px 10px 0px 200px rgba(252,0,252,1);
+box-shadow: 10px 10px 0px 200px rgba(252,0,252,1);
 }
 
 svg {
   transition : all .5s ease,
                left .5s ease .1s;
-}
+} */
 
 #pieCharts {
   /* height: 500px; */
@@ -258,6 +272,7 @@ svg {
   /* margin: .5rem 1rem; */
   margin-right  : 1rem;
   margin-bottom : 1rem;
+  border-radius: 100%;
 }
 
 #pieCharts svg.mainPie {
