@@ -18,32 +18,27 @@ function readAllData() {
           promises.push(new Promise((resolve, reject) => {
 
             fs.readFile(`data/${files[i]}`, (err, result) => {
-              resolve({[files[i].split("-")[0]]: JSON.parse(result)})
+              resolve({[files[i].split("-")[0]]: JSON.parse(result)});
             });
           }));
         }
       }
       Promise.all(promises).then(data => resolveAll(data));
-    })
-  })
-
-
-
+    });
+  });
 }
-
 
 const app = express();
 
 app.use(cors());
-// app.use(express.static("static"));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.get("/", (req, res) => res.sendFile("/index.html", {root: __dirname }));
 
 app.get("/data", (req, res) => {
   readAllData().then(data => {
-    res.send(cleaner(data))
+    res.send(cleaner(data));
   });
-})
+});
 
 app.listen(port, () => {
   console.log("Listening to port " + port);

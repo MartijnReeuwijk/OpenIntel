@@ -1,18 +1,14 @@
 async function jesse() {
-  var test;
+  var bubbleData;
   d3.json("https://datavisualfudge.herokuapp.com/data").then(data => {
-    test = data;
-    // setupBubbles()
+    bubbleData = data;
   })
   await d3.json("https://datavisualfudge.herokuapp.com/data").then(newData => {
-    // Selections
-    // console.log(newData)
     const dateDisplay = d3.select("#timerOptions p"),
       sliderPin = d3.select("#timerOptions div span"),
       sliderBar = d3.select("#timerOptions div"),
       timerBtn = d3.select("#timerOptions button");
 
-    // Constant Values
     const width = 100,
       height = 100,
       radius = Math.min(width, height) / 2,
@@ -20,7 +16,8 @@ async function jesse() {
       speed1 = 200,
       svgPadding = 25,
       pieTotalSize = width + svgPadding;
-      // piesContainerHeight = 500;
+
+    let allTlds = [];
 
     const flattened = newData.map(d => d[Object.keys(d)]).flat();
 
@@ -28,18 +25,15 @@ async function jesse() {
       .key(d => d.date).sortKeys(d3.ascending)
       .entries(flattened);
 
-
-    let allTlds = [];
-
     flattened.forEach(d => d.all.forEach(d1 => {
       if (!allTlds.includes(d1.tld)) {
-        allTlds.push(d1.tld)
+        allTlds.push(d1.tld);
       }
-    }))
+    }));
 
     newData.forEach(d => {
       if (!allTlds.includes(Object.keys(d)[0])) {
-        allTlds.push(Object.keys(d)[0])
+        allTlds.push(Object.keys(d)[0]);
       }
     });
 
@@ -73,40 +67,39 @@ async function jesse() {
 
       return function(t) {
         return arc(i(t));
-      };
+      }
     }
 
     function setupLegend() {
       let tldsLegend = d3.select("#tldsLegend").selectAll("li")
         .data(allTlds)
         .enter()
-        .append("li")
+        .append("li");
 
       tldsLegend
         .append("span")
-        .style("background", d => colorGen(d))
+        .style("background", d => colorGen(d));
 
       tldsLegend
         .append("p")
-        .text(d => d)
+        .text(d => d);
     }
 
-    var bubbleContainerWidth = 800,
+    const bubbleContainerWidth = 800,
       bubbleContainerHeight = 500;
 
-    var timeline = d3.timeParse('%Y-%m-%d')
+    const timeline = d3.timeParse('%Y-%m-%d');
 
-    var radiusScale = d3
+    const radiusScale = d3
       .scaleSqrt()
       .domain([11829, 65040749])
-      // change this to change circle size
       .range([2, 200]);
 
-      var forceXCombine = d3
+      let forceXCombine = d3
         .forceX(bubbleContainerWidth / 2)
         .strength(0.05);
 
-      var forceXSplit = d3.forceX(d => {
+      let forceXSplit = d3.forceX(d => {
         if (d[Object.keys(d)[0]][0].country == "com") {
           return bubbleContainerWidth / 4;
         } else {
@@ -114,11 +107,11 @@ async function jesse() {
         }
       }).strength(.05);
 
-      var forceY = d3
+      let forceY = d3
         .forceY(d => bubbleContainerHeight / 4)
         .strength(0.05);
 
-      var sim = d3
+      let sim = d3
         .forceSimulation()
         .force("x", forceXCombine)
         .force("y", forceY)
@@ -126,7 +119,7 @@ async function jesse() {
 
     function setupBubbles() {
 
-    var svg = d3
+    let svg = d3
       .select("#bubble")
       .append("svg")
       .attr("height", bubbleContainerHeight)
@@ -134,19 +127,10 @@ async function jesse() {
       .style("background-color", "transparent")
       .append("g")
       .attr("transform", `translate(0,100)`);
-    // make sure the .domain is bigger or equal to the average value
-    // mess with these values to change the shapes
 
-
-    // Simulate force so stuff goes to the center
-
-
-
-
-
-    var circles = svg
+    let circles = svg
       .selectAll("g")
-      .data(test)
+      .data(bubbleData)
       .enter()
       .append("g")
       .append("circle")
@@ -155,7 +139,7 @@ async function jesse() {
       .attr("r", d => radiusScale(d[Object.keys(d)][0].total))
       .style("fill", d => colorGen(Object.keys(d)))
 
-    var circlesName = svg
+    let circlesName = svg
       .selectAll("g")
       .append("text")
       .attr("fill", "White")
@@ -164,7 +148,7 @@ async function jesse() {
       .style("pointer-events", "none")
       .text(d => `${d[Object.keys(d)[0]][0].country}`);
 
-    sim.nodes(test).on("tick", ticked);
+    sim.nodes(bubbleData).on("tick", ticked);
 
     function ticked() {
       circles
@@ -258,19 +242,6 @@ setupBubbles()
         .style("position", "absolute")
         .style("top", `-${pieTotalSize}px`)
         .classed("mainPie", true)
-        // .call(labelPaths)
-        // .selectAll("path")
-        // .each((d, i, el) => {
-        //   d3.select(el[i].parentElement)
-        //   .append("text")
-        //   .attr("fill", "white")
-        //   .attr("x", arc.centroid(d)[0])
-        //   .attr("y", arc.centroid(d)[1])
-        //   .style("font-size", "5px")
-        //   .text(d.data.tld);
-        // })
-
-        // d3.select("#pieCharts section").style("height", "-webkit-fill-available")
 
       function loadingCompleted() {
         count++;
@@ -278,7 +249,6 @@ setupBubbles()
         if (allPaths._groups[0].length === count) {
           setTimeout(() => {
             d3.selectAll("#pieCharts svg")
-              // .style("position", "absolute")
 
               .each(convertToAbsolute)
               .style("position", "absolute")
@@ -286,32 +256,11 @@ setupBubbles()
               .on("mouseout", d => highlightCountry(d, false))
               .on("click", switchMainPie)
 
-              // .style("position", "absolute")
-
-
             setupLegend()
             timerSection()
           }, 1000)
-
         }
       }
-
-
-
-        // .style("top", 0)
-
-      // d3.selectAll("svg.mainPie ~ svg")
-      //   .style("left", (d, i, el) => {
-      //     if (parseInt(el[i].style.left) == 0) {
-      //       let l = parseInt(el[i].previousElementSibling.style.left);
-      //       let b = el[i].previousElementSibling.style.top;
-      //
-      //       d3.select(el[i]).style("top", b)
-      //       return `${l + pieTotalSize}`
-      //     }
-      //
-      //     return `${parseInt(el[i].style.left) - pieTotalSize}px`
-      //   })
     }
 
     setup()
@@ -330,16 +279,6 @@ setupBubbles()
     }
 
     function convertToAbsolute(d, i, el) {
-        // console.log(el[i])
-        // d3.select("#pieCharts section svg.nl")
-        //   .style("position", "absolute")
-        //   .style("top", `-${pieTotalSize}px`)
-        //   .classed("mainPie", true)
-
-
-        // firstMainPie.selectAll("path")
-        //   .style("left", (...ag) => console.log(ag))
-
         let containerHeight = d3.select("#pieCharts section").style("height");
         d3.select("#pieCharts section").style("height", containerHeight);
 
@@ -349,28 +288,15 @@ setupBubbles()
         let top = el[i].getBoundingClientRect().top - parentTop;
         let left = el[i].getBoundingClientRect().left - parentLeft
 
-        // console.log(top, parentTop, top - parentTop)
         if (Object.keys(d)[0] !== "nl") {
-          // d3.select(el[i])
-          //   .style("position", "absolute")
-          //   .style("top", `-${pieTotalSize}px`)
-          //   // .style("left", "0")
-          //   .classed("mainPie", true)
           d3.select(el[i])
             .style("top", `${top}px`)
             .style("left", `${left}px`)
           }
-        // } else {
-        //   d3.select(el[i])
-        //     .style("top", `${top}px`)
-        //     .style("left", `${left}px`)
-        //     // .style("position", "absolute")
-        // }
     }
 
     function matcher(index) {
       dateDisplay.text(formatTime(new Date(chronologicalData[index].key)))
-      // console.log(chronologicalData)
       chronologicalData[index].values.forEach(cdv => {
         d3.selectAll("#pieCharts section svg")
           .each((d, i, el) => {
@@ -383,7 +309,6 @@ setupBubbles()
 
                 setTimeout(() => d3.select(el[i]).classed("animationStarted", false), 1000)
               }
-              // console.log("yeet", el[i])
               updatePie(cdv, el[i])
             }
           });
@@ -515,8 +440,6 @@ setupBubbles()
             .append("div")
             .classed("toolTip", true)
             .style("position", "fixed")
-            // .style("top", 0)
-            // .style("left", 0)
 
           d3.select(window).on("mousemove", () => {
             let mouseX = d3.event.clientX;
@@ -551,28 +474,6 @@ setupBubbles()
               topThreeContainer.append("li")
                 .text(t3.name)
             })
-
-
-            // for (let key in bubbleData) {
-            //   if (["date", "total", "country"].includes(key)) {
-            //   let val;
-            //
-            //   if (key == "tld") {
-            //
-            //     val = `.${bubbleData[key]}`;
-            //     key = key.toUpperCase();
-            //
-            //   } else if (key == "") {
-            //
-            //   } else {
-            //
-            //     val = bubbleData[key];
-            //     key = key.replace(key[0], key[0].toUpperCase());
-            //   }
-            //
-            //   container.append("p").html(`<strong>${key} :</strong> ${val}`)
-            // }
-            // }
           }
 
           for (let key in d.data) {
@@ -612,7 +513,6 @@ setupBubbles()
         .enter()
         .append("path")
         .attr("data-interact", "toolTip")
-        // Might have to go
         .attr("class", d => d.data.tld)
         .attr("d", arc)
         .attr("fill", d => colorGen(d.data.tld))
